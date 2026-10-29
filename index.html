@@ -2,7 +2,7 @@
 <html lang="bn">
 <head>
 <meta charset="UTF-8">
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data:; connect-src https://identitytoolkit.googleapis.com https://securetoken.googleapis.com; base-uri 'none'; form-action 'none'; object-src 'none'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data:; connect-src https://identitytoolkit.googleapis.com https://securetoken.googleapis.com https://firestore.googleapis.com; base-uri 'none'; form-action 'none'; object-src 'none'">
 <meta name="referrer" content="strict-origin-when-cross-origin">
 <meta name="viewport" content="width=device-width, initial-scale=1, interactive-widget=resizes-visual">
 <meta name="theme-color" content="#0f9d58">
@@ -50,8 +50,24 @@ button{font:inherit;color:inherit;cursor:pointer}
 @keyframes cruise{from{transform:translateX(-90px)}to{transform:translateX(480px)}}
 .rock{transform-box:fill-box;transform-origin:50% 100%;animation:rock 3.4s ease-in-out infinite}
 @keyframes rock{0%,100%{transform:rotate(-2deg)}50%{transform:rotate(2deg) translateY(-1.5px)}}
-.hilsa{opacity:0;animation:leap 12s ease-in-out infinite 2s}
-@keyframes leap{0%,58%{opacity:0;transform:translate(0,4px) rotate(-50deg)}60%{opacity:1;transform:translate(2px,0) rotate(-55deg)}69%{opacity:1;transform:translate(26px,-34px) rotate(-5deg)}78%{opacity:1;transform:translate(52px,-2px) rotate(48deg)}80%,100%{opacity:0;transform:translate(56px,6px) rotate(60deg)}}
+.hilsa{opacity:0;animation:leap 8s ease-in-out infinite}
+@keyframes leap{0%,70%{opacity:0;transform:translate(0,5px) rotate(-55deg)}72%{opacity:1;transform:translate(2px,0) rotate(-58deg)}80%{opacity:1;transform:translate(28px,-38px) rotate(-4deg)}88%{opacity:1;transform:translate(54px,-2px) rotate(52deg)}90%,100%{opacity:0;transform:translate(57px,6px) rotate(62deg)}}
+.rip{fill:none;stroke:#fff;stroke-width:1.2;opacity:0;transform-box:fill-box;transform-origin:center;animation:ripA 8s ease-out infinite}
+.rip.b{animation-name:ripB}
+@keyframes ripA{0%,71%{opacity:0;transform:scale(.3)}73%{opacity:.85;transform:scale(.4)}86%,100%{opacity:0;transform:scale(1.9)}}
+@keyframes ripB{0%,87%{opacity:0;transform:scale(.3)}89%{opacity:.85;transform:scale(.4)}99%,100%{opacity:0;transform:scale(1.9)}}
+.boat.b2{animation:cruise 66s linear infinite reverse -38s}
+.boat.b3{animation:cruise 40s linear infinite reverse -9s}
+.launch{animation:cruiseL 80s linear infinite -28s}
+@keyframes cruiseL{from{transform:translateX(-150px)}to{transform:translateX(500px)}}
+.rock2{transform-box:fill-box;transform-origin:50% 100%;animation:rock2 5s ease-in-out infinite}
+@keyframes rock2{0%,100%{transform:rotate(-.7deg)}50%{transform:rotate(.7deg) translateY(-1px)}}
+.smoke{opacity:0;transform-box:fill-box;transform-origin:center;animation:smk 4s ease-out infinite}
+@keyframes smk{0%{opacity:0;transform:translate(0,0) scale(.5)}15%{opacity:.75}100%{opacity:0;transform:translate(-28px,-20px) scale(2.2)}}
+.wk{fill:none;stroke:#fff;stroke-linecap:round;animation:wkp 2.6s ease-in-out infinite}
+@keyframes wkp{0%,100%{opacity:.25}50%{opacity:.7}}
+.oar{animation:oar 2.4s ease-in-out infinite}
+@keyframes oar{0%,100%{transform:rotate(-14deg)}50%{transform:rotate(12deg)}}
 .bird{animation:fly 30s linear infinite}
 .bird.b2{animation-duration:42s;animation-delay:-14s}
 .bird.b3{animation-duration:36s;animation-delay:-24s}
@@ -330,7 +346,169 @@ h2::before{background:linear-gradient(#10c477,#1a73e8)}
 .ring b{font-size:28px;font-weight:800;color:var(--gd)}
 .ring span{font-size:14px;color:var(--m)}
 .qzres h3{font-size:18px}
+/* ===== নতুন বিভাগ, অ্যাডমিন, নোটিশ ===== */
+.pk{margin-top:10px;display:grid;gap:8px}
+.pkr{display:flex;align-items:center;justify-content:space-between;gap:10px;background:linear-gradient(135deg,#f3fbf7,#eef6ff);border:1px solid #d9ece2;border-radius:14px;padding:10px 12px}
+.pkr b{display:block;font-size:14px}
+.pkr span{display:block;font-size:12px;color:var(--m);margin-top:2px}
+.pkr em{font-style:normal;font-weight:800;color:var(--gd);white-space:nowrap}
+.notice{display:flex;gap:10px;align-items:flex-start;margin:14px 16px 0;padding:13px 14px;border-radius:18px;background:linear-gradient(120deg,#fff8e1,#fff3c4);border:1px solid #ffe08a;box-shadow:0 8px 20px rgba(200,150,0,.15)}
+.notice b{font-size:14.5px;color:#7a4a00}
+.notice p{font-size:13px;line-height:1.6;margin-top:3px;color:#5d4300}
+.notice button{margin-left:auto;border:0;background:none;font-size:18px;color:#7a4a00;padding:0 4px}
+.admwrap{margin-top:14px}
+.admhd{display:flex;gap:6px;align-items:center;flex-wrap:wrap;margin-bottom:-4px}
+.admhd small{color:var(--m);font-size:11.5px;margin-left:auto}
+h2.pri::before{background:linear-gradient(#ff6b6b,#d32f2f)}
+.grid.pri .card{box-shadow:0 10px 24px rgba(229,57,53,.13);border-color:rgba(229,57,53,.16)}
+.grid.pri .card.feature{box-shadow:0 14px 30px rgba(20,120,170,.4);border:0}
+.item.tap{cursor:pointer}
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}#splash .sp-name,#splash .sp-hint{opacity:1!important}.sp-rip{display:none}.sp-bar i{width:100%}}
+
+.mkw{padding:14px 16px 0}
+.mksr{display:flex;align-items:center;gap:8px;background:#fff;border-radius:16px;padding:0 14px;box-shadow:0 8px 22px rgba(16,100,70,.12);border:1px solid #e1ece5}
+.mksr input{flex:1;border:0;outline:0;background:transparent;padding:13px 0;font:inherit;min-width:0}
+.mksell{width:100%;margin-top:10px;border:0;border-radius:16px;padding:13px;background:linear-gradient(135deg,#10372c,#087f5b);color:#d9fa8c;font-weight:700;font-size:15px;box-shadow:0 10px 22px rgba(8,127,91,.28)}
+.mkts{display:flex;gap:10px;overflow-x:auto;padding:14px 0 4px;scrollbar-width:none}
+.mkt{flex:none;width:74px;border:1px solid #e1ece5;background:#fff;border-radius:18px;padding:9px 4px;text-align:center}
+.mkt i{display:grid;place-items:center;width:42px;height:42px;margin:0 auto 5px;border-radius:14px;background:#f1f6ef;font-style:normal;font-size:22px}
+.mkt span{font-size:11.5px;font-weight:600}
+.mkt.on{border-color:#087f5b;background:#eaf6ee}.mkt.on i{background:#d9fa8c}
+.mktb{display:flex;align-items:center;gap:8px;margin-top:10px}
+.mktb span{flex:1;font-size:13px;color:var(--m)}
+.mkfv,.mktb select{border:1px solid #e1ece5;background:#fff;border-radius:12px;padding:8px 11px;font:inherit;font-size:13px}
+.mkfv.on{color:#e44d69;border-color:#e44d69}
+.mknote{font-size:12px;color:var(--m);margin-top:8px}
+.mkg{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:12px}
+.mkc{background:#fff;border:1px solid #e1ece5;border-radius:18px;overflow:hidden;min-width:0;box-shadow:0 8px 20px rgba(16,100,70,.08);cursor:pointer}
+.mkv{position:relative;height:122px;display:grid;place-items:center;background:linear-gradient(140deg,#eff7eb,#dcefe2);font-size:52px;overflow:hidden}
+.mkv img{width:100%;height:100%;object-fit:cover}
+.mkb{position:absolute;left:8px;top:8px;background:#fff;color:#087f5b;font-style:normal;font-size:11px;font-weight:700;padding:3px 9px;border-radius:20px}
+.mkh{position:absolute;right:8px;top:8px;width:30px;height:30px;border:0;border-radius:50%;background:rgba(255,255,255,.9);font-size:16px;color:#50645a}
+.mkh.on{color:#e44d69}
+.mki{padding:10px 11px 12px}
+.mki h4{font-size:14.5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.mki b{display:block;font-size:17px;margin-top:3px;color:#10372c}
+.mki small{display:block;margin-top:3px;font-size:11.5px;color:var(--m);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+
+.qa-entry{display:flex;align-items:center;gap:13px;width:100%;text-align:left;border:0;border-radius:20px;padding:15px 16px;background:linear-gradient(135deg,#0b1f2a,#12372a 65%,#1d6b57);color:#fff;box-shadow:0 14px 28px rgba(8,50,45,.35);position:relative;overflow:hidden}
+.qa-entry:after{content:"";position:absolute;right:-30px;top:-30px;width:110px;height:110px;border-radius:50%;background:rgba(255,213,79,.18)}
+.qa-entry i{font-style:normal;font-size:34px;width:56px;height:56px;border-radius:18px;display:grid;place-items:center;background:rgba(255,255,255,.12);flex:none}
+.qa-entry b{display:block;font-size:17px;color:#ffd54f}
+.qa-entry span{font-size:12.5px;opacity:.9}
+.qa-entry em{margin-left:auto;font-style:normal;font-size:22px;color:#ffd54f;position:relative;z-index:1}
+.qa-entry+.btn{margin-top:12px}
+.qa{background:radial-gradient(circle at 88% -8%,rgba(255,213,79,.2),transparent 40%),linear-gradient(160deg,#0b1f2a,#12372a 70%,#0b2a2f);color:#eafaf1;border-radius:26px;padding:18px 15px 20px;margin-top:12px;box-shadow:0 18px 40px rgba(8,40,40,.35);position:relative;overflow:hidden}
+.qa:before{content:"";position:absolute;inset:0;background:repeating-linear-gradient(45deg,rgba(255,255,255,.025) 0 2px,transparent 2px 14px);pointer-events:none}
+.qa>*{position:relative}
+.qa-ttl b{display:block;font-size:20px;color:#ffd54f}
+.qa-ttl span{font-size:13px;opacity:.85}
+.qa-sec{margin:18px 0 8px;font-size:13px;font-weight:700;letter-spacing:.4px;color:#9fd8bf}
+.qa-tiles{display:grid;grid-template-columns:repeat(3,1fr);gap:9px}
+.qa-tile{border:1.5px solid rgba(255,255,255,.16);background:rgba(255,255,255,.07);color:#fff;border-radius:16px;padding:11px 4px;text-align:center}
+.qa-tile i{display:block;font-style:normal;font-size:26px;margin-bottom:3px}
+.qa-tile span{font-size:12px;font-weight:600;line-height:1.3;display:block}
+.qa-tile.on{background:rgba(255,213,79,.18);border-color:#ffd54f;box-shadow:0 0 0 3px rgba(255,213,79,.15)}
+.qa-chips{display:flex;gap:9px;flex-wrap:wrap}
+.qa-chip{border:1.5px solid rgba(255,255,255,.18);background:rgba(255,255,255,.07);color:#fff;border-radius:30px;padding:8px 18px;font-size:14px;font-weight:600}
+.qa-chip.on{background:#ffd54f;color:#12372a;border-color:#ffd54f}
+.qa-go{display:block;width:100%;border:0;border-radius:16px;padding:15px;margin-top:18px;font-size:17px;font-weight:800;background:linear-gradient(135deg,#ffd54f,#ffb300);color:#12372a;box-shadow:0 10px 22px rgba(255,179,0,.35)}
+.qa-go.alt{background:rgba(255,255,255,.1);color:#fff;box-shadow:none;margin-top:10px;border:1.5px solid rgba(255,255,255,.2);font-size:15px}
+.qa-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;margin-top:16px}
+.qa-stats div{background:rgba(255,255,255,.08);border-radius:14px;padding:10px 4px;text-align:center}
+.qa-stats b{display:block;font-size:18px;color:#ffd54f}
+.qa-stats span{font-size:11.5px;opacity:.8}
+.qa-hint{font-size:12px;opacity:.75;text-align:center;margin-top:12px}
+.qa-hud{display:flex;align-items:center;justify-content:space-between}
+.qa-pt small{display:block;font-size:11px;opacity:.7}
+.qa-pt b{font-size:19px;color:#ffd54f}
+.qa-pt.r{text-align:right}
+.qa-ring{position:relative;width:62px;height:62px}
+.qa-ring svg{width:100%;height:100%;transform:rotate(-90deg)}
+.qa-ring circle{fill:none;stroke-width:5}
+.qa-ring .bg{stroke:rgba(255,255,255,.15)}
+.qa-ring .fg{stroke:#34d399;stroke-linecap:round;transition:stroke-dashoffset 1s linear}
+.qa-ring b{position:absolute;inset:0;display:grid;place-items:center;font-size:19px}
+.qa-ring.hot .fg{stroke:#f87171}
+.qa-ring.hot b{color:#fca5a5;animation:pulse 1s ease-in-out infinite}
+.qa-prog{height:6px;border-radius:6px;background:rgba(255,255,255,.14);overflow:hidden;margin-top:13px}
+.qa-prog i{display:block;height:100%;border-radius:6px;background:linear-gradient(90deg,#34d399,#ffd54f);transition:width .4s}
+.qa-meta{display:flex;justify-content:space-between;font-size:12.5px;opacity:.8;margin-top:8px}
+.qa-q{font-size:20px;font-weight:700;line-height:1.55;margin:14px 2px 6px}
+.qa-o{display:flex;align-items:center;gap:12px;width:100%;text-align:left;background:rgba(255,255,255,.08);border:1.5px solid rgba(255,255,255,.17);color:#fff;border-radius:16px;padding:13px 14px;margin-top:10px;font-size:16px;transition:.2s}
+.qa-o b{width:32px;height:32px;flex:none;border-radius:50%;display:grid;place-items:center;background:rgba(255,255,255,.14);font-size:14px}
+.qa-o span{flex:1;line-height:1.5}
+.qa-o em{font-style:normal;font-size:20px;font-weight:800}
+.qa-o:not(:disabled):active{transform:scale(.98);border-color:#ffd54f}
+.qa-o.ok{background:rgba(52,211,153,.22);border-color:#34d399}.qa-o.ok b{background:#34d399;color:#06281c}
+.qa-o.bad{background:rgba(248,113,113,.2);border-color:#f87171;animation:shake .35s}.qa-o.bad b{background:#f87171;color:#fff}
+.qa-o.dim{opacity:.4}.qa-o.gone{opacity:.15}
+.qa-ll{display:block;margin:14px auto 0;border:1.5px dashed rgba(255,213,79,.6);background:transparent;color:#ffd54f;border-radius:30px;padding:9px 22px;font-size:14px;font-weight:700}
+.qa-ll:disabled{opacity:.4}
+.qa-fb{border-radius:16px;padding:13px 15px;margin-top:14px;font-size:15px;line-height:1.7}
+.qa-fb.g{background:rgba(52,211,153,.18)}.qa-fb.r{background:rgba(248,113,113,.17)}
+.qa-fb p{font-size:13.5px;margin-top:4px;opacity:.92}
+.qa-end{text-align:center}
+.qa-rank i{display:block;font-style:normal;font-size:62px;animation:flt 4s ease-in-out infinite}
+.qa-rank b{font-size:22px;color:#ffd54f}
+.qa-big{font-size:46px;font-weight:800;margin-top:6px}
+.qa-sub{font-size:13px;opacity:.75}
+.qa-new{display:inline-block;margin-top:10px;background:rgba(255,213,79,.2);color:#ffd54f;border-radius:30px;padding:6px 16px;font-weight:700;font-size:14px}
+
+.grid.g3{grid-template-columns:repeat(3,1fr);gap:10px}
+.grid.g3 .card{padding:13px 5px 11px;border-radius:18px}
+.grid.g3 .card .ico{width:48px;height:48px;font-size:25px;border-radius:16px;margin-bottom:7px}
+.grid.g3 .card b{font-size:12.8px;line-height:1.35}
+.grid.g3 .card span{font-size:10.5px;line-height:1.35;margin-top:2px}
+.grid.g3 .card .wm{font-size:44px}
+.grid.g3 .card.feature,.grid.g3 .card.wide{grid-column:span 3;padding:15px 14px}
+.grid.g3 .card.feature .ico,.grid.g3 .card.wide .ico{width:60px;height:60px;font-size:30px;margin:0}
+.grid.g3 .card.feature b,.grid.g3 .card.wide b{font-size:17px}
+.grid.g3 .card.feature span,.grid.g3 .card.wide span{font-size:12.5px}
+
+.card.wide.quizc{background:radial-gradient(circle at 90% 10%,rgba(255,213,79,.25),transparent 40%),linear-gradient(135deg,#0b1f2a,#12372a 65%,#1d6b57);box-shadow:0 12px 26px rgba(8,50,45,.35)}
+.card.wide.quizc b{color:#ffd54f}
+.card.wide.soon{background:#fff;color:var(--t);border:1.5px dashed rgba(16,100,70,.25);box-shadow:none}
+.card.wide.soon span{color:var(--m)}
+.grid.g3 .card.wide.soon{padding:11px 14px}
+.grid.g3 .card.wide.soon .ico{width:42px;height:42px;font-size:22px}
+
+.chip-btn.ab{background:linear-gradient(135deg,rgba(255,255,255,.3),rgba(255,255,255,.1));border:1px solid rgba(255,255,255,.7);padding:6px 15px 6px 6px;gap:9px;font-weight:700;text-shadow:0 1px 3px rgba(0,0,0,.28);box-shadow:0 8px 22px rgba(0,0,0,.2),inset 0 1px 0 rgba(255,255,255,.55)}
+.chip-btn.ab .ai{width:34px;height:34px;border-radius:50%;display:grid;place-items:center;background:linear-gradient(135deg,#ffe082,#ffb300);color:#6b4200;font:italic 800 19px Georgia,serif;text-shadow:none;box-shadow:0 4px 12px rgba(255,179,0,.55);animation:pulse 2.8s ease-in-out infinite}
+.ab-hero{border-radius:28px;overflow:hidden;margin-top:12px;background:#fff;box-shadow:0 16px 36px rgba(16,100,90,.17);border:1px solid rgba(16,196,119,.14);text-align:center}
+.ab-cover{height:118px;position:relative;background:radial-gradient(circle at 86% 8%,rgba(255,213,79,.6),transparent 38%),radial-gradient(circle at 10% 100%,rgba(255,255,255,.22),transparent 40%),linear-gradient(120deg,#0b9b5a,#0aa6a0 50%,#1a73e8)}
+.ab-cover:after{content:"";position:absolute;left:-10%;right:-10%;bottom:-1px;height:30px;background:#fff;border-radius:50% 50% 0 0/100% 100% 0 0}
+.ab-av{width:108px;height:108px;border-radius:50%;margin:-66px auto 0;position:relative;padding:4px;background:conic-gradient(#ffd54f,#10c477,#1a8fe0,#ffd54f);box-shadow:0 12px 26px rgba(26,115,232,.32)}
+.ab-av img{width:100%;height:100%;border-radius:50%;border:3px solid #fff;object-fit:cover;display:block}
+.ab-av b{width:100%;height:100%;border-radius:50%;border:3px solid #fff;display:grid;place-items:center;background:linear-gradient(135deg,var(--g),var(--b));color:#fff;font-size:42px}
+.ab-body{padding:12px 18px 22px}
+.ab-name{font-size:22px;font-weight:800}
+.ab-role{display:inline-block;margin-top:7px;background:#e3f5ea;color:#0a7a50;border-radius:30px;padding:4px 15px;font-size:13px;font-weight:700}
+.ab-place{font-size:13px;color:var(--m);margin-top:9px}
+.ab-bio{position:relative;margin:20px 0 4px;padding:16px 16px 14px;border-radius:18px;background:#f2faf5;font-size:14px;line-height:1.8;text-align:left}
+.ab-bio:before{content:"“";position:absolute;left:12px;top:-12px;font-size:50px;line-height:1;color:#10c477}
+.ab-links{display:flex;flex-wrap:wrap;gap:9px;justify-content:center;margin-top:16px}
+.ab-links .call{margin:0}
+.ab-app{display:flex;gap:13px;align-items:center;margin-top:14px;padding:15px;border-radius:22px;background:linear-gradient(135deg,#0b1f2a,#12372a 70%,#1d6b57);color:#fff;box-shadow:0 12px 26px rgba(8,50,45,.3)}
+.ab-logo{width:52px;height:52px;flex:none;border-radius:16px;background:rgba(255,255,255,.14);display:grid;place-items:center;padding:6px}
+.ab-logo svg{width:100%;height:100%}
+.ab-app b{color:#ffd54f;font-size:16px}
+.ab-app p{font-size:12.5px;line-height:1.6;opacity:.9;margin-top:2px}
+.ab-tags{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-top:14px}
+.ab-tags span{background:#fff;border:1px solid rgba(16,196,119,.2);border-radius:30px;padding:6px 13px;font-size:12.5px;font-weight:600;box-shadow:0 4px 10px rgba(16,100,70,.07)}
+
+/* ===== উপজেলা তালিকা (আমার গ্রাম ধাঁচ) ===== */
+.uhd{background:#fff;border-radius:18px;padding:16px 18px;margin-top:14px;box-shadow:0 8px 20px rgba(16,100,90,.1);border:1px solid rgba(16,196,119,.14)}
+.uhd h3{font-size:19px}.uhd p{font-size:13.5px;color:var(--m);margin-top:3px}
+.ug{display:flex;align-items:center;gap:10px;background:linear-gradient(180deg,#fff,#f5fbf8);border-radius:24px;border:1px solid rgba(16,196,119,.16);border-left:6px solid var(--g2);padding:16px 14px 16px 16px;margin-top:14px;box-shadow:0 10px 24px rgba(16,100,90,.1);animation:rise .5s cubic-bezier(.2,.8,.2,1) backwards}
+.ug:nth-child(even){border-left-color:var(--b2)}
+.ugt{flex:1;min-width:0}
+.ugt h3{font-size:18px;font-weight:700;line-height:1.35;margin-bottom:10px}
+.ugc{display:flex;flex-wrap:wrap;gap:8px}
+.ugp{display:inline-flex;align-items:center;gap:6px;border:1.5px solid #bfe0cf;border-radius:30px;padding:6px 13px;font-size:13px;font-weight:600;color:var(--t);background:#fff;text-decoration:none;word-break:break-all}
+a.ugp{color:var(--b);border-color:#c5d9f7}
+.ugb{flex:none;width:54px;height:54px;border-radius:50%;border:2px solid #bfe0cf;background:#fff;color:var(--gd);font-size:26px;line-height:1;display:grid;place-items:center;box-shadow:0 5px 12px rgba(16,100,90,.12);transition:transform .15s}
+.ugb:active{transform:scale(.92)}
 </style>
 </head>
 <body>
@@ -358,6 +536,8 @@ const CATS=[
  {id:"market",n:"ক্রয়-বিক্রয়",d:"যেকোনো পণ্য কিনুন ও বিক্রি করুন",i:MKT(46),c:"#e8f5e9",cls:"feature",deco:'<i class="fl f1">৳</i><i class="fl f2">🛍️</i><i class="fl f3">🏷️</i>'},
  {id:"about",n:"চাঁদপুর সম্পর্কে জানুন",d:"ইতিহাস, ইলিশ, নদী ও তথ্য",i:"📖",c:"#e8eaf6",cls:"wide"},
  {id:"blood",n:"রক্তদাতা",d:"জরুরি রক্ত খুঁজুন",i:"🩸",c:"#fdecea"},
+ {id:"hospital",n:"হাসপাতাল",d:"ডাক্তার ও রোগের তালিকা",i:"🏥",c:"#e0f2f1"},
+ {id:"hotel",n:"আবাসিক হোটেল",d:"রুম ও প্যাকেজ",i:"🏨",c:"#fff3e0"},
  {id:"food",n:"রেস্টুরেন্ট",d:"খাবার ও দাম",i:"🍽️",c:"#fff3e0"},
  {id:"tour",n:"দর্শনীয় স্থান",d:"ঘোরার জায়গা",i:"🏞️",c:"#e6f4ec"},
  {id:"park",n:"পার্ক ও বিনোদন",d:"পরিবার নিয়ে ঘুরুন",i:"🎡",c:"#e8f0fe"},
@@ -367,10 +547,10 @@ const CATS=[
  {id:"thana",n:"থানা ও উপজেলা",d:"প্রতিটি থানার বিস্তারিত",i:"🚓",c:"#e3f2fd"},
  {id:"people",n:"পরিচিত মানুষ",d:"গুণী ও পরিচিত ব্যক্তি",i:"🌟",c:"#fff8e1"},
  {id:"press",n:"সাংবাদিক",d:"নিউজ চ্যানেল ও প্রতিনিধি",i:"📰",c:"#e8eaf6"},
- {id:"quiz",n:"কুইজ",d:"চাঁদপুর ও সাধারণ জ্ঞান",i:"🧠",c:"#ede7f6"},
+ {id:"quiz",n:"কুইজ",d:"চাঁদপুর ও সাধারণ জ্ঞান · চ্যালেঞ্জ মোড",i:"🧠",c:"#ede7f6",cls:"wide quizc"},
  {id:"shop",n:"কোথায় কী পাওয়া যায়",d:"দোকান ও বাজার",i:"🏪",c:"#fce4ec"},
  {id:"entre",n:"উদ্যোক্তা",d:"স্থানীয় উদ্যোগ ও ব্যবসা",i:"🚀",c:"#fff3e0"},
- {id:"more",n:"আরও আসছে",d:"নতুন বিভাগ",i:"✨",c:"#eceff1"}
+ {id:"more",n:"আরও আসছে",d:"নতুন বিভাগ",i:"✨",c:"#eceff1",cls:"wide soon"}
 ];
 const DATA={
  blood:[
@@ -559,7 +739,7 @@ async function pickPhotos(id,max,inp){
   for(const f of files){
     if(max>1&&PICK[id].length>=max){bad="সর্বোচ্চ "+bn(max)+"টি ছবি দেওয়া যাবে।";break;}
     try{
-      const out=await shrink(f,max>1?900:640,.72);
+      const out=id==="aimg"?await shrink(f,720,.6):await shrink(f,max>1?900:640,.72);
       if(max===1) PICK[id]=[out];else PICK[id].push(out);   // এক ছবির ঘরে নতুন ছবি ঠিকমতো এলে তবেই পুরনোটা বদলায়
       renderThumbs(id);
     }catch(e){bad=PICK_MSG[e.message]||PICK_MSG.DECODE;}
@@ -574,6 +754,7 @@ function rmPhoto(id,i){PICK[id].splice(i,1);renderThumbs(id);}
 
 /* কল ও WhatsApp বাটন: সম্মতি থাকলে এবং দর্শক লগইন করা থাকলেই দেখায় */
 function contactHTML(it){
+  if(it.blocked) return `<p class="note">⛔ এই দাতা এখন রক্ত দিতে পারবেন না (৯০ দিনের বিরতি চলছে)। অন্য দাতা খুঁজুন।</p>`;
   const hasPh=!!it.ph,hasWa=!!waNum(it.wa);
   if(!hasPh&&!hasWa) return "";
   const pub=/^(999|333|109|1098|106|16263)$/.test(it.ph||"");
@@ -645,17 +826,19 @@ function saveProfile(){
 
 function card(it,id){
   const pic=safeImg(it.photo),logo=safeImg(it.logo);
-  let h=`<div class="item"><div class="who">${pic?`<img class="pic" src="${pic}" alt="">`:""}<div class="wt"><h4>${esc(it.t)}</h4>${it.sub?`<p class="sub">${esc(it.sub)}</p>`:""}${it.ch?`<p class="chn">${logo?`<img class="lg" src="${logo}" alt="">`:"📺 "}${esc(it.ch)}</p>`:""}<p>📍 ${esc(it.s)}${it.addr?" · "+esc(it.addr):""}</p></div></div>`;
+  let h=`<div class="item${it.go?" tap":""}"${it.go?` onclick="if(!event.target.closest('a,button,img'))${it.go}"`:""}><div class="who">${pic?`<img class="pic" src="${pic}" alt="">`:""}<div class="wt"><h4>${esc(it.t)}</h4>${it.sub?`<p class="sub">${esc(it.sub)}</p>`:""}${it.ch?`<p class="chn">${logo?`<img class="lg" src="${logo}" alt="">`:"📺 "}${esc(it.ch)}</p>`:""}<p>📍 ${esc(it.s)}${it.addr?" · "+esc(it.addr):""}</p></div></div>`;
   if(it.off) h+=`<p class="note">⏸ এই প্রোফাইল এখন বন্ধ আছে, শুধু আপনি দেখছেন।</p>`;
   const gal=(it.imgs||[]).map(safeImg).filter(Boolean);
   if(gal.length) h+=`<div class="gal">${gal.map(s=>`<img src="${s}" alt="">`).join("")}</div>`;
   if(it.desc) h+=`<p style="color:var(--t);margin-top:6px">${esc(it.desc)}</p>`;
   if(it.items&&it.items.length) h+=`<ul class="ul">${it.items.map(x=>`<li>${esc(x)}</li>`).join("")}</ul>`;
+  if(it.pkgs&&it.pkgs.length) h+=`<div class="pk">${it.pkgs.map(x=>`<div class="pkr"><div><b>${esc(x.n)}</b>${x.d?`<span>${esc(x.d)}</span>`:""}</div><em>৳ ${esc(bnNum(+x.p||0))}</em></div>`).join("")}</div>`;
   if(it.hours) h+=`<p>🕒 ${esc(it.hours)}</p>`;
   (it.extra||[]).forEach(x=>h+=`<p><b>${esc(x.k)}:</b> ${esc(x.v)}</p>`);
   (it.tags||[]).forEach((x,k)=>h+=`<span class="tag ${k?'blue':''}">${esc(x)}</span>`);
   h+=contactHTML(it);
   const acts=[];
+  if(it.act) acts.push(`<button class="call" style="background:linear-gradient(135deg,var(--g),var(--g2))" onclick="${it.act.fn}">${esc(it.act.l)}</button>`);
   if(it.edu) acts.push(`<button class="call" style="background:linear-gradient(135deg,var(--g),var(--g2))" onclick="eduPage('${esc(it.edu)}')">🏫 শিক্ষা প্রতিষ্ঠান</button>`);
   if(it.url) acts.push(`<a class="call" href="${esc(it.url)}" target="_blank" rel="noopener noreferrer">${esc(it.ul||"🔗 ওয়েবসাইট খুলুন")}</a>`);
   if(it.map) acts.push(`<a class="call" style="background:var(--g)" href="https://www.google.com/maps/search/?api=1&amp;query=${encodeURIComponent(it.map)}" target="_blank" rel="noopener noreferrer">🧭 ম্যাপে দেখুন</a>`);
@@ -663,8 +846,8 @@ function card(it,id){
   if(acts.length) h+=`<div class="cbar">${acts.join("")}</div>`;
   if(it.mine){
     h+=`<div class="cbar">`;
-    if(it.tog) h+=`<button class="del" style="background:#e8f5e9;color:var(--gd)" onclick="togEntre(${Number(it.id)})">${it.off?"▶ চালু করুন":"⏸ বন্ধ করুন"}</button>`;
-    h+=`<button class="del" onclick="${it.delfn||'delAd'}(${Number(it.id)})">🗑️ মুছে ফেলুন</button></div>`;
+    if(it.tog) h+=`<button class="del" style="background:#e8f5e9;color:var(--gd)" onclick="togEntre(${idArg(it.id)})">${it.off?"▶ চালু করুন":"⏸ বন্ধ করুন"}</button>`;
+    h+=`<button class="del" onclick="${it.delfn||'delAd'}(${idArg(it.id)}${it.delt?",'"+it.delt+"'":""})">🗑️ মুছে ফেলুন</button></div>`;
   }
   return h+`</div>`;
 }
@@ -703,6 +886,29 @@ function sceneSVG(part){
   const cloud=(x,y,s,cls)=>`<g class="cloud ${cls}" opacity="${P.cloud}"><g transform="translate(${x} ${y}) scale(${s})"><ellipse rx="26" ry="9" fill="#fff"/><ellipse cx="-14" cy="-6" rx="14" ry="9" fill="#fff"/><ellipse cx="8" cy="-9" rx="16" ry="11" fill="#fff"/></g></g>`;
   const birds=night?"":`<g stroke="#fff" fill="none" stroke-width="1.5" stroke-linecap="round" opacity=".9"><g transform="translate(0 52)"><path class="bird" d="M0 0q4-5 8 0q4-5 8 0"/></g><g transform="translate(0 70)"><path class="bird b2" d="M0 0q3-4 6 0q3-4 6 0"/></g><g transform="translate(0 38)"><path class="bird b3" d="M0 0q3-4 6 0q3-4 6 0"/></g></g>`;
   const palm=(x,y,s,col)=>`<use href="#palm" transform="translate(${x} ${y}) scale(${s})" style="color:${col}"/>`;
+  const lit=night?"#ffd86b":"#2a6fb0";
+  const wins=(n,x0,st,y,w,h)=>Array.from({length:n},(_,i)=>`<rect x="${(x0+i*st).toFixed(1)}" y="${y}" width="${w}" height="${h}" rx="1" fill="${lit}"/>`).join("");
+  const sail=(s1,s2,hull)=>`<g class="rock"><path d="M0 0Q26 15 58 0Q52 15 29 16Q8 16 0 0z" fill="${hull}"/><path d="M-2 -1H60" stroke="#b9763a" stroke-width="2.2" stroke-linecap="round"/><path d="M29 -2V-38" stroke="#5b3a1a" stroke-width="1.8"/><path d="M30 -37Q50 -22 53 -3H30z" fill="${s1}" opacity=".96"/><path d="M28 -30Q14 -18 10 -3H28z" fill="${s2}" opacity=".95"/></g>`;
+  const wake=`<path class="wk" d="M-8 15q34 5 74 0" stroke-width="1.4"/>`;
+  const smoke=[0,1.3,2.6].map(d=>`<circle class="smoke" cx="66.5" cy="-48" r="3" fill="#e8edf3" style="animation-delay:${d}s"/>`).join("");
+  const launchSVG=`<g class="launch"><g transform="scale(.78)"><g class="rock2">
+    <path class="wk" d="M-6 3q-22 5-52 0" stroke-width="1.6"/><path class="wk" d="M-10 8q-20 4-44 0" stroke-width="1.2" style="animation-delay:-1.2s"/><path class="wk" d="M88 3q8 2 14-2" stroke-width="1.6"/>
+    <path d="M-4 -10H94L86 3H5z" fill="#1c4f8f"/><path d="M-4 -10H94l-1.6 3.2H-2.4z" fill="#e23d3d"/>
+    <rect x="6" y="-20" width="78" height="10" rx="1.5" fill="#fff"/><rect x="13" y="-29" width="62" height="9" rx="1.5" fill="#eef3fa"/><rect x="24" y="-37" width="36" height="8" rx="1.5" fill="#fff"/><rect x="22" y="-38.5" width="40" height="2" rx="1" fill="#c9d4e2"/>
+    ${wins(8,10,9.4,-18,5,4)}${wins(7,17,8.6,-27,5,4)}${wins(4,28,8,-35,5,3)}
+    <rect x="62" y="-45" width="9" height="16" fill="#e23d3d"/><rect x="62" y="-46.5" width="9" height="2.5" fill="#222"/>
+    <path d="M88-10V-26" stroke="#444" stroke-width="1.2"/><path d="M88-26l8 3-8 3z" fill="#00a85a"/><circle cx="91" cy="-23" r="1.3" fill="#e23d3d"/>
+    ${smoke}</g></g></g>`;
+  const BOATS_FAR=`<g transform="translate(0 140)"><g class="boat b2"><g transform="translate(36 0) scale(-.6 .6)">${sail("#fff1c9","#ffd9a0","#6b3f1d")}${wake}</g></g></g>
+  <g transform="translate(0 144)"><g class="boat">${sail("#fff","#e6f5ee","#7a4a22")}</g></g>
+  <g transform="translate(0 153)">${launchSVG}</g>`;
+  const dingi=`<g class="rock"><path class="wk" d="M-6 12q26 5 58 0" stroke-width="1.2"/><path d="M0 0Q22 10 46 0Q42 9 23 10Q6 10 0 0z" fill="#6b4423"/><path d="M-1 -.5H47" stroke="#c98a4b" stroke-width="2" stroke-linecap="round"/><path d="M17-1Q18-11 22-12Q26-11 27-1z" fill="#e9724c"/><circle cx="22" cy="-15.5" r="3.2" fill="#3b2a1d"/><path d="M18.3-17.2h7.4L22-21z" fill="#e8c76a"/><g transform="translate(26 -7)"><g class="oar"><path d="M0 0L14 14" stroke="#4a2f17" stroke-width="1.6" stroke-linecap="round"/><path d="M12 12l5 5" stroke="#4a2f17" stroke-width="3" stroke-linecap="round"/></g></g></g>`;
+  const BOATS_NEAR=`<g transform="translate(0 188)"><g class="boat b3"><g transform="translate(53 0) scale(-1.15 1.15)">${dingi}</g></g></g>`;
+  const fish=(x,y,sc,dur,delay,flip)=>{
+    const st=`animation-duration:${dur}s;animation-delay:${delay}s`;
+    return `<g transform="translate(${x} ${y}) scale(${flip?-sc:sc} ${sc})"><ellipse class="rip" cx="0" cy="5" rx="16" ry="3" style="${st}"/><ellipse class="rip b" cx="56" cy="5" rx="16" ry="3" style="${st}"/><g class="hilsa" style="${st}"><path d="M0 0C10-8 26-8 38 0 26 8 10 8 0 0z" fill="#eef5ff"/><path d="M15-5.5L20-9.5 25-5.8z" fill="#cfe2fb"/><path d="M36 0 47-7 44 0 47 7z" fill="#cfe2fb"/><path d="M6 1Q20 6 34 1" stroke="#b9d3f2" stroke-width="1.2" fill="none"/><path d="M10-3Q22-6 33-2" stroke="#fff" stroke-width="1" fill="none" opacity=".8"/><circle cx="8" cy="-1.5" r="1.4" fill="#0b4a7a"/></g></g>`;
+  };
+  const FISH=fish(18,170,1,7.6,0,false)+fish(66,184,.9,9.2,-3.4,false)+fish(112,164,.85,8.4,-5.6,true)+fish(36,190,.8,10.4,-7.1,false)+fish(128,188,.9,6.8,-2.2,false);
   return `<svg class="scene" viewBox="0 0 400 252" preserveAspectRatio="xMidYMax slice" aria-hidden="true">
   <defs>
     <radialGradient id="sg"><stop offset="0" stop-color="${P.glow}" stop-opacity=".75"/><stop offset="1" stop-color="${P.glow}" stop-opacity="0"/></radialGradient>
@@ -717,8 +923,9 @@ function sceneSVG(part){
   <path d="M0 128H400V252H0z" fill="url(#rv)"/>
   <g opacity=".5" stroke="${c1}" stroke-width="2" stroke-linecap="round"><path d="M${sx-16} 138h32M${sx-10} 146h20M${sx-14} 156h28M${sx-6} 166h12"/></g>
   ${wavePath(150,5,100,"rgba(255,255,255,.2)","w1",1)}${wavePath(176,6,200,"rgba(255,255,255,.15)","w2",1)}
-  <g transform="translate(0 144)"><g class="boat"><g class="rock"><path d="M0 0Q26 15 58 0Q52 15 29 16Q8 16 0 0z" fill="#7a4a22"/><path d="M-2 -1H60" stroke="#b9763a" stroke-width="2.2" stroke-linecap="round"/><path d="M29 -2V-38" stroke="#5b3a1a" stroke-width="1.8"/><path d="M30 -37Q50 -22 53 -3H30z" fill="#fff" opacity=".96"/><path d="M28 -30Q14 -18 10 -3H28z" fill="#e6f5ee" opacity=".95"/></g></g></g>
-  <g transform="translate(96 170)"><ellipse cx="24" cy="6" rx="20" ry="3" fill="none" stroke="#fff" stroke-opacity=".5"/><g class="hilsa"><path d="M0 0C10-8 26-8 38 0 26 8 10 8 0 0z" fill="#e9f2ff"/><path d="M36 0 47-7 44 0 47 7z" fill="#cfe2fb"/><path d="M6 1Q20 6 34 1" stroke="#b9d3f2" stroke-width="1.2" fill="none"/><circle cx="8" cy="-1.5" r="1.4" fill="#0b4a7a"/></g></g>
+  ${BOATS_FAR}
+  ${FISH}
+  ${BOATS_NEAR}
   ${wavePath(214,6,100,"rgba(255,255,255,.13)","w1",1)}
   ${birds}
   <path d="M0 206Q34 194 84 212 94 224 100 252H0z" fill="${P.near}"/><path d="M400 200Q356 192 304 214 296 226 292 252H400z" fill="${P.near}"/>
@@ -727,22 +934,33 @@ function sceneSVG(part){
   </svg>`;
 }
 
+const PRI_IDS=["market","blood","hospital","gov","transport","thana","entre"];
+let HOMEY=0;
+function homeRest(){
+  const order=["about","press","shop","hotel","food","tour","park","quiz","job","org","people","more"];
+  const r=CATS.filter(c=>!PRI_IDS.includes(c.id)&&!c.hide);
+  const known=order.map(id=>r.find(c=>c.id===id)).filter(Boolean);
+  return [...known,...r.filter(c=>!order.includes(c.id))];
+}
+const catCard=(c,i)=>`<button class="card ${c.cls||""}" style="--i:${i};--c:${c.c}" onclick="openCat('${c.id}')"><div class="ico">${c.i}</div><div class="tx"><b>${c.n}</b><span>${c.d}</span></div>${c.i.charAt(0)==="<"?"":`<em class="wm">${c.i}</em>`}${c.deco||""}</button>`;
 const QUICK=[
  {e:"🚨",n:"জরুরি ৯৯৯",tel:"999",cls:"sos"},
+ {e:"🛒",n:"কেনাবেচা",go:"market",bg:"#fff3c4"},
  {e:"🩸",n:"রক্তদাতা",go:"blood",bg:"#ffe3e3"},
+ {e:"🏥",n:"হাসপাতাল",go:"hospital",bg:"#e0f2f1"},
  {e:"🍽️",n:"খাবার",go:"food",bg:"#fff0d6"},
  {e:"🚌",n:"যাতায়াত",go:"transport",bg:"#e0efff"},
  {e:"🏞️",n:"ঘোরাফেরা",go:"tour",bg:"#dff6e8"},
  {e:"💼",n:"চাকরি",go:"job",bg:"#ece4ff"},
- {e:"🚓",n:"থানা",go:"thana",bg:"#e2e8ff"},
- {e:"🛒",n:"কেনাবেচা",go:"market",bg:"#fff3c4"}];
+ {e:"🚓",n:"থানা",go:"thana",bg:"#e2e8ff"}];
 const FACTS=[[8,"উপজেলা",""],[89,"ইউনিয়ন",""],[1365,"গ্রাম",""],[26,"লক্ষ+ মানুষ",""]];
 
 function chipBtn(){
-  return `<button class="chip-btn ab" onclick="about()" aria-label="আমাদের সম্পর্কে"><span class="ai">ℹ️</span><span>আমাদের<br>সম্পর্কে</span></button>`;
+  return `<button class="chip-btn ab" onclick="about()" aria-label="আমাদের সম্পর্কে"><span class="ai">i</span><span>আমাদের<br>সম্পর্কে</span></button>`;
 }
 function home(){
   PAGE="home";
+  const y0=document.getElementById("hero")?(window.scrollY||0):HOMEY;
   const part=dayPart();
   app.innerHTML=`
   <header class="hero" id="hero" data-sky="${part}">
@@ -756,13 +974,14 @@ function home(){
   <div class="search"><span>🔍</span><input id="q" type="search" autocomplete="off" placeholder="রক্তদাতা, রেস্টুরেন্ট, স্থান খুঁজুন…" oninput="doSearch(this.value)"></div>
   <div id="res"></div>
   <div id="cats">
+    <div id="nt">${noticeHTML()}</div>
     <div class="quick">${QUICK.map((x,i)=>x.tel
       ?`<a class="q ${x.cls||""}" style="--i:${i}" href="tel:${x.tel}"><i>${x.e}</i><span>${x.n}</span></a>`
-      :`<button class="q" style="--i:${i};--qb:${x.bg||'#fff'}" onclick="openCat('${x.go}')"><i>${x.e}</i><span>${x.n}</span></button>`).join("")}</div>
-    <div class="ribbon">${FACTS.map(f=>`<div><b class="cu" data-to="${f[0]}">${bnNum(f[0])}</b><span>${f[1]}</span></div>`).join("")}</div>
-    ${SES?"":`<div class="join"><div><b>সদস্য হোন, বিনা খরচে</b><small>অ্যাকাউন্ট খুললে রক্তদাতার যোগাযোগ দেখা, কেনাবেচা ও সমস্যা জানানো যাবে।</small></div><button onclick="authPage('signup')">নিবন্ধন</button></div>`}
+      :`<button class="q" style="--i:${i};--qb:${x.bg||'#fff'}" onclick="openCat('${x.go}')"><i>${x.e}</i><span>${x.n}</span></button>`).join("")}${isAdmin()?`<button class="q" onclick="adminPage()"><i style="background:#ede7f6">🛡️</i><span>অ্যাডমিন</span></button>`:""}</div>
+    <h2 class="pri">অতি প্রয়োজনীয়</h2>
+    <div class="grid g3 pri">${PRI_IDS.map(id=>CATS.find(c=>c.id===id)).filter(c=>c&&!c.hide).map((c,i)=>catCard(c,i)).join("")}</div>
     <h2>বিভাগসমূহ</h2>
-    <div class="grid">${CATS.map((c,i)=>`<button class="card ${c.cls||""}" style="--i:${i};--c:${c.c}" onclick="openCat('${c.id}')"><div class="ico">${c.i}</div><div class="tx"><b>${c.n}</b><span>${c.d}</span></div>${c.i.charAt(0)==="<"?"":`<em class="wm">${c.i}</em>`}${c.deco||""}</button>`).join("")}</div>
+    <div class="grid g3">${homeRest().map((c,i)=>catCard(c,i+PRI_IDS.length)).join("")}</div>
     <div class="item" style="margin:22px 16px 0;text-align:center" onclick="about()">
       <p>অ্যাপটি পরিচালনায়</p><h4 style="margin-top:4px">${esc(OWNER.name)}</h4><p style="color:var(--b)">মালিকের পরিচয় ও যোগাযোগ →</p>
     </div>
@@ -770,6 +989,8 @@ function home(){
   </div>`;
   setNav("home");
   countUp();
+  loadNotice();
+  if(y0>0){const jump=()=>window.scrollTo({top:y0,left:0,behavior:"instant"});jump();if(window.requestAnimationFrame) window.requestAnimationFrame(jump);setTimeout(jump,120);}
 }
 function countUp(){
   if(typeof requestAnimationFrame!=="function") return;
@@ -964,6 +1185,7 @@ async function fbDiag(){
   const run=async f=>{try{await f();return "ok";}catch(e){return String(e&&e.message||e);}};
   const r1=await run(()=>FB.api("accounts:signInWithPassword",{email:"diag@example.invalid",password:"diag-0000-x",returnSecureToken:false}));
   const r2=await run(()=>FB.post("https://securetoken.googleapis.com/v1/token?key="+encodeURIComponent(FIREBASE.apiKey),"grant_type=refresh_token&refresh_token=diag",true));
+  const r3=await run(()=>fsReq("POST",":runQuery",fsQuery([["type","notice"],["status","approved"]],1),false));
   const good1=/EMAIL_NOT_FOUND|INVALID_LOGIN_CREDENTIALS|INVALID_PASSWORD|INVALID_EMAIL/.test(r1);
   const good2=/INVALID_REFRESH_TOKEN|TOKEN_EXPIRED|MISSING_REFRESH_TOKEN|INVALID_GRANT/.test(r2);
   const L=[];
@@ -972,6 +1194,9 @@ async function fbDiag(){
   else L.push("❌ "+authMsg(new Error(r1))+" ["+r1.slice(0,70)+"]");
   if(good2) L.push("✅ সেশন নবায়নের অনুমতি ঠিক আছে।");
   else L.push("❌ সেশন নবায়নে সমস্যা: "+authMsg(new Error(r2))+" ["+r2.slice(0,70)+"]");
+  if(r3==="ok") L.push("✅ ডেটাবেস (Firestore) ঠিক আছে।");
+  else if(/PERMISSION_DENIED/.test(r3)) L.push("❌ ডেটাবেসের নিরাপত্তা নিয়ম (Rules) এখনো বসানো হয়নি। Firestore > Rules-এ গিয়ে নিয়ম বসিয়ে Publish করুন।");
+  else L.push("❌ ডেটাবেস: "+cloudMsg(new Error(r3)));
   out.textContent=L.join("\n");
 }
 /* ---------- ছোট সাহায্যকারী ---------- */
@@ -1130,7 +1355,7 @@ function profilePage(){
   app.innerHTML=`<div class="top"><button onclick="home()" aria-label="পিছনে">←</button><h3>👤 প্রোফাইল</h3></div><div class="page">
     <div class="item" style="text-align:center;padding:24px 16px">${mp?`<img class="bigav" src="${mp}" alt="">`:`<div class="bigav">${ini}</div>`}<h4 style="font-size:19px">${esc(myName()||"সদস্য")}</h4><p>${esc(SES.email)}</p>
       <span class="vbadge ${SES.verified?"":"no"}">${SES.verified?"✔ ইমেইল যাচাই করা":"⚠ ইমেইল যাচাই হয়নি"}</span>${AUTH.demo?'<p class="note">🧪 ডেমো মোড: এই অ্যাকাউন্ট শুধু এই ফোনে আছে।</p>':""}</div>
-    <div class="item"><h4>আপনার কার্যক্রম (এই ফোনে)</h4><p>বিজ্ঞাপন ${bn(myAds().length)}টি · উদ্যোগ ${bn(myEntre().length)}টি · সমস্যা জমা ${bn(myReports().length)}টি · সাংবাদিক ${bn(myPress().length)}টি</p></div>
+    ${isCloud()?'<button class="btn alt" onclick="myPostsPage()">📂 আমার পোস্টসমূহ</button>':`<div class="item"><h4>আপনার কার্যক্রম (এই ফোনে)</h4><p>বিজ্ঞাপন ${bn(myAds().length)}টি · উদ্যোগ ${bn(myEntre().length)}টি · সমস্যা জমা ${bn(myReports().length)}টি · সাংবাদিক ${bn(myPress().length)}টি</p></div>`}${isAdmin()?'<button class="btn" onclick="adminPage()">🛡️ অ্যাডমিন প্যানেল</button>':""}
     <button class="btn alt" onclick="profileEdit()">✏️ ছবি, নাম ও নম্বর বদলান</button>
     ${SES.verified?"":'<button class="btn alt" onclick="verifyPage()">ইমেইল যাচাই করুন</button>'}
     <button class="btn alt" onclick="resetFromProfile()">পাসওয়ার্ড বদলের লিংক পাঠান</button>
@@ -1177,11 +1402,53 @@ function policyPage(){
   window.scrollTo(0,0);
 }
 
+
+/* ---------- উপজেলা (আমার গ্রাম ধাঁচের তালিকা) ---------- */
+/* un = ইউনিয়ন সংখ্যা, vi = গ্রাম সংখ্যা; জানা না থাকলে ফাঁকা রাখা হয়েছে (পরে যোগ করুন) */
+const UPD=[
+ {n:"মতলব উত্তর",en:"Matlab North",un:14,vi:33,w:"matlabnorth"},
+ {n:"কচুয়া",en:"Kachua",un:12,vi:29,w:"kachua"},
+ {n:"মতলব দক্ষিণ",en:"Matlab South",un:6,vi:22,w:"matlabsouth"},
+ {n:"ফরিদগঞ্জ",en:"Faridganj",un:15,vi:22,w:"faridgonj"},
+ {n:"শাহরাস্তি",en:"Shahrasti",un:10,vi:15,w:"shahrasti"},
+ {n:"হাজীগঞ্জ",en:"Hajiganj",un:11,vi:12,w:"hajiganj"},
+ {n:"চাঁদপুর সদর",en:"Chandpur Sadar",un:14,vi:11,w:"chandpursadar"},
+ {n:"হাইমচর",en:"Haimchar",un:6,vi:6,w:"haimchar"}];
+const UNI={"হাজীগঞ্জ":[{"n":"হাজীগঞ্জ সদর","en":"Hajiganj Sadar","vi":5,"w":"hajiganjsadarup"},{"n":"হাটিলা (পূর্ব)","en":"Hatila (East)","vi":3,"w":"hatilaeastup"},{"n":"বাকিলা","en":"Bakila","vi":1,"w":"bakilaup"},{"n":"কালচোঁ (দক্ষিণ)","en":"Kalocho (South)","vi":1,"w":"kalochosouthup"},{"n":"হাটিলা (পশ্চিম)","en":"Hatila (West)","vi":1,"w":"hatilawestup"},{"n":"গন্ধর্ব্যপুর (দক্ষিণ)","en":"Gandharbapur (South)","vi":1,"w":"gandharbapursouthup"},{"n":"রাজারগাঁও (উত্তর)","en":"Rajargaon (North)","w":"rajargaonnorthup"},{"n":"কালচোঁ (উত্তর)","en":"Kalocho (North)","w":"kalochonorthup"},{"n":"বড়কুল (পূর্ব)","en":"Barkul (East)","w":"barkuleastup"},{"n":"বড়কুল (পশ্চিম)","en":"Barkul (West)","w":"barkulwestup"},{"n":"গন্ধর্ব্যপুর (উত্তর)","en":"Gandharbapur (North)","w":"gandharbapurnorthup"}],"মতলব উত্তর":[{"n":"ফতেহপুর (পূর্ব)","en":"Fatehpur (East)","vi":10,"w":"eastfatehpur"},{"n":"গজরা","en":"Gazra","vi":10,"w":"gazraup"},{"n":"সুলতানাবাদ","en":"Sultanabad","vi":9,"w":"sultanabadup"},{"n":"সাদুল্ল্যাপুর","en":"Sadullapur","vi":1,"w":"sadullapurup"},{"n":"কালাকান্দা","en":"Kalakanda","vi":1,"w":"kalakandaup"},{"n":"ফতেহপুর (পশ্চিম)","en":"Fatehpur (West)","vi":1,"w":"westfatehpurup"},{"n":"ফরাজীকান্দি","en":"Farajikandi","vi":1,"w":"farajikandiup"},{"n":"ষাটনল","en":"Satnal","w":"satnalup"},{"n":"বাগানবাড়ী","en":"Banganbari","w":"banganbariup"},{"n":"দূর্গাপুর","en":"Durgapur","w":"durgapurup"},{"n":"মোহনপুর","en":"Mohanpur","w":"mohanpurup"},{"n":"এখলাছপুর","en":"Eklaspur","w":"eklaspurup"},{"n":"জহিরাবাদ","en":"Jahirabad","w":"jahirabadup"},{"n":"ইসলামাবাদ","en":"Islamabad","w":"islamabadup"}],"কচুয়া":[{"n":"বিতারা","en":"Bitara","vi":16,"w":"bitaraup"},{"n":"কচুয়া (উত্তর)","en":"Kachua (North)","vi":8,"w":"kachuanorthup"},{"n":"সহদেবপুর (পশ্চিম)","en":"Shohodebpur (West)","vi":2,"w":"shohodebpurwestup"},{"n":"কড়ইয়া","en":"Koroia","vi":2,"w":"koroiaup"},{"n":"পাথৈর","en":"Pathair","vi":1,"w":"pathairup"},{"n":"সহদেবপুর (পূর্ব)","en":"Shohodebpur (East)","w":"shohodebpureastup"},{"n":"কচুয়া (দক্ষিণ)","en":"Kachua (South)","w":"kachuasouthup"},{"n":"গোহাট (উত্তর)","en":"Gohat (North)","w":"gohatnorthup"},{"n":"কাদলা","en":"Kadla","w":"kadlaup"},{"n":"আসরাফপুর","en":"Ashrafpur","w":"ashrafpurup"},{"n":"গোহাট (দক্ষিণ)","en":"Gohat (South)","w":"gohatsouthup"},{"n":"সাচার","en":"Sachar","w":"sacharup"}],"মতলব দক্ষিণ":[{"n":"খাদেরগাঁও","en":"Khadergaon","vi":17,"w":"khadergaonup"},{"n":"উপাদী (উত্তর)","en":"Upadi (North)","vi":3,"w":"upadinorthup"},{"n":"নায়েরগাঁও (উত্তর)","en":"Nayergaon (North)","vi":2,"w":"nayergaonnorthup"},{"n":"নায়েরগাঁও (দক্ষিন)","en":"Nayergaon (South)","w":"nayergaonsouthup"},{"n":"নারায়নপুর","en":"Narayanpur","w":"narayanpurup"},{"n":"উপাদী (দক্ষিণ)","en":"Upadi (South)","w":"upadisouthup"}],"ফরিদগঞ্জ":[{"n":"গবিন্দপুর (উত্তর)","en":"Gobindapur (North)","vi":9,"w":"gobindapurnorthup"},{"n":"পাইকপাড়া (উত্তর)","en":"Paikpara (North)","vi":8,"w":"paikparanorthup"},{"n":"বালিথুবা (পূর্ব)","en":"Balithuba (East)","vi":2,"w":"balithubaeastup"},{"n":"বালিথুবা (পশ্চিম)","en":"Balithuba (West)","vi":1,"w":"balithubawestup"},{"n":"সুবিদপুর (পশ্চিম)","en":"Subidpur (West)","vi":1,"w":"subidpurwestup"},{"n":"চরদুখিয়া (পূর্ব)","en":"Chardukhia (East)","vi":1,"w":"chardukhiaeastup"},{"n":"সুবিদপুর (পূর্ব)","en":"Subidpur (East)","w":"subidpureastup"},{"n":"গুপ্তি (পশ্চিম)","en":"Gupti (West)","w":"guptiwestup"},{"n":"গুপ্তি (পূর্ব)","en":"Gupti (East)","w":"guptieastup"},{"n":"পাইকপাড়া (দক্ষিণ)","en":"Paikpara (South)","w":"paikparasouthup"},{"n":"গবিন্দপুর (দক্ষিণ)","en":"Gobindapur (South)","w":"gobindapursouthup"},{"n":"চরদুঃখিয়া (পশ্চিম)","en":"Chardukhia (West)","w":"chardukhiawestup"},{"n":"ফরিদ্গঞ্জ (দক্ষিণ)","en":"Faridgonj (South)","w":"faridgonjsouthup"},{"n":"রুপসা (দক্ষিণ)","en":"Rupsha (South)","w":"rupshasouthup"},{"n":"রুপসা (উত্তর)","en":"Rupsha (North)","w":"rupshanorthup"}],"শাহরাস্তি":[{"n":"মেহের (উত্তর)","en":"Meher (North)","vi":9,"w":"mehernorthup"},{"n":"টামটা (উত্তর)","en":"Tamta (North)","vi":1,"w":"tamtanorthup"},{"n":"মেহের (দক্ষিণ)","en":"Meher (South)","vi":1,"w":"mehersouthup"},{"n":"সুচিপাড়া (দক্ষিণ)","en":"Suchipara (South)","vi":1,"w":"suchiparasouthup"},{"n":"রায়শ্রী (দক্ষিন)","en":"Raysree (South)","vi":1,"w":"raysreesouthup"},{"n":"রায়শ্রী (উত্তর)","en":"Raysree (North)","vi":1,"w":"raysreenorthup"},{"n":"চিতষী (পশ্চিম)","en":"Chitoshi (West)","vi":1,"w":"chitoshiwestup"},{"n":"টামটা (দক্ষিণ)","en":"Tamta (South)","w":"tamtasouthup"},{"n":"সুচিপাড়া (উত্তর)","en":"Suchipara (North)","w":"suchiparanorthup"},{"n":"চিতষী (পূর্ব)","en":"Chitoshi (East)","w":"chitoshieastup"}],"চাঁদপুর সদর":[{"n":"ইব্রাহীমপুর","en":"Ibrahimpur","vi":6,"w":"ibrahimpurup"},{"n":"চান্দ্রা","en":"Chandra","vi":3,"w":"chandraup"},{"n":"লক্ষীপুর মডেল","en":"Laxmipur Model","vi":1,"w":"laxmipurmodelup"},{"n":"বালিয়া","en":"Balia","vi":1,"w":"baliaup"},{"n":"বিষ্ণপুর","en":"Bishnapur","w":"bishnapurup"},{"n":"আশিকাটি","en":"Ashikati","w":"ashikatiup"},{"n":"শাহ্‌ মাহমুদপুর","en":"Shahmahmudpur","w":"shahmahmudpurup"},{"n":"কল্যাণপুর","en":"Kalyanpur","w":"kalyanpurup"},{"n":"রামপুর","en":"Rampur","w":"rampurup"},{"n":"মৈশাদী","en":"Maishadi","w":"maishadiup"},{"n":"তরপুচন্ডী","en":"Tarpurchandi","w":"tarpurchandiup"},{"n":"বাগাদী","en":"Baghadi","w":"baghadiup"},{"n":"হানারচর","en":"Hanarchar","w":"hanarcharup"},{"n":"রাজরাজেশ্বর","en":"Rajrajeshwar","w":"rajrajeshwarup"}],"হাইমচর":[{"n":"আলগী দুর্গাপুর (দক্ষিণ)","en":"Algidurgapur (South)","vi":5,"w":"algidurgapursouth"},{"n":"আলগী দুর্গাপুর (উত্তর)","en":"Algidurgapur (North)","vi":1,"w":"algidurgapurnorthup"},{"n":"গাজীপুর","en":"Gazipur","w":"gazipurup"},{"n":"নীলকমল","en":"Nilkamal","w":"nilkamalup"},{"n":"হাইমচর","en":"Haimchar","w":"haimcharup"},{"n":"চরভৈরবী","en":"Charbhairabi","w":"charbhairabiup"}]};
+const ugChips=(o,u)=>[
+ o.un!=null?`<span class="ugp">🏘️ ইউনিয়ন: ${bn(o.un)}টি</span>`:"",
+ o.w?`<a class="ugp" href="https://${o.w}.chandpur.gov.bd" target="_blank" rel="noopener noreferrer">🌐 ওয়েবসাইট: ${o.w}.chandpur.gov.bd</a>`:""].join("");
+function upaPage(){
+  app.innerHTML=`<div class="top"><button onclick="home()" aria-label="পিছনে">←</button><h3>🚓 থানা ও উপজেলা</h3></div><div class="page">
+    <div class="uhd"><h3>উপজেলা সমূহ</h3><p>চাঁদপুর জেলায় মোট ${bn(UPD.length)} টি উপজেলা রয়েছে</p></div>
+    ${UPD.map((u,i)=>`<div class="ug" style="animation-delay:${i*45}ms"><div class="ugt"><h3>${u.n} - ${u.en}</h3><div class="ugc">${ugChips(u)}</div></div><button class="ugb" onclick="upaDetail(${i})" aria-label="${u.n} উপজেলার বিস্তারিত">›</button></div>`).join("")}
+    <div class="note">ইউনিয়নের সংখ্যা, ওয়েবসাইট ঠিকানা জেলা তথ্য বাতায়ন অনুযায়ী। যে উপজেলায় সংখ্যা দেখানো নেই, তা যাচাই করে যোগ করা হবে। ওয়েবসাইট না খুললে chandpur.gov.bd থেকে খুঁজে নিন।</div></div>`;
+  window.scrollTo(0,0);
+}
+function upaDetail(i){
+  const u=UPD[i];if(!u) return upaPage();
+  const un=UNI[u.n]||[];
+  app.innerHTML=`<div class="top"><button onclick="upaPage()" aria-label="পিছনে">←</button><h3>🏞️ ${u.n} উপজেলা</h3></div><div class="page">
+    <div class="ug"><div class="ugt"><h3>${u.n} - ${u.en}</h3><div class="ugc">${ugChips(u)}</div></div></div>
+    <div class="cbar" style="margin-top:14px"><a class="call" style="background:var(--g)" href="https://www.google.com/maps/search/?api=1&amp;query=${encodeURIComponent(u.n+" উপজেলা চাঁদপুর")}" target="_blank" rel="noopener noreferrer">🧭 Google Map এ দেখুন</a><button class="call" style="background:linear-gradient(135deg,var(--g),var(--g2))" onclick="eduPage('${u.n}')">🏫 শিক্ষা প্রতিষ্ঠান</button><a class="call" style="background:#c62828" href="tel:999">🚨 ৯৯৯</a></div>
+    <div class="uhd"><h3>ইউনিয়ন সমূহ</h3><p>${un.length?"এই উপজেলার ইউনিয়নের তালিকা":"ইউনিয়নের তালিকা শীঘ্রই যোগ হবে"}</p></div>
+    ${un.map((x,k)=>`<div class="ug" style="animation-delay:${k*45}ms"><div class="ugt"><h3>${x.n} - ${x.en}</h3><div class="ugc">${ugChips(x)}</div></div><span class="ugb" style="opacity:.45" aria-hidden="true">›</span></div>`).join("")}
+    ${un.length?'<div class="note">তালিকাটি আংশিক হতে পারে; বাকি ইউনিয়ন ধাপে ধাপে যোগ হবে।</div>':""}</div>`;
+  window.scrollTo(0,0);
+}
+
 function openCat(id){
+  if(document.getElementById("hero")) HOMEY=window.scrollY||0;
+  try{history.pushState({p:1},"");}catch(e){}
   if(id==="market") return market();
+  if(id==="blood") return bloodPage();
+  if(id==="hospital") return hospitalPage();
+  if(id==="hotel") return hotelPage();
+  if(id==="org") return orgPage();
   if(id==="report") return reportPage();
   if(id==="about") return aboutChandpur();
   if(id==="entre") return entre();
+  if(id==="thana") return upaPage();
   if(id==="press") return pressPage();
   if(id==="quiz") return quizHome();
   if(id==="tour"||id==="park") return spotsPage(id);
@@ -1253,11 +1520,12 @@ const ETYPES=["খাদ্য ও পানীয়","পোশাক ও ফ�
 function myEntre(){try{return JSON.parse(localStorage.getItem("cc_entre")||"[]");}catch(e){return [];}}
 function saveEntre(a){try{localStorage.setItem("cc_entre",JSON.stringify(a));return true;}catch(e){return false;}}
 function entre(){
-  const all=[...myEntre().map(a=>({...a,mine:true,delfn:"delEntre",tog:true})),...DATA.entre];
+  ensureCloud("entre","entre",entre);
+  const all=[...(isCloud()?cloudItems("entre").map(p=>cloudItem(p)):myEntre().map(a=>({...a,mine:true,delfn:"delEntre",tog:true}))),...DATA.entre];
   app.innerHTML=`<div class="top"><button onclick="home()" aria-label="পিছনে">←</button><h3>🚀 উদ্যোক্তা</h3></div>
   <div class="page">
     <button class="btn" onclick="entreForm()">➕ আপনার উদ্যোক্তা প্রোফাইল চালু করুন</button>
-    <div class="note">নিজের ছবি, পণ্য, সময় ও যোগাযোগসহ নিজের মতো করে ফর্ম পূরণ করে প্রোফাইল চালু করুন। যোগাযোগের নম্বর শুধু আপনার সম্মতি থাকলে, লগইন করা সদস্যরা দেখবে। এখন যোগ করা প্রোফাইল শুধু এই ফোনে সংরক্ষিত থাকে (নমুনা), সবার জন্য দেখানো ও যাচাই Firebase ধাপে আসবে।</div>
+    <div class="note">নিজের ছবি, পণ্য, সময় ও যোগাযোগসহ নিজের মতো করে ফর্ম পূরণ করে প্রোফাইল চালু করুন। যোগাযোগের নম্বর শুধু আপনার সম্মতি থাকলে, লগইন করা সদস্যরা দেখবে। ${isCloud()?"নতুন প্রোফাইল অ্যাডমিনের অনুমোদনের পর সবাই দেখতে পাবে।":"এখন যোগ করা প্রোফাইল শুধু এই ফোনে সংরক্ষিত থাকে (নমুনা)।"}</div>${cloudNote("entre","entre")}
     ${all.map(it=>card(it,"entre")).join("")}
   </div>`;
   window.scrollTo(0,0);
@@ -1283,7 +1551,7 @@ function entreForm(){
     <label for="e_wa">WhatsApp নম্বর</label><input id="e_wa" type="tel" inputmode="numeric" maxlength="11" placeholder="01XXXXXXXXX" value="${esc(m.wa||"")}">
     <label for="e_ph">কল নম্বর</label><input id="e_ph" type="tel" inputmode="numeric" maxlength="11" placeholder="01XXXXXXXXX" value="${esc(m.ph||"")}">
     <label class="chk"><input type="checkbox" id="e_ok"><span>আমি চাই লগইন করা সদস্যরা আমার নম্বরে কল বা WhatsApp করুক।</span></label>
-    <label class="chk"><input type="checkbox" id="e_on" checked><span>প্রোফাইল এখনই চালু করুন (পরে যেকোনো সময় বন্ধ করা যাবে)।</span></label>
+    ${isCloud()?"":`<label class="chk"><input type="checkbox" id="e_on" checked><span>প্রোফাইল এখনই চালু করুন (পরে যেকোনো সময় বন্ধ করা যাবে)।</span></label>`}
     <p class="err" id="e_err" role="alert"></p>
     <button class="btn" onclick="postEntre()">প্রোফাইল চালু করুন</button>
   </div>`;
@@ -1299,8 +1567,9 @@ function postEntre(){
   if(fb&&!/^https:\/\//.test(fb)) return err("ফেসবুকের লিংক https:// দিয়ে শুরু হতে হবে।");
   const items=v("e_items").split("\n").map(x=>x.trim().slice(0,40)).filter(Boolean).slice(0,8);
   const extra=[1,2,3].map(n=>({k:v("e_k"+n),v:v("e_v"+n)})).filter(x=>x.k&&x.v);
-  const a=myEntre();
-  a.unshift({id:Date.now(),t,sub:nm?"উদ্যোক্তা: "+nm:"",s:v("e_s"),addr:v("e_addr"),tags:[v("e_type")],desc:v("e_d"),items,hours:v("e_hours"),extra,photo:PICK.ephoto[0]||"",imgs:PICK.eprod.slice(),ph,wa,ok:document.getElementById("e_ok").checked,url:fb,ul:"🌐 ফেসবুক পেজ",off:!document.getElementById("e_on").checked});
+  const item={t,sub:nm?"উদ্যোক্তা: "+nm:"",s:v("e_s"),addr:v("e_addr"),tags:[v("e_type")],desc:v("e_d"),items,hours:v("e_hours"),extra,photo:PICK.ephoto[0]||"",imgs:PICK.eprod.slice(),ph,wa,ok:document.getElementById("e_ok").checked,url:fb,ul:"🌐 ফেসবুক পেজ",off:!(document.getElementById("e_on")||{checked:true}).checked};
+  if(isCloud()) return savePost("entre",item,err,entre);
+  const a=myEntre();a.unshift({id:Date.now(),...item});
   if(!saveEntre(a.slice(0,30))) return err("সংরক্ষণ করা গেল না। ছবির কারণে স্টোরেজ ভরে গেছে হতে পারে। পুরনো তথ্য মুছুন বা কম ছবি দিন।");
   entre();
 }
@@ -1318,7 +1587,8 @@ const myPress=()=>{try{return JSON.parse(localStorage.getItem("cc_press")||"[]")
 const savePress=a=>{try{localStorage.setItem("cc_press",JSON.stringify(a));return true;}catch(e){return false;}};
 let pth="সব",pch="";
 function pressPage(){
-  const all=myPress().map(a=>({...a,mine:true,delfn:"delPress"}));
+  ensureCloud("press","press",pressPage);
+  const all=isCloud()?cloudItems("press").map(p=>cloudItem(p)):myPress().map(a=>({...a,mine:true,delfn:"delPress"}));
   const chans=[],seen={};
   all.forEach(a=>{if(a.ch&&!seen[a.ch]){seen[a.ch]=1;chans.push({n:a.ch,logo:a.logo});}});
   let list=pth==="সব"?all:all.filter(x=>x.s===pth);
@@ -1328,7 +1598,7 @@ function pressPage(){
   app.innerHTML=`<div class="top"><button onclick="home()" aria-label="পিছনে">←</button><h3>📰 সাংবাদিক</h3></div>${chips}${strip}
   <div class="page">
     <button class="btn" onclick="pressForm()">➕ সাংবাদিক হিসেবে যোগ হোন</button>
-    <div class="note">ℹ️ নিজের পরিচয়, নিউজ চ্যানেলের নাম ও লোগো, থানা, ঠিকানা এবং নিউজ পেজের লিংক দিন। ভুয়া পরিচয় দেওয়া যাবে না। এখন যোগ করা তথ্য শুধু এই ফোনে সংরক্ষিত থাকে (নমুনা)। সবার জন্য দেখানো ও যাচাই Firebase ধাপে আসবে।</div>
+    <div class="note">ℹ️ নিজের পরিচয়, নিউজ চ্যানেলের নাম ও লোগো, থানা, ঠিকানা এবং নিউজ পেজের লিংক দিন। ভুয়া পরিচয় দেওয়া যাবে না। ${isCloud()?"নতুন তথ্য অ্যাডমিনের অনুমোদনের পর সবাই দেখতে পাবে।":"এখন যোগ করা তথ্য শুধু এই ফোনে সংরক্ষিত থাকে (নমুনা)।"}</div>${cloudNote("press","press")}
     ${list.map(it=>card(it,"press")).join("")||'<div class="empty">এই থানায় এখনো কোনো সাংবাদিক যোগ হয়নি</div>'}
   </div>`;
   window.scrollTo(0,0);
@@ -1363,8 +1633,9 @@ function postPress(){
   if(url&&!/^https:\/\//.test(url)) return err("নিউজ পেজের লিংক https:// দিয়ে শুরু হতে হবে।");
   const pe=phoneErr(ph,wa);if(pe) return err(pe);
   if(!document.getElementById("n_ok").checked) return err("নম্বর দেখানোর সম্মতি ও সত্য পরিচয়ের ঘরে টিক দিন।");
-  const a=myPress();
-  a.unshift({id:Date.now(),t,sub:v("n_post"),ch,logo:PICK.nlogo[0]||"",photo:PICK.npic[0]||"",s:v("n_s"),addr:v("n_addr"),url,ul:"📰 নিউজ পেজ",ph,wa,ok:true,tags:["সাংবাদিক"]});
+  const item={t,sub:v("n_post"),ch,logo:PICK.nlogo[0]||"",photo:PICK.npic[0]||"",s:v("n_s"),addr:v("n_addr"),url,ul:"📰 নিউজ পেজ",ph,wa,ok:true,tags:["সাংবাদিক"]};
+  if(isCloud()) return savePost("press",item,err,()=>{pth="সব";pch="";pressPage();});
+  const a=myPress();a.unshift({id:Date.now(),...item});
   if(!savePress(a.slice(0,30))) return err("সংরক্ষণ করা গেল না। ছবির কারণে স্টোরেজ ভরে গেছে হতে পারে। পুরনো তথ্য মুছুন বা ছবি বাদ দিন।");
   pth="সব";pch="";pressPage();
 }
@@ -1388,11 +1659,12 @@ function spotItem(x,mine){
 }
 function spotsPage(kind){
   spKind=kind;const c=findCat(kind);
-  const mine=mySpots().filter(x=>x.kind===kind).map(x=>spotItem(x,true));
+  ensureCloud("spot","spot",()=>spotsPage(spKind));
+  const mine=isCloud()?cloudItems("spot").filter(p=>fsSan(p).kind===kind).map(p=>cloudItem(p)):mySpots().filter(x=>x.kind===kind).map(x=>spotItem(x,true));
   const base=(DATA[kind]||[]).map(x=>spotItem(x,false));
   app.innerHTML=`<div class="top"><button onclick="home()" aria-label="পিছনে">←</button><h3>${c.i} ${c.n}</h3></div><div class="page">
     <button class="btn" onclick="spotForm()">➕ ম্যাপসহ নতুন ${kind==="park"?"পার্ক":"দর্শনীয় স্থান"} যোগ করুন</button>
-    <div class="note">🧭 প্রতিটি স্থানে "ম্যাপে দেখুন" বাটন আছে। নিজে স্থান যোগ করলে ছবি, ম্যাপের লিংক বা এখনকার অবস্থান দিতে পারবেন। এখন যোগ করা তথ্য শুধু এই ফোনে থাকে (নমুনা)। "নমুনা" লেখা তথ্য উদাহরণ মাত্র।</div>
+    <div class="note">🧭 প্রতিটি স্থানে "ম্যাপে দেখুন" বাটন আছে। নিজে স্থান যোগ করলে ছবি, ম্যাপের লিংক বা এখনকার অবস্থান দিতে পারবেন। ${isCloud()?"নতুন স্থান অ্যাডমিনের অনুমোদনের পর সবাই দেখতে পাবে।":"এখন যোগ করা তথ্য শুধু এই ফোনে থাকে (নমুনা)।"} "নমুনা" লেখা তথ্য উদাহরণ মাত্র।</div>${cloudNote("spot","spot")}
     ${[...mine,...base].map(it=>card(it,kind)).join("")}</div>`;
   window.scrollTo(0,0);
 }
@@ -1431,8 +1703,9 @@ function postSpot(){
   const t=v("sp_t"),map=v("sp_map"),kind=v("sp_kind")==="park"?"park":"tour";
   if(t.length<3) return err("স্থানের নাম লিখুন।");
   if(map&&!MAP_RE.test(map)) return err("ম্যাপের লিংক Google Maps-এর হতে হবে (https://maps.app.goo.gl/... বা https://www.google.com/maps/...)।");
-  const a=mySpots();
-  a.unshift({id:Date.now(),kind,t,s:v("sp_s"),desc:v("sp_d"),imgs:PICK.spimg.slice(0,5),mapurl:map,tags:[kind==="park"?"পার্ক":"দর্শনীয় স্থান"]});
+  const item={kind,t,s:v("sp_s"),desc:v("sp_d"),imgs:PICK.spimg.slice(0,5),mapurl:map,tags:[kind==="park"?"পার্ক":"দর্শনীয় স্থান"]};
+  if(isCloud()) return savePost("spot",item,err,()=>spotsPage(kind));
+  const a=mySpots();a.unshift({id:Date.now(),...item});
   if(!saveSpots(a.slice(0,30))) return err("সংরক্ষণ করা গেল না। ছবির কারণে স্টোরেজ ভরে গেছে হতে পারে। পুরনো তথ্য মুছুন বা কম ছবি দিন।");
   spotsPage(kind);
 }
@@ -1522,12 +1795,159 @@ let QZ=null;
 const shuf=a=>{a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;};
 const quizStats=()=>{try{return JSON.parse(localStorage.getItem("cc_quiz")||"{}");}catch(e){return {};}};
 function quizTopic(id){return id==="mix"?{id:"mix",n:"মিশ্র কুইজ",i:"🎲"}:QUIZ.find(t=>t.id===id);}
+
+/* ---------- চ্যালেঞ্জ কুইজ: সময়, পয়েন্ট, ধারা ও ৫০:৫০ ---------- */
+const QA_BANK=[["G","বাংলাদেশের রাজধানী কোনটি?","ঢাকা","চট্টগ্রাম","খুলনা","রাজশাহী","ঢাকা বাংলাদেশের রাজধানী।"],["G","বাংলাদেশের জাতীয় ফুল কোনটি?","শাপলা","গোলাপ","জবা","শিউলি","শাপলা বাংলাদেশের জাতীয় ফুল।"],["G","বাংলাদেশের জাতীয় ফল কোনটি?","কাঁঠাল","আম","লিচু","কলা","কাঁঠাল বাংলাদেশের জাতীয় ফল।"],["G","বাংলাদেশের জাতীয় মাছ কোনটি?","ইলিশ","রুই","কাতলা","পাঙাশ","ইলিশ বাংলাদেশের জাতীয় মাছ।"],["G","বাংলাদেশের জাতীয় পশু কোনটি?","রয়েল বেঙ্গল টাইগার","হাতি","হরিণ","সিংহ","রয়েল বেঙ্গল টাইগার বাংলাদেশের জাতীয় পশু।"],["G","বাংলাদেশের জাতীয় পাখি কোনটি?","দোয়েল","কাক","ময়না","টিয়া","দোয়েল বাংলাদেশের জাতীয় পাখি।"],["G","বাংলাদেশের স্বাধীনতা দিবস কবে?","২৬ মার্চ","১৬ ডিসেম্বর","২১ ফেব্রুয়ারি","১৪ এপ্রিল","২৬ মার্চ স্বাধীনতা দিবস।"],["G","বাংলাদেশের বিজয় দিবস কবে?","১৬ ডিসেম্বর","২৬ মার্চ","২১ ফেব্রুয়ারি","১ মে","১৬ ডিসেম্বর বিজয় দিবস।"],["G","আন্তর্জাতিক মাতৃভাষা দিবস কবে?","২১ ফেব্রুয়ারি","২৬ মার্চ","১৬ ডিসেম্বর","১ জানুয়ারি","২১ ফেব্রুয়ারি আন্তর্জাতিক মাতৃভাষা দিবস।"],["G","বাংলাদেশের মুদ্রার নাম কী?","টাকা","রুপি","রিয়াল","দিনার","বাংলাদেশের মুদ্রা টাকা।"],["G","বাংলাদেশের জাতীয় সংসদ ভবনের স্থপতি কে?","লুই আই কান","এফ আর খান","জামি আল-হাসান","মাজহারুল ইসলাম","জাতীয় সংসদ ভবনের নকশা করেন লুই আই কান।"],["G","বিশ্বের বৃহত্তম ম্যানগ্রোভ বন কোনটি?","সুন্দরবন","আমাজন","ভাওয়াল বন","মধুপুর বন","সুন্দরবন বিশ্বের বৃহত্তম ম্যানগ্রোভ বন।"],["G","বাংলাদেশের দীর্ঘতম সমুদ্রসৈকত কোনটি?","কক্সবাজার","কুয়াকাটা","পতেঙ্গা","পারকি","কক্সবাজার সমুদ্রসৈকত দীর্ঘতম হিসেবে পরিচিত।"],["G","বাংলাদেশের জাতীয় স্মৃতিসৌধ কোথায়?","সাভার","গাজীপুর","কুমিল্লা","চাঁদপুর","জাতীয় স্মৃতিসৌধ সাভারে অবস্থিত।"],["G","পদ্মা সেতু কোন নদীর ওপর নির্মিত?","পদ্মা","যমুনা","মেঘনা","তিস্তা","পদ্মা নদীর ওপর পদ্মা সেতু নির্মিত।"],["G","বাংলাদেশের বৃহত্তম দ্বীপ কোনটি?","ভোলা","সন্দ্বীপ","কুতুবদিয়া","মহেশখালী","ভোলা বাংলাদেশের বৃহত্তম দ্বীপ।"],["G","বাংলাদেশের জাতীয় কবি কে?","কাজী নজরুল ইসলাম","রবীন্দ্রনাথ ঠাকুর","জসীমউদ্দীন","সুকান্ত ভট্টাচার্য","কাজী নজরুল ইসলাম বাংলাদেশের জাতীয় কবি।"],["G","বাংলা নববর্ষের প্রথম দিন কোনটি?","১ বৈশাখ","১ ফাল্গুন","১ জ্যৈষ্ঠ","১ চৈত্র","১ বৈশাখ বাংলা নববর্ষের প্রথম দিন।"],["G","বাংলাদেশের প্রধান সমুদ্রবন্দর কোনটি?","চট্টগ্রাম বন্দর","মোংলা বন্দর","পায়রা বন্দর","নারায়ণগঞ্জ বন্দর","চট্টগ্রাম বন্দর দেশের প্রধান সমুদ্রবন্দর।"],["G","বাংলাদেশের জাতীয় খেলা কোনটি?","কাবাডি","ক্রিকেট","ফুটবল","হকি","কাবাডি বাংলাদেশের জাতীয় খেলা।"],["G","পৃথিবীর বৃহত্তম মহাদেশ কোনটি?","এশিয়া","আফ্রিকা","ইউরোপ","উত্তর আমেরিকা","এশিয়া আয়তনে বৃহত্তম মহাদেশ।"],["G","পৃথিবীর বৃহত্তম মহাসাগর কোনটি?","প্রশান্ত মহাসাগর","আটলান্টিক","ভারত মহাসাগর","আর্কটিক","প্রশান্ত মহাসাগর বৃহত্তম মহাসাগর।"],["S","সূর্যের সবচেয়ে কাছের গ্রহ কোনটি?","বুধ","শুক্র","পৃথিবী","মঙ্গল","বুধ সূর্যের সবচেয়ে কাছের গ্রহ।"],["S","সৌরজগতের বৃহত্তম গ্রহ কোনটি?","বৃহস্পতি","শনি","পৃথিবী","নেপচুন","বৃহস্পতি সৌরজগতের বৃহত্তম গ্রহ।"],["S","পৃথিবীর প্রাকৃতিক উপগ্রহ কোনটি?","চাঁদ","সূর্য","মঙ্গল","শুক্র","চাঁদ পৃথিবীর প্রাকৃতিক উপগ্রহ।"],["S","পানির রাসায়নিক সংকেত কী?","H₂O","CO₂","O₂","NaCl","পানির রাসায়নিক সংকেত H₂O।"],["S","উদ্ভিদ সালোকসংশ্লেষণে কোন গ্যাস গ্রহণ করে?","কার্বন ডাই-অক্সাইড","অক্সিজেন","হাইড্রোজেন","নাইট্রোজেন","উদ্ভিদ সালোকসংশ্লেষণে কার্বন ডাই-অক্সাইড গ্রহণ করে।"],["S","মানবদেহে রক্ত পাম্প করে কোন অঙ্গ?","হৃদপিণ্ড","ফুসফুস","যকৃত","কিডনি","হৃদপিণ্ড রক্ত পাম্প করে।"],["S","স্বাভাবিক বায়ুচাপে পানি কত ডিগ্রি সেলসিয়াসে ফুটে?","১০০°","৫০°","৮০°","১২০°","স্বাভাবিক বায়ুচাপে পানি ১০০° সেলসিয়াসে ফোটে।"],["S","আলোর গতি সবচেয়ে বেশি কোন মাধ্যমে?","শূন্যস্থান","পানি","কাচ","বায়ু","আলোর সর্বোচ্চ গতি শূন্যস্থানে।"],["S","কম্পিউটারের মস্তিষ্ক বলা হয় কোনটিকে?","CPU","মনিটর","মাউস","কিবোর্ড","CPU নির্দেশনা প্রক্রিয়াকরণ করে।"],["S","ইন্টারনেটে ওয়েব পেজ দেখার সফটওয়্যার কী?","ব্রাউজার","কম্পাইলার","ক্যালকুলেটর","ড্রাইভার","ব্রাউজার দিয়ে ওয়েব পেজ দেখা যায়।"],["G","এক বছরে সাধারণত কত দিন?","৩৬৫","৩৬০","৩৬৬","৩৫০","সাধারণ বছরে ৩৬৫ দিন।"],["G","লিপ ইয়ার সাধারণত কত বছর পরপর আসে?","৪ বছর","২ বছর","৫ বছর","১০ বছর","সাধারণ নিয়মে প্রতি ৪ বছর পর লিপ ইয়ার আসে।"],["G","বিশ্ব পরিবেশ দিবস কবে?","৫ জুন","২২ এপ্রিল","১৬ সেপ্টেম্বর","১ মে","বিশ্ব পরিবেশ দিবস ৫ জুন।"],["G","জাতিসংঘ প্রতিষ্ঠিত হয় কত সালে?","১৯৪৫","১৯৪৭","১৯৫২","১৯৬৫","জাতিসংঘ ১৯৪৫ সালে প্রতিষ্ঠিত হয়।"],["G","বিশ্বের সর্বোচ্চ পর্বতশৃঙ্গ কোনটি?","মাউন্ট এভারেস্ট","K2","কাঞ্চনজঙ্ঘা","মাকালু","মাউন্ট এভারেস্ট পৃথিবীর সর্বোচ্চ পর্বতশৃঙ্গ।"],["G","জাপানের রাজধানী কোনটি?","টোকিও","ওসাকা","কিয়োটো","নাগোয়া","টোকিও জাপানের রাজধানী।"],["G","সৌদি আরবের রাজধানী কোনটি?","রিয়াদ","জেদ্দা","মক্কা","মদিনা","রিয়াদ সৌদি আরবের রাজধানী।"],["G","বাংলাদেশের জাতীয় সংগীতের রচয়িতা কে?","রবীন্দ্রনাথ ঠাকুর","কাজী নজরুল ইসলাম","দ্বিজেন্দ্রলাল রায়","জসীমউদ্দীন","জাতীয় সংগীত ‘আমার সোনার বাংলা’ রবীন্দ্রনাথ ঠাকুরের লেখা।"],["B","‘অমর’ শব্দের বিপরীত শব্দ কোনটি?","মরণশীল","অজর","চিরন্তন","অক্ষয়","অমর-এর বিপরীত মরণশীল।"],["B","‘আকাশ’ শব্দের সমার্থক শব্দ কোনটি?","গগন","পাতাল","ধরণী","সাগর","আকাশের সমার্থক গগন।"],["B","‘যে দেশকে ভালোবাসে’—এক কথায় কী?","দেশপ্রেমিক","পরোপকারী","স্বার্থপর","ভ্রমণকারী","দেশকে ভালোবাসেন যিনি, তিনি দেশপ্রেমিক।"],["B","‘বিদ্যালয়’ শব্দের সন্ধি বিচ্ছেদ কোনটি?","বিদ্যা + আলয়","বিদ + আলয়","বিদ্যা + লয়","বিদ + দ্যালয়","বিদ্যালয় = বিদ্যা + আলয়।"],["B","‘নদী’ শব্দটি কোন পদ?","বিশেষ্য","বিশেষণ","ক্রিয়া","অব্যয়","নদী একটি বিশেষ্য পদ।"],["B","‘সুন্দর ফুল’—এখানে ‘সুন্দর’ কোন পদ?","বিশেষণ","বিশেষ্য","ক্রিয়া","সর্বনাম","সুন্দর শব্দটি ফুলের গুণ বোঝায়, তাই বিশেষণ।"],["B","‘আমি স্কুলে যাই’ বাক্যে ক্রিয়া কোনটি?","যাই","আমি","স্কুলে","কোনোটিই নয়","যাই হলো ক্রিয়া।"],["B","‘পাখি’ শব্দের বহুবচন কোনটি?","পাখিরা","পাখিটি","পাখিকে","পাখির","পাখিরা বহুবচন বোঝায়।"],["B","‘অল্প বিদ্যা ভয়ংকরী’—এটি কী?","প্রবাদ","উপন্যাস","ছড়া","সমাস","এটি একটি প্রচলিত প্রবাদ।"],["B","‘চোখের মণি’ বাগধারার অর্থ কী?","অতি প্রিয়","অসুস্থ","রাগী","অপরিচিত","চোখের মণি অর্থ অতি প্রিয় ব্যক্তি।"],["B","‘সৎ’ শব্দের বিপরীত কোনটি?","অসৎ","সত্য","সুন্দর","শুদ্ধ","সৎ-এর বিপরীত অসৎ।"],["B","‘দ্রুত’ শব্দের সমার্থক কোনটি?","তাড়াতাড়ি","ধীরে","স্থির","নীরব","দ্রুত অর্থ তাড়াতাড়ি।"],["B","‘যিনি চিকিৎসা করেন’—এক কথায় কী?","চিকিৎসক","শিক্ষক","কৃষক","লেখক","যিনি চিকিৎসা করেন তিনি চিকিৎসক।"],["B","‘বইটি পড়ো’—এটি কোন ধরনের বাক্য?","আদেশসূচক","প্রশ্নবোধক","বিবৃতিমূলক","বিস্ময়সূচক","এটি আদেশসূচক বাক্য।"],["B","‘সে খুব ভালো’—এখানে সর্বনাম কোনটি?","সে","খুব","ভালো","কোনোটিই নয়","‘সে’ সর্বনাম।"],["B","‘রাতদিন’ কোন অর্থে ব্যবহৃত হয়?","সব সময়","শুধু রাতে","শুধু দিনে","সপ্তাহে একদিন","রাতদিন বলতে সব সময় বোঝায়।"],["B","‘মেঘ’ শব্দের সমার্থক কোনটি?","বারিদ","ঘন","বাতাস","আগুন","মেঘের একটি সমার্থক শব্দ বারিদ।"],["B","‘নির্ভীক’ শব্দের অর্থ কী?","ভয়হীন","ভীত","দুঃখী","অলস","নির্ভীক অর্থ ভয়হীন।"],["B","‘হাত গুটিয়ে বসে থাকা’ বাগধারার অর্থ কী?","কাজ না করা","দ্রুত কাজ করা","সাহায্য করা","হাত ধোয়া","হাত গুটিয়ে বসে থাকা মানে নিষ্ক্রিয় থাকা।"],["B","‘পৃথিবী’ শব্দের সমার্থক কোনটি?","ধরণী","অম্বর","অনল","পবন","পৃথিবীর সমার্থক ধরণী।"],["S","বায়ুমণ্ডলে সবচেয়ে বেশি কোন গ্যাস রয়েছে?","নাইট্রোজেন","অক্সিজেন","কার্বন ডাই-অক্সাইড","হাইড্রোজেন","বায়ুমণ্ডলে প্রায় ৭৮% নাইট্রোজেন।"],["S","মানুষের শ্বাস নেওয়ার প্রধান অঙ্গ কোনটি?","ফুসফুস","হৃদপিণ্ড","পাকস্থলী","কিডনি","ফুসফুস শ্বাসপ্রশ্বাসে সাহায্য করে।"],["S","উদ্ভিদের কোন অংশ সাধারণত পানি শোষণ করে?","মূল","ফুল","ফল","পাতা","মূল মাটি থেকে পানি ও খনিজ শোষণ করে।"],["S","বরফ গলে কী হয়?","পানি","বাষ্প","লবণ","তেল","বরফ গলে তরল পানি হয়।"],["S","মানবদেহের সবচেয়ে বড় অঙ্গ কোনটি?","ত্বক","হৃদপিণ্ড","যকৃত","ফুসফুস","ত্বক মানবদেহের সবচেয়ে বড় অঙ্গ।"],["S","শব্দ চলাচলের জন্য কী দরকার?","মাধ্যম","শূন্যস্থানই যথেষ্ট","শুধু আলো","চুম্বক","শব্দ চলাচলের জন্য সাধারণত বস্তুগত মাধ্যম দরকার।"],["S","পৃথিবী সূর্যকে একবার প্রদক্ষিণ করতে প্রায় কত সময় নেয়?","৩৬৫ দিন","২৪ ঘণ্টা","৩০ দিন","১২ ঘণ্টা","পৃথিবীর একবার সূর্য প্রদক্ষিণে প্রায় এক বছর লাগে।"],["G","এক দিনে কত ঘণ্টা?","২৪","১২","৬০","৩৬","এক দিনে ২৪ ঘণ্টা।"],["G","এক ঘণ্টায় কত মিনিট?","৬০","১০০","৩০","২৪","এক ঘণ্টায় ৬০ মিনিট।"],["S","রক্তের লাল রঙের জন্য প্রধানত কোনটি দায়ী?","হিমোগ্লোবিন","ক্লোরোফিল","ইনসুলিন","ক্যালসিয়াম","হিমোগ্লোবিন রক্তের লাল রঙে ভূমিকা রাখে।"],["S","ভিটামিন C-এর একটি সাধারণ উৎস কোনটি?","কমলা","চাল","মাখন","লবণ","কমলায় ভিটামিন C থাকে।"],["S","চুম্বকের দুই মেরুর নাম কী?","উত্তর ও দক্ষিণ","পূর্ব ও পশ্চিম","উপর ও নিচ","ডান ও বাম","চুম্বকের উত্তর ও দক্ষিণ মেরু থাকে।"],["G","বাংলাদেশের জাতীয় পতাকায় বৃত্তের রং কী?","লাল","নীল","হলুদ","সাদা","বাংলাদেশের পতাকায় সবুজ পটভূমিতে লাল বৃত্ত।"],["G","বাংলাদেশের জাতীয় সংগীতের প্রথম লাইন কোনটি?","আমার সোনার বাংলা, আমি তোমায় ভালোবাসি","ধনধান্যে পুষ্পে ভরা","চল চল চল","ও আমার দেশের মাটি","জাতীয় সংগীতের প্রথম লাইন ‘আমার সোনার বাংলা, আমি তোমায় ভালোবাসি’।"],["G","বাংলাদেশের মুক্তিযুদ্ধের বছর কোনটি?","১৯৭১","১৯৫২","১৯৪৭","১৯৯০","বাংলাদেশের মুক্তিযুদ্ধ ১৯৭১ সালে।"],["G","একুশে পদক কোন দেশের সম্মাননা?","বাংলাদেশ","ভারত","নেপাল","শ্রীলঙ্কা","একুশে পদক বাংলাদেশের একটি জাতীয় সম্মাননা।"],["S","কম্পিউটারে টাইপ করার যন্ত্র কোনটি?","কিবোর্ড","মনিটর","স্পিকার","প্রিন্টার","কিবোর্ড দিয়ে টাইপ করা হয়।"],["S","ই-মেইল কী কাজে ব্যবহৃত হয়?","ইলেকট্রনিক বার্তা পাঠাতে","ছবি প্রিন্ট করতে","বিদ্যুৎ মাপতে","গাড়ি চালাতে","ই-মেইল দিয়ে ইন্টারনেটে বার্তা পাঠানো যায়।"],["S","পৃথিবীর কোন স্তরে আমরা বাস করি?","ভূত্বক","কেন্দ্র","বহিঃকোর","অভ্যন্তরীণ কোর","মানুষ পৃথিবীর কঠিন বহির্ভাগ বা ভূত্বকে বাস করে।"],["S","কোনটি নবায়নযোগ্য শক্তির উৎস?","সূর্যালোক","কয়লা","পেট্রোল","প্রাকৃতিক গ্যাস","সূর্যালোক নবায়নযোগ্য শক্তির উৎস।"],["B","‘সাহসী’ শব্দের বিপরীত কী?","ভীরু","শক্তিশালী","বীর","দৃঢ়","সাহসী-এর বিপরীত ভীরু।"],["B","‘আনন্দ’ শব্দের বিপরীত কী?","দুঃখ","উল্লাস","সুখ","হাসি","আনন্দ-এর বিপরীত দুঃখ।"],["B","‘শীত’ শব্দের বিপরীত কী?","গ্রীষ্ম","ঠান্ডা","হিম","কুয়াশা","শীতের বিপরীত গ্রীষ্ম।"],["B","‘দিন’ শব্দের বিপরীত কী?","রাত","সকাল","দুপুর","বিকেল","দিনের বিপরীত রাত।"],["B","‘উন্নতি’ শব্দের বিপরীত কী?","অবনতি","অগ্রগতি","সাফল্য","বৃদ্ধি","উন্নতির বিপরীত অবনতি।"],["B","‘জল’ শব্দের সমার্থক কী?","পানি","আগুন","বায়ু","মাটি","জল-এর সমার্থক পানি।"],["B","‘বন’ শব্দের সমার্থক কী?","অরণ্য","নগর","গ্রাম","সাগর","বন-এর সমার্থক অরণ্য।"],["B","‘সূর্য’ শব্দের সমার্থক কী?","রবি","শশী","তারা","ধরা","সূর্যের সমার্থক রবি।"],["B","‘চাঁদ’ শব্দের সমার্থক কী?","শশী","রবি","অনল","পবন","চাঁদের সমার্থক শশী।"],["B","‘আগুন’ শব্দের সমার্থক কী?","অনল","বারি","গগন","ধরা","আগুনের সমার্থক অনল।"],["B","‘যিনি গান করেন’—এক কথায় কী?","গায়ক","নায়ক","লেখক","পাঠক","যিনি গান করেন তিনি গায়ক।"],["B","‘যিনি ছবি আঁকেন’—এক কথায় কী?","চিত্রশিল্পী","চিকিৎসক","কৃষক","সৈনিক","যিনি ছবি আঁকেন তিনি চিত্রশিল্পী।"],["B","‘যে উপকার স্বীকার করে’—এক কথায় কী?","কৃতজ্ঞ","কৃতঘ্ন","অহংকারী","অলস","উপকার স্বীকার করেন যিনি, তিনি কৃতজ্ঞ।"],["B","‘যে উপকারীর অপকার করে’—এক কথায় কী?","কৃতঘ্ন","কৃতজ্ঞ","পরোপকারী","দয়ালু","কৃতঘ্ন ব্যক্তি উপকারীর অপকার করে।"],["B","‘মধুর’ শব্দের অর্থ কী?","মিষ্টি","তিক্ত","ঝাল","টক","মধুর অর্থ মিষ্টি।"]];
+const QA_T=[{id:"mix",n:"সব বিষয়",i:"🎲"},{id:"G",n:"সাধারণ জ্ঞান",i:"🌏"},{id:"S",n:"বিজ্ঞান ও প্রযুক্তি",i:"🔬"},{id:"B",n:"বাংলা ভাষা",i:"📖"},{id:"M",n:"গণিত",i:"🧮"}];
+const QA_CAT={G:"সাধারণ জ্ঞান",S:"বিজ্ঞান ও প্রযুক্তি",B:"বাংলা ভাষা",M:"গণিত"};
+const QA_LV=["সহজ","মাঝারি","কঠিন"],QA_SEC={"সহজ":25,"মাঝারি":35,"কঠিন":45};
+const QA_L4=["ক","খ","গ","ঘ"];
+let QAS={t:"mix",lv:"সহজ",n:10},QA=null,QAT=null;
+const qaStats=()=>{try{return JSON.parse(localStorage.getItem("cc_qa")||"{}");}catch(e){return {};}};
+const rnd=(a,b)=>a+Math.floor(Math.random()*(b-a+1));
+const qaPickOne=a=>a[rnd(0,a.length-1)];
+function qaDistract(a){
+  const s=new Set([a]),c=shuf([a+1,a-1,a+10,a-10,a+2,a-2,a+5,a-5,a+rnd(3,9),a-rnd(3,9),Math.round(a*1.1),Math.round(a*0.9)]);
+  for(const x of c){if(s.size>=4) break;if(x>0&&Number.isInteger(x)) s.add(x);}
+  let k=11;while(s.size<4) s.add(a+k++);
+  return shuf([...s]);
+}
+function qaMath(lv){
+  const P=rnd,B=bn;let q,a,ex;
+  if(lv==="সহজ"){
+    const k=P(0,3);
+    if(k===0){const x=P(11,89),y=P(11,89);a=x+y;q=`${B(x)} + ${B(y)} = কত?`;ex=`${B(x)} + ${B(y)} = ${B(a)}`;}
+    else if(k===1){const x=P(30,99),y=P(11,x-5);a=x-y;q=`${B(x)} − ${B(y)} = কত?`;ex=`${B(x)} − ${B(y)} = ${B(a)}`;}
+    else if(k===2){const x=P(3,12),y=P(3,9);a=x*y;q=`${B(x)} × ${B(y)} = কত?`;ex=`${B(x)} × ${B(y)} = ${B(a)}`;}
+    else{const y=P(2,9);a=P(3,12);const x=y*a;q=`${B(x)} ÷ ${B(y)} = কত?`;ex=`${B(y)} × ${B(a)} = ${B(x)}, তাই ভাগফল ${B(a)}`;}
+  }else if(lv==="মাঝারি"){
+    const k=P(0,4);
+    if(k===0){const x=P(12,35),y=P(3,9);a=x*y;q=`${B(x)} × ${B(y)} = কত?`;ex=`${B(x)} × ${B(y)} = ${B(a)}`;}
+    else if(k===1){const x=P(20,90),y=P(20,90),z=P(20,90);a=x+y+z;q=`${B(x)} + ${B(y)} + ${B(z)} = কত?`;ex=`${B(x)} + ${B(y)} = ${B(x+y)}, এর সাথে ${B(z)} যোগ করলে ${B(a)}`;}
+    else if(k===2){const p=qaPickOne([10,20,25,50]),b=P(2,20)*20;a=b*p/100;q=`${B(b)}-এর ${B(p)}% কত?`;ex=`${B(b)} × ${B(p)} ÷ ১০০ = ${B(a)}`;}
+    else if(k===3){const x=P(6,20);a=x*x;q=`${B(x)}-এর বর্গ কত?`;ex=`${B(x)} × ${B(x)} = ${B(a)}`;}
+    else{const x=P(5,30),y=P(3,9),z=P(3,9);a=x+y*z;q=`${B(x)} + ${B(y)} × ${B(z)} = কত?`;ex=`আগে গুণ: ${B(y)} × ${B(z)} = ${B(y*z)}, তারপর ${B(x)} + ${B(y*z)} = ${B(a)}`;}
+  }else{
+    const k=P(0,4);
+    if(k===0){const x=P(6,15),y=P(3,9),z=P(6,15),w=P(3,9);a=x*y+z*w;q=`(${B(x)} × ${B(y)}) + (${B(z)} × ${B(w)}) = কত?`;ex=`${B(x*y)} + ${B(z*w)} = ${B(a)}`;}
+    else if(k===1){const x=P(3,25),m=P(2,9),c=P(3,40);a=x;q=`${B(m)}x + ${B(c)} = ${B(m*x+c)} হলে x = কত?`;ex=`${B(m)}x = ${B(m*x+c)} − ${B(c)} = ${B(m*x)}, তাই x = ${B(x)}`;}
+    else if(k===2){const p=qaPickOne([15,35,45,55,65,75]),b=P(2,12)*40;a=b*p/100;q=`${B(b)}-এর ${B(p)}% কত?`;ex=`${B(b)} × ${B(p)} ÷ ১০০ = ${B(a)}`;}
+    else if(k===3){const x=P(5,20),y=P(3,15),z=P(3,9),w=P(5,30);a=(x+y)*z-w;q=`(${B(x)} + ${B(y)}) × ${B(z)} − ${B(w)} = কত?`;ex=`${B(x+y)} × ${B(z)} = ${B((x+y)*z)}, তারপর ${B(w)} বিয়োগ করলে ${B(a)}`;}
+    else{const x=P(12,25),y=P(5,x-3);a=x*x-y*y;q=`${B(x)}² − ${B(y)}² = কত?`;ex=`${B(x*x)} − ${B(y*y)} = ${B(a)}`;}
+  }
+  return {qs:q,ok:B(a),opts:qaDistract(a).map(B),ex,cat:"M",sec:QA_SEC[lv]};
+}
+function qaBuild(){
+  const {t,lv,n}=QAS,know=c=>shuf(QA_BANK.filter(x=>!c||x[0]===c)).map(x=>({qs:x[1],ok:x[2],opts:shuf([x[2],x[3],x[4],x[5]]),ex:x[6]||"",cat:x[0],sec:20}));
+  const maths=k=>{const out=[],seen=new Set();let g=0;while(out.length<k&&g++<k*8){const m=qaMath(lv==="mix"?qaPickOne(["সহজ","মাঝারি"]):lv);if(!seen.has(m.qs)){seen.add(m.qs);out.push(m);}}return out;};
+  let list;
+  if(t==="M") list=maths(n);
+  else if(t==="mix"){const mk=Math.round(n*0.25);list=[...know("").slice(0,n-mk),...maths(mk)];}
+  else list=know(t).slice(0,n);
+  return shuf(list);
+}
+function qaStop(){if(QAT){clearInterval(QAT);QAT=null;}}
+function qaSet(k,v){QAS[k]=v;qaHome();}
+function qaHome(){
+  qaStop();PAGE="quiz";
+  const st=qaStats(),hasM=QAS.t==="M"||QAS.t==="mix";
+  const pool=QAS.t==="M"?"∞":QAS.t==="mix"?"∞":QA_BANK.filter(x=>x[0]===QAS.t).length;
+  app.innerHTML=`<div class="top"><button onclick="quizHome()" aria-label="পিছনে">←</button><h3>⚔️ চ্যালেঞ্জ কুইজ</h3></div><div class="page"><div class="qa">
+    <div class="qa-ttl"><b>নিজেকে চ্যালেঞ্জ করুন</b><span>প্রতি প্রশ্নে সময় কম, উত্তর দ্রুত দিলে পয়েন্ট বেশি</span></div>
+    <div class="qa-sec">বিষয়</div>
+    <div class="qa-tiles">${QA_T.map(x=>`<button class="qa-tile ${QAS.t===x.id?"on":""}" onclick="qaSet('t','${x.id}')"><i>${x.i}</i><span>${x.n}</span></button>`).join("")}</div>
+    ${hasM?`<div class="qa-sec">${QAS.t==="M"?"গণিতের মাত্রা":"গণিত প্রশ্নের মাত্রা"}</div><div class="qa-chips">${(QAS.t==="M"?QA_LV:QA_LV.slice(0,2)).map(x=>`<button class="qa-chip ${QAS.lv===x?"on":""}" onclick="qaSet('lv','${x}')">${x}</button>`).join("")}</div>`:""}
+    <div class="qa-sec">প্রশ্ন সংখ্যা</div>
+    <div class="qa-chips">${[10,15,20].map(x=>`<button class="qa-chip ${QAS.n===x?"on":""}" onclick="qaSet('n',${x})">${bn(x)}টি</button>`).join("")}</div>
+    <button class="qa-go" onclick="qaStart()">শুরু করুন ⚡</button>
+    <div class="qa-stats"><div><b>${bn(st.best||0)}</b><span>সেরা পয়েন্ট</span></div><div><b>${bn(st.played||0)}</b><span>খেলেছেন</span></div><div><b>🔥 ${bn(st.streak||0)}</b><span>সেরা ধারা</span></div></div>
+    <p class="qa-hint">🎯 প্রতি খেলায় একবার ৫০:৫০ · টানা সঠিক উত্তরে বাড়তি পয়েন্ট</p>
+  </div></div>`;
+  if(QAS.t!=="M"&&QAS.t!=="mix"&&QAS.n>pool){}
+  window.scrollTo(0,0);
+}
+function qaStart(){
+  const list=qaBuild();if(!list.length) return toast("প্রশ্ন পাওয়া যায়নি");
+  QA={list,i:0,sel:-1,left:list[0].sec,hide:[],fifty:true,pts:0,streak:0,maxS:0,ok:0,gain:0,wrong:[]};
+  qaShow(true);
+}
+function qaShow(top){
+  const z=QA;if(!z) return qaHome();
+  qaStop();
+  const q=z.list[z.i],tot=z.list.length,done=z.sel!==-1,good=done&&z.sel>=0&&q.opts[z.sel]===q.ok;
+  const C=2*Math.PI*22,off=C*(1-z.left/q.sec);
+  app.innerHTML=`<div class="top"><button onclick="qaExit()" aria-label="বন্ধ করুন">✕</button><h3>⚔️ চ্যালেঞ্জ</h3></div><div class="page"><div class="qa">
+    <div class="qa-hud"><div class="qa-pt"><small>পয়েন্ট</small><b>⭐ ${bn(z.pts)}</b></div>
+      <div class="qa-ring ${z.left<=5&&!done?"hot":""}" id="qa-r"><svg viewBox="0 0 52 52"><circle cx="26" cy="26" r="22" class="bg"/><circle cx="26" cy="26" r="22" class="fg" id="qa-arc" stroke-dasharray="${C.toFixed(1)}" stroke-dashoffset="${off.toFixed(1)}"/></svg><b id="qa-n">${bn(z.left)}</b></div>
+      <div class="qa-pt r"><small>ধারা</small><b>🔥 ${bn(z.streak)}</b></div></div>
+    <div class="qa-prog"><i style="width:${Math.round((z.i+(done?1:0))/tot*100)}%"></i></div>
+    <div class="qa-meta"><span>প্রশ্ন ${bn(z.i+1)}/${bn(tot)}</span><span>${QA_CAT[q.cat]}</span></div>
+    <div class="qa-q">${esc(q.qs)}</div>
+    ${q.opts.map((o,k)=>{const gone=z.hide.includes(k),cls=!done?(gone?"gone":""):o===q.ok?"ok":k===z.sel?"bad":"dim";return `<button class="qa-o ${cls}" ${done||gone?"disabled":""} onclick="qaPick(${k})"><b>${QA_L4[k]}</b><span>${esc(o)}</span><em>${cls==="ok"?"✓":cls==="bad"?"✗":""}</em></button>`;}).join("")}
+    ${!done?`<button class="qa-ll" ${z.fifty?"":"disabled"} onclick="qaFifty()">🎯 ৫০:৫০ ${z.fifty?"":"(ব্যবহৃত)"}</button>`
+      :`<div class="qa-fb ${good?"g":"r"}">${good?`🎉 সঠিক! <b>+${bn(z.gain)}</b> পয়েন্ট`:z.sel===-2?`⏰ সময় শেষ! সঠিক উত্তর: <b>${esc(q.ok)}</b>`:`❌ সঠিক উত্তর: <b>${esc(q.ok)}</b>`}${q.ex?`<p>💡 ${esc(q.ex)}</p>`:""}</div><button class="qa-go" onclick="qaNext()">${z.i+1<tot?"পরের প্রশ্ন →":"ফলাফল দেখুন 🏁"}</button>`}
+  </div></div>`;
+  if(!done) QAT=setInterval(qaTick,1000);
+  if(top) window.scrollTo(0,0);
+}
+function qaTick(){
+  const z=QA,el=document.getElementById("qa-n");
+  if(!z||!el||z.sel!==-1){qaStop();return;}
+  z.left--;
+  const q=z.list[z.i],arc=document.getElementById("qa-arc"),C=2*Math.PI*22;
+  el.textContent=bn(Math.max(0,z.left));
+  if(arc) arc.setAttribute("stroke-dashoffset",(C*(1-Math.max(0,z.left)/q.sec)).toFixed(1));
+  if(z.left<=5){const r=document.getElementById("qa-r");if(r) r.classList.add("hot");}
+  if(z.left<=0){qaStop();qaPick(-2);}
+}
+function qaFifty(){
+  const z=QA;if(!z||z.sel!==-1||!z.fifty) return;
+  const q=z.list[z.i],bad=shuf(q.opts.map((o,k)=>k).filter(k=>q.opts[k]!==q.ok)).slice(0,2);
+  z.hide=bad;z.fifty=false;qaShow(false);
+}
+function qaPick(k){
+  const z=QA;if(!z||z.sel!==-1) return;
+  qaStop();
+  const q=z.list[z.i],good=k>=0&&q.opts[k]===q.ok;
+  z.sel=k;
+  if(good){z.streak++;z.maxS=Math.max(z.maxS,z.streak);z.ok++;z.gain=10+Math.floor(Math.max(0,z.left)/2)+Math.min(z.streak-1,5)*2;z.pts+=z.gain;}
+  else{z.streak=0;z.gain=0;z.wrong.push({qs:q.qs,ok:q.ok,mine:k>=0?q.opts[k]:"সময় শেষ",ex:q.ex});}
+  qaShow(false);
+}
+function qaNext(){
+  const z=QA;if(!z||z.sel===-1) return;
+  if(z.i+1>=z.list.length) return qaEnd();
+  z.i++;z.sel=-1;z.hide=[];z.left=z.list[z.i].sec;qaShow(true);
+}
+function qaEnd(){
+  qaStop();
+  const z=QA,tot=z.list.length,pct=Math.round(z.ok/tot*100),st=qaStats();
+  const newBest=z.pts>(st.best||0);
+  const ns={best:Math.max(st.best||0,z.pts),played:(st.played||0)+1,streak:Math.max(st.streak||0,z.maxS)};
+  try{localStorage.setItem("cc_qa",JSON.stringify(ns));}catch(e){}
+  const rank=pct>=90?["👑","মহাজ্ঞানী"]:pct>=70?["🏆","পণ্ডিত"]:pct>=50?["🎖️","জ্ঞানী"]:["🌱","নবীন"];
+  app.innerHTML=`<div class="top"><button onclick="qaHome()" aria-label="সেটিং">←</button><h3>⚔️ ফলাফল</h3></div><div class="page"><div class="qa qa-end">
+    <div class="qa-rank"><i>${rank[0]}</i><b>${rank[1]}</b></div>
+    <div class="qa-big">⭐ ${bn(z.pts)}</div><span class="qa-sub">মোট পয়েন্ট</span>
+    ${newBest&&z.pts>0?'<div class="qa-new">🏅 নতুন সেরা পয়েন্ট!</div>':""}
+    <div class="qa-stats"><div><b>${bn(z.ok)}/${bn(tot)}</b><span>সঠিক</span></div><div><b>${bn(pct)}%</b><span>নির্ভুলতা</span></div><div><b>🔥 ${bn(z.maxS)}</b><span>সর্বোচ্চ ধারা</span></div></div>
+    <button class="qa-go" onclick="qaStart()">🔁 আবার খেলুন</button>
+    <button class="qa-go alt" onclick="qaHome()">⚙️ বিষয় বদলান</button>
+  </div>
+  ${z.wrong.length?`<h2 style="margin:22px 0 4px">ভুল উত্তরগুলো (${bn(z.wrong.length)}টি)</h2>${z.wrong.map(w=>`<div class="item"><h4>${esc(w.qs)}</h4><p>❌ আপনার উত্তর: ${esc(w.mine)}</p><p style="color:var(--gd);font-weight:600">✅ সঠিক উত্তর: ${esc(w.ok)}</p>${w.ex?`<p>💡 ${esc(w.ex)}</p>`:""}</div>`).join("")}`:'<div class="note">🎉 সবগুলো উত্তর সঠিক!</div>'}</div>`;
+  window.scrollTo(0,0);
+}
+function qaExit(){
+  if(!QA||QA.sel===-1&&QA.i===0&&QA.left>=QA.list[0].sec-1){qaStop();QA=null;return qaHome();}
+  ask("চ্যালেঞ্জ বন্ধ করবেন? এখনকার ফল হারিয়ে যাবে।",()=>{qaStop();QA=null;qaHome();},true);
+}
 function quizHome(){
   PAGE="quiz";const st=quizStats();
   const tot=QUIZ.reduce((n,t)=>n+t.q.length,0);
   const row=t=>{const b=st[t.id];return `<button class="card qzc" style="--c:${t.c}" onclick="quizStart('${t.id}')"><div class="ico">${t.i}</div><div class="tx"><b>${t.n}</b><span>${t.d} · ${bn(t.q.length)}টি প্রশ্ন</span>${b?`<em class="qzb">🏅 সর্বোচ্চ ${bn(b.best)}/${bn(b.total)}</em>`:""}</div></button>`;};
   app.innerHTML=`<div class="top"><button onclick="home()" aria-label="পিছনে">←</button><h3>🧠 কুইজ</h3></div><div class="page">
     <div class="qzhero"><div><b>জ্ঞান যাচাই করুন!</b><span>প্রতি প্রশ্নে ৩টি উত্তর, সঠিকটি বেছে নিন। বাছার সাথে সাথে সঠিক উত্তর চিহ্নিত হবে।</span></div><i>🧠</i></div>
+    <button class="qa-entry" onclick="qaHome()"><i>⚔️</i><div><b>চ্যালেঞ্জ কুইজ</b><span>সময়ের সাথে লড়াই · পয়েন্ট ও ধারা</span></div><em>→</em></button>
     <button class="btn" onclick="quizStart('mix')">🎲 মিশ্র কুইজ (সব বিষয় থেকে ১০টি)</button>
     <h2 style="margin:20px 0 4px">বিষয় বাছুন</h2>
     <div class="qzl">${QUIZ.map(row).join("")}</div>
@@ -1582,6 +2002,775 @@ function quizExit(){
   ask("কুইজ বন্ধ করবেন? এখনকার ফল হারিয়ে যাবে।",()=>{QZ=null;quizHome();},true);
 }
 
+/* =====================================================================
+   ক্লাউড ডেটাবেস (Firebase Firestore) ও অ্যাডমিন প্যানেল
+   - সব পোস্ট একটি "posts" সংগ্রহে থাকে: type, status, uid, t, json, at
+   - নতুন পোস্ট (পণ্য, উদ্যোক্তা, সাংবাদিক, স্থান) আগে "pending", অ্যাডমিন অনুমোদন দিলে সবাই দেখে
+   - সমস্যার রিপোর্ট সরাসরি "approved"
+   - অ্যাডমিন চেনা হয় ইমেইল দিয়ে, আর আসল নিয়ন্ত্রণ Firestore Rules-এ (সার্ভারে)
+   ===================================================================== */
+const ADMIN_EMAIL="mohammadjahid733@gmail.com";
+const CLOUD={on:true};                  // false করলে ক্লাউড বন্ধ, সব আগের মতো শুধু ফোনে থাকে
+const FS_BASE="https://firestore.googleapis.com/v1/projects/chandpur-connect/databases/(default)/documents";
+const CLOUD_TYPES={ad:"পণ্য",entre:"উদ্যোক্তা",press:"সাংবাদিক",spot:"স্থান",report:"সমস্যা",notice:"নোটিশ",donor:"রক্তদাতা",hospital:"হাসপাতাল",doctor:"ডাক্তার",hotel:"হোটেল",social:"সমাজসেবা"};
+const isCloud=()=>CLOUD.on&&!AUTH.demo;
+const isAdmin=()=>!!(isCloud()&&SES&&SES.verified&&String(SES.email||"").toLowerCase()===ADMIN_EMAIL);
+const CACHE={},NOTICE={t:0,item:null};
+let POSTING=false;
+const idArg=id=>typeof id==="number"?String(id):"'"+String(id).replace(/[^\w-]/g,"")+"'";
+const safeId=id=>String(id).replace(/[^\w-]/g,"");
+
+/* ---------- Firestore REST ---------- */
+async function fsReq(method,path,body,authed){
+  const h={"Content-Type":"application/json"};
+  if(authed){
+    if(!SES) throw new Error("NOAUTH");
+    await AUTH.fresh(SES);h.Authorization="Bearer "+SES.idToken;
+  }
+  const url=FS_BASE+path+(path.includes("?")?"&":"?")+"key="+encodeURIComponent(FIREBASE.apiKey);
+  let r;
+  try{r=await fetch(url,{method,headers:h,body:body?JSON.stringify(body):undefined,credentials:"omit",cache:"no-store"});}
+  catch(e){throw new Error("NETWORK");}
+  let j=null;try{j=await r.json();}catch(e){}
+  if(!r.ok){const e0=j&&(Array.isArray(j)?j[0]:j).error;throw new Error("FS_"+((e0&&(e0.status||e0.message))||r.status));}
+  return j;
+}
+function fsQuery(filters,limit){
+  const f=filters.map(x=>({fieldFilter:{field:{fieldPath:x[0]},op:"EQUAL",value:{stringValue:x[1]}}}));
+  const q={from:[{collectionId:"posts"}],limit:limit||200};
+  if(f.length===1) q.where=f[0];
+  else if(f.length>1) q.where={compositeFilter:{op:"AND",filters:f}};
+  return {structuredQuery:q};
+}
+function fsParse(d){
+  const f=d.fields||{},g=k=>f[k]&&typeof f[k].stringValue==="string"?f[k].stringValue:"";
+  let raw={};try{raw=JSON.parse(g("json"))||{};}catch(e){}
+  if(typeof raw!=="object"||Array.isArray(raw)) raw={};
+  return {id:String(d.name||"").split("/").pop(),_type:g("type"),_st:g("status"),_uid:g("uid"),_at:+((f.at&&f.at.integerValue)||0),_raw:raw};
+}
+const fsDocs=res=>(Array.isArray(res)?res:[]).filter(x=>x&&x.document).map(x=>fsParse(x.document));
+
+/* অন্যের পোস্ট বিশ্বাস করা যায় না: শুধু জানা ঘর, সীমিত দৈর্ঘ্য, নিরাপদ লিংক ও ছবি রাখা হয় */
+function fsSan(p){
+  const it=p._raw||{};
+  const S=(v,n)=>typeof v==="string"?v.slice(0,n):"";
+  const A=(v,n,m)=>Array.isArray(v)?v.slice(0,m).map(x=>S(x,n)).filter(Boolean):[];
+  const o={t:S(it.t,150),sub:S(it.sub,80),ch:S(it.ch,80),s:S(it.s,40),addr:S(it.addr,120),desc:S(it.desc,600),hours:S(it.hours,80),
+    type:S(it.type,40),place:S(it.place,100),text:S(it.text,600),date:S(it.date,30),by:S(it.by,60),
+    tags:A(it.tags,60,12),items:A(it.items,60,12),
+    extra:Array.isArray(it.extra)?it.extra.slice(0,3).map(x=>({k:S(x&&x.k,30),v:S(x&&x.v,80)})).filter(x=>x.k&&x.v):[],
+    imgs:Array.isArray(it.imgs)?it.imgs.slice(0,5).map(safeImg).filter(Boolean):[],
+    photo:safeImg(it.photo),logo:safeImg(it.logo),
+    ph:PHONE_RE.test(it.ph||"")?it.ph:"",wa:PHONE_RE.test(it.wa||"")?it.wa:"",ok:it.ok===true,
+    pkgs:Array.isArray(it.pkgs)?it.pkgs.slice(0,6).map(x=>({n:S(x&&x.n,50),p:S(x&&x.p,8).replace(/[^\d]/g,""),d:S(x&&x.d,70)})).filter(x=>x.n&&x.p):[],
+    hid:S(it.hid,60).replace(/[^\w-]/g,""),hname:S(it.hname,100),sector:SECTORS.includes(it.sector)?it.sector:"",fee:S(it.fee,8).replace(/[^\d]/g,""),
+    price:Number.isFinite(+it.price)&&+it.price>0?Math.min(Math.floor(+it.price),1e9):0,grp:GROUPS.includes(it.grp)&&it.grp!=="সব"?it.grp:"",last:/^\d{4}-\d{2}-\d{2}$/.test(it.last||"")&&it.last<=todayISO()?it.last:"",
+    kind:it.kind==="park"?"park":"tour",resolved:it.resolved===true,cond:it.cond==="নতুন"||it.cond==="পুরাতন"?it.cond:"",mapurl:"",url:""};
+  if(/^https:\/\//.test(it.url||"")&&String(it.url).length<300) o.url=it.url;
+  if(typeof it.mapurl==="string"&&it.mapurl.length<300&&MAP_RE.test(it.mapurl)) o.mapurl=it.mapurl;
+  return o;
+}
+/* ক্লাউডের (বা ফোনের) পোস্ট থেকে কার্ডে দেখানোর বস্তু */
+function cloudItem(p,local){
+  const o=fsSan(p),t=p._type,it={id:p.id};
+  if(t==="ad") Object.assign(it,{price:o.price||undefined,t:o.t,s:o.s,type:o.type,desc:o.desc,tags:o.tags,imgs:o.imgs,ph:o.ph,wa:o.wa,ok:o.ok,cond:o.cond,at:p._at,exp:true});
+  else if(t==="entre"){Object.assign(it,{t:o.t,sub:o.sub,s:o.s,addr:o.addr,tags:o.tags,desc:o.desc,items:o.items,hours:o.hours,extra:o.extra,photo:o.photo,imgs:o.imgs,ph:o.ph,wa:o.wa,ok:o.ok});if(o.url){it.url=o.url;it.ul="🌐 ফেসবুক পেজ";}}
+  else if(t==="press"){Object.assign(it,{t:o.t,sub:o.sub,ch:o.ch,logo:o.logo,photo:o.photo,s:o.s,addr:o.addr,tags:o.tags.length?o.tags:["সাংবাদিক"],ph:o.ph,wa:o.wa,ok:o.ok});if(o.url){it.url=o.url;it.ul="📰 নিউজ পেজ";}}
+  else if(t==="spot") Object.assign(it,spotItem({t:o.t,s:o.s,desc:o.desc,imgs:o.imgs,mapurl:o.mapurl,tags:o.tags},false));
+  else if(t==="report"){Object.assign(it,{t:o.type+" — "+o.place,s:o.s,desc:o.text,tags:["জমা: "+o.date]});if(o.resolved) it.tags.push("✅ সমাধান হয়েছে");}
+  else if(t==="hotel"){
+    Object.assign(it,{t:o.t,s:o.s,addr:o.addr,desc:o.desc,tags:o.tags,imgs:o.imgs,pkgs:o.pkgs,ph:o.ph,wa:o.wa,ok:o.ok});
+    if(o.mapurl){it.url=o.mapurl;it.ul="🧭 ম্যাপে দেখুন";}
+    if(o.pkgs.length) it.tags=["৳ "+bnNum(Math.min(...o.pkgs.map(x=>+x.p)))+" থেকে (প্রতি রাত)",...it.tags];
+  }
+  else if(t==="hospital"){
+    Object.assign(it,{t:o.t,s:o.s,addr:o.addr,desc:o.desc,tags:[o.sector||"হাসপাতাল",...o.tags],imgs:o.imgs,ph:o.ph,wa:o.wa,ok:o.ok});
+    if(o.mapurl){it.url=o.mapurl;it.ul="🧭 ম্যাপে দেখুন";}
+    it.go="hospitalDetail("+idArg(p.id)+")";it.act={l:"👨‍⚕️ ডাক্তার ও রোগের তালিকা",fn:"hospitalDetail("+idArg(p.id)+")"};
+  }
+  else if(t==="doctor") Object.assign(it,{t:o.t,sub:o.sub,photo:o.photo,tags:o.tags,hours:o.hours+(o.fee?" · ফি ৳"+bnNum(o.fee):""),hid:o.hid,hname:o.hname,ph:o.ph,wa:o.wa,ok:o.ok});
+  else if(t==="donor"){
+    const wait=donorWait(o.last);
+    Object.assign(it,{t:o.t,photo:o.photo,s:o.s,addr:o.addr,ph:o.ph,wa:o.wa,ok:o.ok,tags:[o.grp||"?"]});
+    if(o.last) it.tags.push("শেষবার: "+new Date(o.last+"T00:00:00").toLocaleDateString("bn-BD"));
+    if(wait>0){it.blocked=true;it.tags.push("⛔ আর "+bnNum(wait)+" দিন পর দিতে পারবেন");}else it.tags.push("✅ রক্ত দিতে পারবেন");
+  }
+  else if(t==="social"){Object.assign(it,{t:o.t,photo:o.photo,imgs:o.imgs,s:o.s,addr:o.addr,desc:o.desc,tags:o.tags,ph:o.ph,wa:o.wa,ok:o.ok});if(o.url){it.url=o.url;it.ul="🌐 ফেসবুক পেজ";}}
+  else Object.assign(it,{t:o.t,s:"",desc:o.desc,tags:[]});
+  const own=!!(local||(SES&&p._uid===SES.uid)),adm=isAdmin();
+  if(p._st==="pending") it.tags=[...(it.tags||[]),"⏳ অনুমোদনের অপেক্ষায়"];
+  if(p._st==="rejected") it.tags=[...(it.tags||[]),"❌ অনুমোদন হয়নি"];
+  if(own||adm){it.mine=true;if(local){it.delfn="delLocal";it.delt=t;}else it.delfn="delCloud";}
+  if(t==="report"&&own&&!local) it.share=waLink({type:o.type,s:o.s,place:o.place,text:o.text});
+  if(t==="donor"&&own&&!it.blocked) it.act={l:"🩸 আজ রক্ত দিয়েছি",fn:"donorGave("+idArg(p.id)+")"};
+  return it;
+}
+function cloudMsg(e){
+  const m=String(e&&e.message||e);
+  if(m.includes("PERMISSION_DENIED")) return "অনুমতি নেই। ইমেইল যাচাই করা আছে কি না দেখুন, আর ডেটাবেসের নিরাপত্তা নিয়ম (Rules) বসানো আছে কি না দেখুন।";
+  if(m.includes("UNAUTHENTICATED")||m.includes("NOAUTH")) return "আবার লগইন করুন।";
+  if(m.includes("NOT_FOUND")) return "ডেটাবেস পাওয়া যায়নি। Firebase-এ Firestore তৈরি হয়েছে কি না দেখুন।";
+  if(m.includes("RESOURCE_EXHAUSTED")) return "আজকের বিনা খরচের সীমা শেষ। কাল আবার চেষ্টা করুন।";
+  if(m==="NETWORK") return authMsg(new Error("NETWORK"));
+  return "ডেটাবেসে সমস্যা হয়েছে। (কোড: "+m.replace(/[^\w .:\-]/g,"").slice(0,50)+")";
+}
+
+/* ---------- তালিকা আনা ও জমিয়ে রাখা ---------- */
+async function cloudFetch(type){
+  const pub=fsDocs(await fsReq("POST",":runQuery",fsQuery([["type",type],["status","approved"]]),false));
+  let own=[];
+  if(SES&&SES.verified){try{own=fsDocs(await fsReq("POST",":runQuery",fsQuery([["type",type],["uid",SES.uid]]),true));}catch(e){}}
+  const seen=new Set(pub.map(x=>x.id));
+  return [...pub,...own.filter(x=>!seen.has(x.id))].sort((a,b)=>b._at-a._at);
+}
+const cloudItems=type=>(CACHE[type]&&CACHE[type].items)||[];
+const onPage=pg=>!!document.querySelector('[data-pg="'+pg+'"]');
+function ensureCloud(type,pg,rerender,force){
+  if(!isCloud()) return;
+  const c=CACHE[type];
+  if(c&&c.busy) return;
+  if(c&&!force&&Date.now()-c.t<25000) return;
+  CACHE[type]={...(c||{items:[]}),busy:true};
+  cloudFetch(type)
+    .then(items=>{CACHE[type]={t:Date.now(),items};})
+    .catch(e=>{CACHE[type]={t:Date.now()-15000,items:(c&&c.items)||[],err:cloudMsg(e)};})
+    .finally(()=>{if(onPage(pg)) rerender();});
+}
+function cloudRetry(type,pg){delete CACHE[type];refreshPage(pg);}
+function cloudNote(type,pg){
+  const mark=`<i data-pg="${pg}" hidden></i>`;
+  if(!isCloud()) return mark;
+  const c=CACHE[type];
+  if(!c||c.busy) return mark+'<div class="note">⏳ তথ্য আনা হচ্ছে…</div>';
+  if(c.err) return mark+`<div class="note">☁️ ${esc(c.err)} <button class="lnk" onclick="cloudRetry('${type}','${pg}')">আবার চেষ্টা করুন</button></div>`;
+  return mark;
+}
+function refreshPage(pg){
+  const F={ad:market,entre,press:pressPage,spot:()=>spotsPage(spKind),report:reportPage,admin:adminPage,mine:myPostsPage,donor:bloodPage,hotel:hotelPage,hosp:hospitalPage,social:orgPage};
+  if(F[pg]) F[pg]();
+}
+
+/* ---------- পোস্ট জমা ও মোছা ---------- */
+async function savePost(type,item,err,done){
+  if(POSTING) return;
+  if(!SES||!SES.verified) return needAuth(sellForm);
+  const json=JSON.stringify(item);
+  if(new Blob([json]).size>900000) return err("ছবিগুলো মিলিয়ে অনেক বড় হয়ে গেছে। ছবির সংখ্যা কমান।");
+  const status=(isAdmin()||type==="report")?"approved":"pending";
+  const id=Date.now().toString(36)+Math.random().toString(36).slice(2,8);
+  const title=String(item.t||item.place||item.type||"").slice(0,140);
+  POSTING=true;err("⏳ জমা হচ্ছে…");
+  try{
+    await fsReq("POST","/posts?documentId="+id,{fields:{type:{stringValue:type},status:{stringValue:status},uid:{stringValue:SES.uid},t:{stringValue:title},json:{stringValue:json},at:{integerValue:String(Date.now())}}},true);
+  }catch(e){POSTING=false;return err(cloudMsg(e));}
+  POSTING=false;
+  Object.keys(CACHE).forEach(k=>delete CACHE[k]);
+  toast(status==="pending"?"জমা হয়েছে ✓ অনুমোদনের পর সবাই দেখতে পাবে":"প্রকাশ হয়েছে ✓");
+  done();
+}
+function delCloud(id){
+  ask("এই পোস্টটি মুছে ফেলবেন?",async()=>{
+    try{await fsReq("DELETE","/posts/"+safeId(id),null,true);}catch(e){return toast(cloudMsg(e));}
+    Object.keys(CACHE).forEach(k=>delete CACHE[k]);
+    if(ADM.items) ADM.items=ADM.items.filter(x=>x.id!==id);
+    if(MYP.items) MYP.items=MYP.items.filter(x=>x.id!==id);
+    toast("মুছে ফেলা হয়েছে");
+    ["ad","entre","press","spot","report","admin","mine","donor","hotel","hosp","social"].some(pg=>onPage(pg)&&(refreshPage(pg),true));
+  },true);
+}
+
+/* ---------- আমার পোস্টসমূহ ---------- */
+const MYP={items:null,busy:false,err:""};
+function myPostsPage(){
+  if(!SES) return authPage("login");
+  if(isCloud()&&MYP.items===null&&!MYP.busy){
+    MYP.busy=true;
+    fsReq("POST",":runQuery",fsQuery([["uid",SES.uid]],300),true)
+      .then(r=>{MYP.items=fsDocs(r).sort((a,b)=>b._at-a._at);MYP.err="";})
+      .catch(e=>{MYP.items=[];MYP.err=cloudMsg(e);})
+      .finally(()=>{MYP.busy=false;if(onPage("mine")) myPostsPage();});
+  }
+  adSweepCloud(MYP.items);
+  const list=(MYP.items||[]).filter(p=>p._type!=="cfg").filter(p=>!(p._type==="ad"&&p._at&&Date.now()-p._at>AD_MS)).map(p=>({...cloudItem(p),sub:(CLOUD_TYPES[p._type]||"")}));
+  app.innerHTML=`<div class="top"><button onclick="profilePage()" aria-label="পিছনে">←</button><h3>📂 আমার পোস্টসমূহ</h3></div><div class="page"><i data-pg="mine" hidden></i>
+    ${isCloud()?"":'<div class="note">ডেমো মোডে পোস্ট শুধু এই ফোনে থাকে। সংশ্লিষ্ট বিভাগে গিয়ে দেখুন।</div>'}
+    ${MYP.busy?'<div class="note">⏳ তথ্য আনা হচ্ছে…</div>':""}${MYP.err?`<div class="note">☁️ ${esc(MYP.err)}</div>`:""}
+    <div class="note">⏳ অনুমোদনের অপেক্ষায় থাকা পোস্ট শুধু আপনি দেখতে পান। অনুমোদন পেলে সবাই দেখে।</div>
+    ${list.map(it=>card(it,"mine")).join("")||(MYP.busy?"":'<div class="empty">আপনি এখনো কোনো পোস্ট দেননি</div>')}</div>`;
+  window.scrollTo(0,0);
+}
+
+/* ---------- হোমপেজের নোটিশ ---------- */
+function noticeHTML(){
+  const n=NOTICE.item;if(!n||lsGet("cc_nd")===n.id) return "";
+  return `<div class="notice"><div><b>📢 ${esc(n.t)}</b>${n.desc?`<p>${esc(n.desc)}</p>`:""}</div><button onclick="noticeClose('${safeId(n.id)}')" aria-label="বন্ধ করুন">✕</button></div>`;
+}
+function noticeClose(id){lsSet("cc_nd",id);const h=document.getElementById("nt");if(h) h.innerHTML="";}
+async function loadNotice(){
+  if(!isCloud()||Date.now()-NOTICE.t<60000) return;
+  NOTICE.t=Date.now();
+  try{
+    const items=fsDocs(await fsReq("POST",":runQuery",fsQuery([["type","notice"],["status","approved"]],20),false)).sort((a,b)=>b._at-a._at);
+    const p=items[0];NOTICE.item=p?{id:p.id,t:fsSan(p).t,desc:fsSan(p).desc}:null;
+  }catch(e){}
+  const h=document.getElementById("nt");if(h) h.innerHTML=noticeHTML();
+}
+
+/* ---------- অ্যাডমিন প্যানেল ---------- */
+const ADM={tab:"pending",type:"all",items:null,busy:false,err:""};
+const ASTAT=[["pending","⏳ অপেক্ষমাণ"],["approved","✅ অনুমোদিত"],["rejected","❌ বাতিল"],["all","সব"]];
+const ATYPES=[["all","সব ধরন"],["ad","পণ্য"],["entre","উদ্যোক্তা"],["press","সাংবাদিক"],["spot","স্থান"],["donor","রক্তদাতা"],["hospital","হাসপাতাল"],["doctor","ডাক্তার"],["hotel","হোটেল"],["social","সমাজসেবা"],["report","সমস্যা"],["notice","নোটিশ"]];
+function adminFetch(){
+  ADM.busy=true;ADM.err="";
+  fsReq("POST",":runQuery",fsQuery(ADM.tab==="all"?[]:[["status",ADM.tab]],300),true)
+    .then(r=>{ADM.items=fsDocs(r).sort((a,b)=>b._at-a._at);})
+    .catch(e=>{ADM.items=[];ADM.err=cloudMsg(e);})
+    .finally(()=>{ADM.busy=false;if(onPage("admin")) adminPage();});
+}
+function adminReload(){ADM.items=null;adminPage();}
+function adminPage(){
+  if(!isAdmin()) return profilePage();
+  if(ADM.items===null&&!ADM.busy) adminFetch();
+  adSweepCloud(ADM.items);
+  const list=(ADM.items||[]).filter(p=>p._type!=="cfg").filter(p=>!(p._type==="ad"&&p._at&&Date.now()-p._at>AD_MS)).filter(p=>(ADM.type==="all"||p._type===ADM.type)&&(ADM.tab==="all"||p._st===ADM.tab));
+  app.innerHTML=`<div class="top"><button onclick="profilePage()" aria-label="পিছনে">←</button><h3>🛡️ অ্যাডমিন প্যানেল</h3></div>
+  <div class="chips">${ASTAT.map(x=>`<button class="chip ${ADM.tab===x[0]?"on":""}" onclick="ADM.tab='${x[0]}';ADM.items=null;adminPage()">${x[1]}</button>`).join("")}</div>
+  <div class="chips" style="padding-top:8px">${ATYPES.map(x=>`<button class="chip ${ADM.type===x[0]?"on":""}" onclick="ADM.type='${x[0]}';adminPage()">${x[1]}</button>`).join("")}</div>
+  <div class="page"><i data-pg="admin" hidden></i>
+    <div class="cbar"><button class="call" onclick="noticeForm()">📢 নোটিশ প্রকাশ করুন</button><button class="call" onclick="cmsPage()">🧩 কনটেন্ট ম্যানেজার</button><button class="call" onclick="adminReload()">🔄 নতুন করে আনুন</button></div>
+    ${ADM.busy?'<div class="note">⏳ তথ্য আনা হচ্ছে…</div>':""}${ADM.err?`<div class="note">☁️ ${esc(ADM.err)}</div>`:""}
+    <p class="pickhint" style="margin-top:10px">মোট ${bn(list.length)}টি</p>
+    ${list.map(adminCard).join("")||(ADM.busy?"":'<div class="empty">এখানে কিছু নেই</div>')}</div>`;
+  window.scrollTo(0,0);
+}
+function adminCard(p){
+  const lab=CLOUD_TYPES[p._type]||p._type,st={pending:"⏳ অপেক্ষমাণ",approved:"✅ অনুমোদিত",rejected:"❌ বাতিল"}[p._st]||p._st;
+  const it=cloudItem(p);it.mine=false;it.act=null;if(p._type==="notice") it.s="নোটিশ";
+  const id=safeId(p.id);
+  const btns=`<div class="cbar">${p._st!=="approved"?`<button class="call" onclick="adminSet('${id}','approved')">✅ অনুমোদন</button>`:""}${p._st!=="rejected"?`<button class="del" onclick="adminSet('${id}','rejected')">❌ বাতিল</button>`:""}<button class="call" style="background:linear-gradient(135deg,#6a3fb5,#8e5ce0)" onclick="adminEdit('${id}')">✏️ সম্পাদনা</button><button class="del" onclick="adminDel('${id}')">🗑️ মুছুন</button></div>`;
+  const html=card(it,"adm");
+  return `<div class="admwrap"><div class="admhd"><span class="tag">${lab}</span><span class="tag blue">${st}</span><small>${esc(new Date(p._at).toLocaleString("bn-BD"))}</small></div>${html.slice(0,html.lastIndexOf("</div>"))}${btns}</div></div>`;
+}
+async function adminSet(id,st){
+  if(!isAdmin()||!/^(approved|rejected|pending)$/.test(st)) return;
+  try{await fsReq("PATCH","/posts/"+safeId(id)+"?updateMask.fieldPaths=status",{fields:{status:{stringValue:st}}},true);}
+  catch(e){return toast(cloudMsg(e));}
+  const p=(ADM.items||[]).find(x=>x.id===id);if(p) p._st=st;
+  Object.keys(CACHE).forEach(k=>delete CACHE[k]);NOTICE.t=0;
+  toast(st==="approved"?"অনুমোদিত ✓":"বাতিল করা হয়েছে");
+  adminPage();
+}
+function adminDel(id){delCloud(id);}
+function adminExtra(t,o){
+  const inp=(i,l,v,m)=>`<label for="${i}">${l}</label><input id="${i}" maxlength="${m}" value="${esc(v||"")}">`;
+  const sel=(id,l,opts,cur)=>`<label for="${id}">${l}</label><select id="${id}">${opts.map(x=>`<option ${x===cur?"selected":""}>${esc(x)}</option>`).join("")}</select>`;
+  const lines=(id,l,arr)=>`<label for="${id}">${l}</label><textarea id="${id}" maxlength="500">${esc((arr||[]).join("\n"))}</textarea>`;
+  if(t==="hotel") return lines("ae_tags","সুবিধাসমূহ (প্রতি লাইনে একটি)",o.tags)+`<label>রুম ও প্যাকেজ</label>`+[0,1,2,3,4].map(i=>{const x=o.pkgs[i]||{};return `<div class="item cvrow" style="margin-top:8px"><input id="ae_pn${i}" maxlength="50" placeholder="প্যাকেজ বা রুমের নাম" value="${esc(x.n||"")}"><div class="row2"><input id="ae_pp${i}" type="tel" inputmode="numeric" maxlength="7" placeholder="দাম (টাকা)" value="${esc(x.p||"")}"><input id="ae_pd${i}" maxlength="70" placeholder="যা যা পাবেন" value="${esc(x.d||"")}"></div></div>`;}).join("");
+  if(t==="hospital") return sel("ae_sector","ধরন",SECTORS,o.sector||SECTORS[0])+lines("ae_tags","সেবাসমূহ (প্রতি লাইনে একটি)",o.tags);
+  if(t==="doctor") return inp("ae_sub","ডিগ্রি",o.sub,80)+sel("ae_sp","বিশেষজ্ঞ বিভাগ",SPECS,SPECS.includes(o.tags[0])?o.tags[0]:SPECS[0])+lines("ae_dis","কোন কোন রোগের চিকিৎসা (প্রতি লাইনে একটি)",o.tags.slice(1))+inp("ae_hours","রোগী দেখার দিন ও সময়",o.hours,80)+inp("ae_fee","ভিজিট ফি (টাকা)",o.fee,8);
+  if(t==="donor") return sel("ae_grp","রক্তের গ্রুপ",GROUPS.slice(1),o.grp||GROUPS[1])+`<label for="ae_last">সর্বশেষ রক্তদানের তারিখ (ফাঁকা = কখনো দেননি)</label><input id="ae_last" type="date" max="${todayISO()}" value="${esc(o.last||"")}">`;
+  if(t==="social") return lines("ae_tags","কাজের ক্ষেত্র (প্রতি লাইনে একটি)",o.tags);
+  return "";
+}
+function adminExtraSave(t,raw,v){
+  const L=id=>String(v(id)||"").split("\n").map(x=>x.trim().slice(0,60)).filter(Boolean);
+  const D=s=>String(s||"").replace(/[^\d]/g,"");
+  if(t==="hotel"){
+    raw.tags=L("ae_tags").slice(0,10);
+    raw.pkgs=[0,1,2,3,4].map(i=>({n:(v("ae_pn"+i)||"").slice(0,50),p:D(v("ae_pp"+i)).slice(0,7),d:(v("ae_pd"+i)||"").slice(0,70)})).filter(x=>x.n&&x.p);
+    if(!raw.pkgs.length) return "অন্তত একটি রুম বা প্যাকেজের নাম ও দাম দিন।";
+  }else if(t==="hospital"){
+    raw.sector=v("ae_sector")||"";raw.tags=L("ae_tags").slice(0,8);
+  }else if(t==="doctor"){
+    raw.sub=(v("ae_sub")||"").slice(0,80);raw.hours=(v("ae_hours")||"").slice(0,80);raw.fee=D(v("ae_fee")).slice(0,8);
+    raw.tags=[v("ae_sp")||SPECS[0],...L("ae_dis").slice(0,8)];
+  }else if(t==="donor"){
+    const last=v("ae_last")||"";
+    if(last&&(!/^\d{4}-\d{2}-\d{2}$/.test(last)||last>todayISO())) return "তারিখ ঠিক নেই। আজকের বা আগের তারিখ দিন।";
+    raw.grp=v("ae_grp")||raw.grp;raw.last=last;raw.tags=[raw.grp];
+  }else if(t==="social"){
+    raw.tags=L("ae_tags").slice(0,8);
+  }
+  return "";
+}
+function adminEdit(id){
+  const p=(ADM.items||[]).find(x=>x.id===id);if(!p||!isAdmin()) return;
+  const o=fsSan(p),rep=p._type==="report",nt=p._type==="notice";
+  const inp=(i,l,v,m)=>`<label for="${i}">${l}</label><input id="${i}" maxlength="${m}" value="${esc(v)}">`;
+  app.innerHTML=`<div class="top"><button onclick="adminPage()" aria-label="পিছনে">←</button><h3>✏️ সম্পাদনা (${CLOUD_TYPES[p._type]||""})</h3></div><div class="page f">
+    ${rep?inp("ae_place","জায়গা",o.place,100)+`<label for="ae_text">বিবরণ</label><textarea id="ae_text" maxlength="600">${esc(o.text)}</textarea><label class="chk"><input type="checkbox" id="ae_res" ${o.resolved?"checked":""}><span>সমস্যাটি সমাধান হয়েছে</span></label>`
+     :inp("ae_t","নাম / শিরোনাম",o.t,150)+(nt||p._type==="doctor"?"":inp("ae_s","উপজেলা বা থানা",o.s,40)+inp("ae_addr","ঠিকানা",o.addr,120))+(p._type==="doctor"||p._type==="donor"?"":`<label for="ae_desc">বিবরণ</label><textarea id="ae_desc" maxlength="600">${esc(o.desc)}</textarea>`)+adminExtra(p._type,o)+(nt||p._type==="spot"?"":inp("ae_ph","কল নম্বর",o.ph,11)+inp("ae_wa","WhatsApp নম্বর",o.wa,11))}
+    <p class="err" id="ae_err" role="alert"></p>
+    <button class="btn" onclick="adminSaveEdit('${safeId(id)}')">সংরক্ষণ করুন</button></div>`;
+  window.scrollTo(0,0);
+}
+async function adminSaveEdit(id){
+  const p=(ADM.items||[]).find(x=>x.id===id);if(!p||!isAdmin()) return;
+  const v=i=>{const e=document.getElementById(i);return e?String(e.value||"").trim():null;};
+  const err=m=>{document.getElementById("ae_err").textContent=m;};
+  const raw={...p._raw};
+  if(p._type==="report"){
+    if((v("ae_place")||"").length<3) return err("জায়গার নাম লিখুন।");
+    raw.place=v("ae_place");raw.text=v("ae_text");raw.resolved=!!document.getElementById("ae_res").checked;
+  }else{
+    if((v("ae_t")||"").length<2) return err("নাম বা শিরোনাম লিখুন।");
+    raw.t=v("ae_t");if(v("ae_desc")!==null) raw.desc=v("ae_desc");
+    if(v("ae_s")!==null){raw.s=v("ae_s");raw.addr=v("ae_addr");}
+    if(v("ae_ph")!==null){
+      const ph=v("ae_ph"),wa=v("ae_wa");
+      if(ph&&!PHONE_RE.test(ph)||wa&&!PHONE_RE.test(wa)) return err("নম্বর ১১ সংখ্যার হতে হবে (01XXXXXXXXX)।");
+      raw.ph=ph;raw.wa=wa;
+    }
+    const xe=adminExtraSave(p._type,raw,v);if(xe) return err(xe);
+  }
+  const title=String(raw.t||raw.place||raw.type||"").slice(0,140),json=JSON.stringify(raw);
+  if(new Blob([json]).size>900000) return err("পোস্টটি খুব বড়।");
+  err("⏳ সংরক্ষণ হচ্ছে…");
+  try{await fsReq("PATCH","/posts/"+safeId(id)+"?updateMask.fieldPaths=json&updateMask.fieldPaths=t",{fields:{json:{stringValue:json},t:{stringValue:title}}},true);}
+  catch(e){return err(cloudMsg(e));}
+  p._raw=raw;Object.keys(CACHE).forEach(k=>delete CACHE[k]);NOTICE.t=0;
+  toast("সংরক্ষিত হয়েছে ✓");adminPage();
+}
+/* =====================================================================
+   কনটেন্ট ম্যানেজার (অ্যাডমিন): উপজেলা ও ইউনিয়ন, ক্যাটাগরি, শিক্ষাপ্রতিষ্ঠান
+   - তথ্য "posts" সংগ্রহে type="cfg" নামে এক একটি ডকুমেন্টে (cfg_upa, cfg_cat, cfg_edu) জমা থাকে
+   - অ্যাপ খুললে সবাই এগুলো পড়ে নেয়; না পেলে কোডের ভেতরের তথ্য দেখায়
+   ===================================================================== */
+const CFG_KEYS=["upa","cat","edu"];
+const CATS0=CATS.map(c=>({id:c.id,n:c.n,d:c.d}));
+const cfS=(v,n)=>typeof v==="string"?v.slice(0,n):"";
+const cfW=v=>/^[a-z0-9-]{1,60}$/.test(v||"")?v:"";
+const cfN=v=>(v===""||v===null||v===undefined)?undefined:(Number.isInteger(+v)&&+v>=0&&+v<=999?+v:undefined);
+function cfUnit(x){
+  const o={n:cfS(x&&x.n,60),en:cfS(x&&x.en,60)};if(!o.n) return null;
+  const un=cfN(x.un),vi=cfN(x.vi);if(un!==undefined) o.un=un;if(vi!==undefined) o.vi=vi;
+  o.w=cfW(x.w);return o;
+}
+function cfApply(key,raw){
+  if(!raw||typeof raw!=="object") return;
+  if(key==="upa"&&Array.isArray(raw.upd)&&raw.uni&&typeof raw.uni==="object"){
+    const upd=raw.upd.slice(0,40).map(cfUnit).filter(Boolean),uni={};
+    Object.keys(raw.uni).slice(0,40).forEach(k=>{const a=raw.uni[k];if(Array.isArray(a)) uni[cfS(k,60)]=a.slice(0,80).map(cfUnit).filter(Boolean);});
+    UPD.length=0;UPD.push(...upd);Object.keys(UNI).forEach(k=>delete UNI[k]);Object.assign(UNI,uni);
+  }else if(key==="cat"){
+    CATS.forEach(c=>{const o=raw[c.id];if(!o||typeof o!=="object") return;
+      if(cfS(o.n,40)) c.n=cfS(o.n,40);
+      if(typeof o.d==="string") c.d=o.d.slice(0,80);
+      c.hide=o.hide===true;});
+  }else if(key==="edu"){
+    Object.keys(EDU).forEach(k=>delete EDU[k]);
+    Object.keys(raw).slice(0,40).forEach(u=>{
+      const e={};
+      EDUC.forEach(c=>{const a=raw[u]&&raw[u][c.id];
+        if(Array.isArray(a)) e[c.id]=a.slice(0,200).map(x=>({t:cfS(x&&x.t,120),s:cfS(x&&x.s,60),
+          tags:Array.isArray(x&&x.tags)?x.tags.slice(0,8).map(y=>cfS(y,40)).filter(Boolean):[],desc:cfS(x&&x.desc,400)})).filter(x=>x.t);});
+      EDU[cfS(u,60)]=e;});
+  }
+}
+async function loadCfg(){
+  if(!isCloud()) return;
+  try{
+    const docs=fsDocs(await fsReq("POST",":runQuery",fsQuery([["type","cfg"],["status","approved"]],20),false));
+    let any=false;
+    docs.forEach(p=>{const k=p.id.replace(/^cfg_/,"");if(CFG_KEYS.includes(k)){cfApply(k,p._raw);any=true;}});
+    if(any&&document.getElementById("hero")) home();
+  }catch(e){}
+}
+async function cfgSave(key){
+  if(!isAdmin()) return false;
+  const payload=key==="upa"?{upd:UPD,uni:UNI}:key==="edu"?EDU:Object.fromEntries(CATS.map(c=>[c.id,{n:c.n,d:c.d||"",hide:!!c.hide}]));
+  const json=JSON.stringify(payload);
+  if(new Blob([json]).size>900000){toast("তথ্য অনেক বড় হয়ে গেছে");return false;}
+  try{await fsReq("PATCH","/posts/cfg_"+key,{fields:{type:{stringValue:"cfg"},status:{stringValue:"approved"},uid:{stringValue:SES.uid},t:{stringValue:key},json:{stringValue:json},at:{integerValue:String(Date.now())}}},true);}
+  catch(e){toast("সংরক্ষণ হয়নি: "+cloudMsg(e));return false;}
+  toast("সংরক্ষিত হয়েছে ✓ সবার অ্যাপে দেখা যাবে");return true;
+}
+
+const CM={tab:"upa",eu:0,et:"sec"};
+const cmErr=m=>{const e=document.getElementById("cm_err");if(e) e.textContent=m;};
+const cmV=i=>{const e=document.getElementById(i);return e?String(e.value||"").trim():"";};
+const cmInp=(id,l,v,m,ph)=>`<label for="${id}">${l}</label><input id="${id}" maxlength="${m}" value="${esc(v==null?"":String(v))}" placeholder="${esc(ph||"")}">`;
+const cmTop=(back,t)=>`<div class="top"><button onclick="${back}" aria-label="পিছনে">←</button><h3>${t}</h3></div>`;
+function cmsPage(){
+  if(!isAdmin()) return profilePage();
+  const tabs=[["upa","🏞️ উপজেলা ও ইউনিয়ন"],["cat","🗂️ ক্যাটাগরি"],["edu","🏫 শিক্ষাপ্রতিষ্ঠান"]];
+  const body=CM.tab==="upa"?cmsUpaList():CM.tab==="cat"?cmsCat():cmsEdu();
+  app.innerHTML=cmTop("adminPage()","🧩 কনটেন্ট ম্যানেজার")+`<div class="chips">${tabs.map(x=>`<button class="chip ${CM.tab===x[0]?"on":""}" onclick="CM.tab='${x[0]}';cmsPage()">${x[1]}</button>`).join("")}</div><div class="page f">${body}</div>`;
+  window.scrollTo(0,0);
+}
+/* --- উপজেলা ও ইউনিয়ন --- */
+function cmsUpaList(){
+  return `<div class="note">এখানে সংরক্ষণ করলে পরিবর্তন সব ব্যবহারকারীর অ্যাপে দেখাবে।</div>`
+   +UPD.map((u,i)=>`<div class="item"><h4>${esc(u.n)} - ${esc(u.en)}</h4><p>ইউনিয়নের তালিকা: ${bn((UNI[u.n]||[]).length)}টি${u.w?" · "+esc(u.w)+".chandpur.gov.bd":""}</p><div class="cbar"><button class="call" onclick="cmsUpa(${i})">✏️ সম্পাদনা</button><button class="del" onclick="cmsUpaDel(${i})">🗑️ মুছুন</button></div></div>`).join("")
+   +`<button class="btn" onclick="cmsUpa(-1)">➕ নতুন উপজেলা</button>`;
+}
+function cmsUpa(i){
+  if(!isAdmin()) return;
+  const u=i>=0?UPD[i]:{n:"",en:"",w:""},un=i>=0?(UNI[u.n]||[]):[];
+  app.innerHTML=cmTop("cmsPage()",i>=0?"✏️ "+esc(u.n):"➕ নতুন উপজেলা")+`<div class="page f">
+    ${cmInp("cu_n","বাংলা নাম *",u.n,60)}${cmInp("cu_en","ইংরেজি নাম *",u.en,60)}
+    ${cmInp("cu_un","ইউনিয়ন সংখ্যা (জানা না থাকলে ফাঁকা রাখুন)",u.un,3)}
+    ${cmInp("cu_w","ওয়েবসাইট (শুধু প্রথম অংশ, যেমন: hajiganj)",u.w,60,"hajiganj")}
+    <p class="err" id="cm_err" role="alert"></p><button class="btn" onclick="cmsUpaSave(${i})">সংরক্ষণ করুন</button>
+    ${i>=0?`<div class="uhd"><h3>ইউনিয়ন সমূহ</h3><p>${bn(un.length)}টি</p></div>`
+      +un.map((x,k)=>`<div class="item"><h4>${esc(x.n)} - ${esc(x.en)}</h4><div class="cbar"><button class="call" onclick="cmsUni(${i},${k})">✏️ সম্পাদনা</button><button class="del" onclick="cmsUniDel(${i},${k})">🗑️ মুছুন</button></div></div>`).join("")
+      +`<button class="btn" onclick="cmsUni(${i},-1)">➕ নতুন ইউনিয়ন</button>`:""}</div>`;
+  window.scrollTo(0,0);
+}
+async function cmsUpaSave(i){
+  const n=cmV("cu_n"),en=cmV("cu_en"),un=cmV("cu_un"),w=cmV("cu_w").toLowerCase();
+  if(n.length<2||en.length<2) return cmErr("বাংলা ও ইংরেজি নাম লিখুন।");
+  if(un&&cfN(un)===undefined) return cmErr("ইউনিয়ন সংখ্যা ০–৯৯৯ এর মধ্যে সংখ্যা হতে হবে।");
+  if(w&&!cfW(w)) return cmErr("ওয়েবসাইটে শুধু ইংরেজি ছোট অক্ষর, সংখ্যা ও - দেওয়া যাবে।");
+  if(UPD.some((x,k)=>x.n===n&&k!==i)) return cmErr("এই নামে উপজেলা আগেই আছে।");
+  const old=i>=0?UPD[i]:null,o={n,en};
+  if(cfN(un)!==undefined) o.un=cfN(un);
+  if(old&&old.vi!==undefined) o.vi=old.vi;
+  o.w=w;
+  const renamed=old&&old.n!==n;
+  if(renamed){if(UNI[old.n]){UNI[n]=UNI[old.n];delete UNI[old.n];}if(EDU[old.n]){EDU[n]=EDU[old.n];delete EDU[old.n];}}
+  if(i>=0) UPD[i]=o;else UPD.push(o);
+  cmErr("⏳ সংরক্ষণ হচ্ছে…");
+  const ok=await cfgSave("upa")&&(!renamed||await cfgSave("edu"));
+  if(ok) cmsUpa(i>=0?i:UPD.length-1);else cmErr("সংরক্ষণ হয়নি, আবার চেষ্টা করুন।");
+}
+function cmsUpaDel(i){
+  const u=UPD[i];if(!u||!isAdmin()) return;
+  ask(`"${u.n}" উপজেলা ও এর ইউনিয়নের তালিকা মুছে ফেলবেন?`,async()=>{
+    UPD.splice(i,1);delete UNI[u.n];
+    if(await cfgSave("upa")) cmsPage();
+  },true);
+}
+function cmsUni(i,k){
+  if(!isAdmin()) return;
+  const u=UPD[i];if(!u) return cmsPage();
+  const x=k>=0?(UNI[u.n]||[])[k]:{n:"",en:"",w:""};if(!x) return cmsUpa(i);
+  app.innerHTML=cmTop(`cmsUpa(${i})`,(k>=0?"✏️ ":"➕ ")+esc(u.n)+" · ইউনিয়ন")+`<div class="page f">
+    ${cmInp("cn_n","বাংলা নাম *",x.n,60)}${cmInp("cn_en","ইংরেজি নাম *",x.en,60)}
+    ${cmInp("cn_w","ওয়েবসাইট (পুরো প্রথম অংশ, যেমন: hajiganjsadarup)",x.w,60,"hajiganjsadarup")}
+    <p class="err" id="cm_err" role="alert"></p><button class="btn" onclick="cmsUniSave(${i},${k})">সংরক্ষণ করুন</button></div>`;
+  window.scrollTo(0,0);
+}
+async function cmsUniSave(i,k){
+  const u=UPD[i];if(!u) return;
+  const n=cmV("cn_n"),en=cmV("cn_en"),w=cmV("cn_w").toLowerCase();
+  if(n.length<2||en.length<2) return cmErr("বাংলা ও ইংরেজি নাম লিখুন।");
+  if(w&&!cfW(w)) return cmErr("ওয়েবসাইটে শুধু ইংরেজি ছোট অক্ষর, সংখ্যা ও - দেওয়া যাবে।");
+  const a=UNI[u.n]=UNI[u.n]||[],old=k>=0?a[k]:null,o={n,en};
+  if(old&&old.vi!==undefined) o.vi=old.vi;
+  o.w=w;
+  if(k>=0) a[k]=o;else a.push(o);
+  cmErr("⏳ সংরক্ষণ হচ্ছে…");
+  if(await cfgSave("upa")) cmsUpa(i);else cmErr("সংরক্ষণ হয়নি, আবার চেষ্টা করুন।");
+}
+function cmsUniDel(i,k){
+  const u=UPD[i],x=u&&(UNI[u.n]||[])[k];if(!x||!isAdmin()) return;
+  ask(`"${x.n}" ইউনিয়ন মুছে ফেলবেন?`,async()=>{UNI[u.n].splice(k,1);if(await cfgSave("upa")) cmsUpa(i);},true);
+}
+/* --- ক্যাটাগরি --- */
+function cmsCat(){
+  return `<div class="note">নাম ও বিবরণ বদলাতে বা হোমপেজ থেকে লুকাতে পারবেন। লুকানো বিভাগ ব্যবহারকারীরা হোমে দেখবে না।</div>`
+   +CATS.map((c,i)=>`<div class="item">${cmInp("cc_n"+i,"নাম",c.n,40)}${cmInp("cc_d"+i,"বিবরণ",c.d||"",80)}<label class="chk"><input type="checkbox" id="cc_h${i}" ${c.hide?"checked":""}><span>হোমপেজ থেকে লুকান</span></label></div>`).join("")
+   +`<p class="err" id="cm_err" role="alert"></p><button class="btn" onclick="cmsCatSave()">সংরক্ষণ করুন</button><button class="del" style="width:100%;padding:13px" onclick="cmsCatReset()">↩️ সব আগের অবস্থায় ফেরান</button>`;
+}
+async function cmsCatSave(){
+  const nm=CATS.map((c,i)=>cmV("cc_n"+i));
+  if(nm.some(x=>!x)) return cmErr("কোনো নাম ফাঁকা রাখা যাবে না।");
+  CATS.forEach((c,i)=>{c.n=nm[i];c.d=cmV("cc_d"+i);c.hide=!!document.getElementById("cc_h"+i).checked;});
+  cmErr("⏳ সংরক্ষণ হচ্ছে…");
+  if(await cfgSave("cat")) cmsPage();else cmErr("সংরক্ষণ হয়নি, আবার চেষ্টা করুন।");
+}
+function cmsCatReset(){
+  ask("সব ক্যাটাগরির নাম, বিবরণ ও লুকানো অবস্থা আগের মতো করবেন?",async()=>{
+    CATS.forEach(c=>{const o=CATS0.find(x=>x.id===c.id);if(o){c.n=o.n;c.d=o.d;}c.hide=false;});
+    if(await cfgSave("cat")) cmsPage();
+  },true);
+}
+/* --- শিক্ষাপ্রতিষ্ঠান --- */
+function cmsEdu(){
+  const u=UPD[CM.eu]||UPD[0];if(!u) return '<div class="empty">আগে একটি উপজেলা যোগ করুন</div>';
+  const list=(EDU[u.n]&&EDU[u.n][CM.et])||[];
+  return `<label for="ce_u">উপজেলা</label><select id="ce_u" onchange="CM.eu=+this.value;cmsPage()">${UPD.map((x,i)=>`<option value="${i}" ${x.n===u.n?"selected":""}>${esc(x.n)}</option>`).join("")}</select>
+  <div class="chips" style="padding:10px 0">${EDUC.map(c=>`<button class="chip ${CM.et===c.id?"on":""}" onclick="CM.et='${c.id}';cmsPage()">${c.i} ${c.n}</button>`).join("")}</div>`
+   +(list.map((x,k)=>`<div class="item"><h4>${esc(x.t)}</h4><p>${esc(x.desc||"")}</p><div class="cbar"><button class="call" onclick="cmsEduForm(${k})">✏️ সম্পাদনা</button><button class="del" onclick="cmsEduDel(${k})">🗑️ মুছুন</button></div></div>`).join("")||'<div class="empty">এই তালিকায় এখনো কিছু নেই</div>')
+   +`<button class="btn" onclick="cmsEduForm(-1)">➕ নতুন প্রতিষ্ঠান</button>`;
+}
+function cmsEduForm(k){
+  if(!isAdmin()) return;
+  const u=UPD[CM.eu]||UPD[0],c=EDUC.find(x=>x.id===CM.et)||EDUC[0];if(!u) return;
+  const x=k>=0?((EDU[u.n]||{})[c.id]||[])[k]:{t:"",tags:[c.n],desc:""};if(!x) return cmsPage();
+  app.innerHTML=cmTop("cmsPage()",(k>=0?"✏️ ":"➕ ")+esc(u.n)+" · "+c.n)+`<div class="page f">
+    ${cmInp("ce_t","প্রতিষ্ঠানের নাম *",x.t,120)}${cmInp("ce_tags","ট্যাগ (কমা দিয়ে আলাদা করুন, যেমন: কলেজ, সরকারি)",(x.tags||[]).join(", "),120)}
+    <label for="ce_d">বিবরণ (ঠিকানা, যোগাযোগ ইত্যাদি)</label><textarea id="ce_d" maxlength="400">${esc(x.desc||"")}</textarea>
+    <p class="err" id="cm_err" role="alert"></p><button class="btn" onclick="cmsEduSave(${k})">সংরক্ষণ করুন</button></div>`;
+  window.scrollTo(0,0);
+}
+async function cmsEduSave(k){
+  const u=UPD[CM.eu]||UPD[0],c=EDUC.find(x=>x.id===CM.et)||EDUC[0],t=cmV("ce_t");
+  if(t.length<2) return cmErr("প্রতিষ্ঠানের নাম লিখুন।");
+  const tags=cmV("ce_tags").split(",").map(x=>x.trim().slice(0,40)).filter(Boolean).slice(0,8);
+  const o={t,s:u.n,tags:tags.length?tags:[c.n],desc:cmV("ce_d")};
+  const e=EDU[u.n]=EDU[u.n]||{},a=e[c.id]=e[c.id]||[];
+  if(k>=0) a[k]=o;else a.push(o);
+  cmErr("⏳ সংরক্ষণ হচ্ছে…");
+  if(await cfgSave("edu")) cmsPage();else cmErr("সংরক্ষণ হয়নি, আবার চেষ্টা করুন।");
+}
+function cmsEduDel(k){
+  const u=UPD[CM.eu]||UPD[0],c=EDUC.find(x=>x.id===CM.et),a=u&&EDU[u.n]&&EDU[u.n][c.id],x=a&&a[k];if(!x||!isAdmin()) return;
+  ask(`"${x.t}" মুছে ফেলবেন?`,async()=>{a.splice(k,1);if(await cfgSave("edu")) cmsPage();},true);
+}
+
+function noticeForm(){
+  if(!isAdmin()) return;
+  app.innerHTML=`<div class="top"><button onclick="adminPage()" aria-label="পিছনে">←</button><h3>📢 নোটিশ প্রকাশ</h3></div><div class="page f">
+    <div class="note">নোটিশ সবার হোমপেজের ওপরে দেখাবে। নতুন নোটিশ দিলে আগেরটার জায়গায় এটা দেখাবে।</div>
+    <label for="nt_t">শিরোনাম *</label><input id="nt_t" maxlength="80" placeholder="যেমন: রক্তদাতা সংগঠনের সভা শুক্রবার">
+    <label for="nt_d">বিস্তারিত</label><textarea id="nt_d" maxlength="300"></textarea>
+    <p class="err" id="nt_err" role="alert"></p><button class="btn" onclick="postNotice()">প্রকাশ করুন</button></div>`;
+  window.scrollTo(0,0);
+}
+function postNotice(){
+  const v=i=>document.getElementById(i).value.trim(),err=m=>{document.getElementById("nt_err").textContent=m;};
+  if(!isAdmin()) return;
+  if(v("nt_t").length<3) return err("নোটিশের শিরোনাম লিখুন।");
+  savePost("notice",{t:v("nt_t"),desc:v("nt_d"),date:new Date().toLocaleDateString("bn-BD")},err,()=>{NOTICE.t=0;ADM.items=null;ADM.tab="approved";ADM.type="notice";adminPage();});
+}
+
+/* =====================================================================
+   নতুন বিভাগ: হাসপাতাল ও ডাক্তার, আবাসিক হোটেল, রক্তদাতা (৯০ দিনের নিয়মসহ), সমাজসেবা
+   একটি সাধারণ ফর্ম-ব্যবস্থা সবগুলোর জন্য; ক্লাউড চালু থাকলে অ্যাডমিনের অনুমোদনের পর সবাই দেখে
+   ===================================================================== */
+const SECTORS=["সরকারি","বেসরকারি","ক্লিনিক ও ডায়াগনস্টিক"];
+const SPECS=["মেডিসিন","শিশু","গাইনি ও প্রসূতি","হৃদরোগ","চর্ম ও যৌন","নাক-কান-গলা","চক্ষু","হাড় ও জোড়া","সার্জারি","নিউরোলজি","কিডনি","ডায়াবেটিস ও হরমোন","দন্ত","মানসিক রোগ","অন্যান্য"];
+const gList=t=>{try{return JSON.parse(localStorage.getItem("cc_g_"+t)||"[]");}catch(e){return [];}};
+const gSave=(t,a)=>{try{localStorage.setItem("cc_g_"+t,JSON.stringify(a));return true;}catch(e){return false;}};
+const todayISO=()=>{const d=new Date();return d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0");};
+/* রক্তদাতা ৯০ দিন পর আবার রক্ত দিতে পারেন; এর আগে "দিতে পারবেন না" দেখায় */
+function donorWait(last){
+  if(!/^\d{4}-\d{2}-\d{2}$/.test(last||"")) return 0;
+  const d=new Date(last+"T00:00:00");if(isNaN(d.getTime())) return 0;
+  const days=Math.floor((Date.now()-d.getTime())/864e5);
+  return days<0?0:Math.max(0,90-days);
+}
+function itemsOf(type){
+  if(isCloud()) return cloudItems(type).map(p=>cloudItem(p));
+  return gList(type).map(r=>cardFromRaw(type,r,r.id));
+}
+function cardFromRaw(type,raw,id){return cloudItem({id,_type:type,_st:"approved",_uid:SES?SES.uid:"",_raw:raw},true);}
+function delLocal(id,type){
+  ask("এই তথ্য মুছে ফেলবেন?",()=>{gSave(type,gList(type).filter(a=>String(a.id)!==String(id)));toast("মুছে ফেলা হয়েছে");gDone(type);},true);
+}
+
+/* ---------- ফর্মের গঠন: [ঘরের নাম, ধরন, লেবেল, বিকল্প] ---------- */
+const GK=["photo","photos","text","area","lines","select","upa","date","map","url","hosp","pkgs"];
+const FORMS={
+ donor:{title:"রক্তদাতা হিসেবে যোগ হোন",icon:"🩸",back:"openCat('blood')",contact:true,contactReq:true,
+  okText:"আমি চাই লগইন করা সদস্যরা রক্তের প্রয়োজনে আমাকে কল বা WhatsApp করুক। আমি সত্য তথ্য দিচ্ছি।",
+  fields:[["photo","photo","আপনার ছবি"],["t","text","আপনার নাম *",{req:2,max:50,def:()=>myName()}],["grp","select","রক্তের গ্রুপ *",{opts:()=>GROUPS.slice(1)}],["s","upa","উপজেলা *"],["addr","text","ঠিকানা",{max:100}],["last","date","সর্বশেষ কবে রক্ত দিয়েছেন? (না দিয়ে থাকলে ফাঁকা রাখুন)"]],
+  build:v=>({t:v.t,photo:v.photo,grp:v.grp,s:v.s,addr:v.addr,last:v.last,ph:v.ph,wa:v.wa,ok:true,tags:[v.grp]})},
+ hospital:{title:"হাসপাতাল যোগ করুন",icon:"🏥",back:"hospitalPage()",contact:true,contactReq:false,
+  okText:"আমি চাই লগইন করা সদস্যরা এই নম্বরে যোগাযোগ করুক।",
+  fields:[["imgs","photos","হাসপাতালের ছবি (সর্বোচ্চ ৩টি)",{max:3}],["t","text","হাসপাতালের নাম *",{req:3,max:80}],["sector","select","ধরন",{opts:()=>SECTORS}],["s","upa","উপজেলা *"],["addr","text","ঠিকানা",{max:120}],["desc","area","পরিচিতি",{max:400}],["tags","lines","সেবাসমূহ (প্রতি লাইনে একটি)",{ph:"ইমার্জেন্সি\nআইসিইউ\nডায়ালাইসিস",max:8}],["mapurl","map","ম্যাপের লিংক (ঐচ্ছিক)"]],
+  build:v=>({t:v.t,sector:v.sector,s:v.s,addr:v.addr,desc:v.desc,tags:v.tags,imgs:v.imgs,mapurl:v.mapurl,ph:v.ph,wa:v.wa,ok:!!(v.ph||v.wa)})},
+ doctor:{title:"ডাক্তার যোগ করুন",icon:"👨‍⚕️",back:"hospitalPage()",contact:true,contactReq:false,
+  okText:"আমি চাই লগইন করা সদস্যরা সিরিয়ালের জন্য এই নম্বরে কল বা WhatsApp করুক।",
+  fields:[["photo","photo","ডাক্তারের ছবি"],["t","text","ডাক্তারের নাম *",{req:3,max:60}],["hid","hosp","কোন হাসপাতালে বসেন? *"],["sub","text","ডিগ্রি (যেমন: MBBS, FCPS)",{max:80}],["sp","select","বিশেষজ্ঞ বিভাগ *",{opts:()=>SPECS}],["dis","lines","কোন কোন রোগের চিকিৎসা (প্রতি লাইনে একটি)",{ph:"জ্বর\nডায়াবেটিস\nউচ্চ রক্তচাপ",max:8}],["hours","text","রোগী দেখার দিন ও সময়",{max:80}],["fee","text","ভিজিট ফি (টাকা)",{max:8}]],
+  build:v=>({t:v.t,sub:v.sub,photo:v.photo,hid:v.hid,hname:(hospAll().find(h=>String(h.id)===String(v.hid))||{}).t||"",tags:[v.sp,...v.dis],hours:v.hours,fee:v.fee.replace(/[^\d]/g,""),ph:v.ph,wa:v.wa,ok:!!(v.ph||v.wa)})},
+ hotel:{title:"আবাসিক হোটেল যোগ করুন",icon:"🏨",back:"hotelPage()",contact:true,contactReq:true,
+  okText:"আমি চাই লগইন করা সদস্যরা বুকিংয়ের জন্য এই নম্বরে কল বা WhatsApp করুক।",
+  fields:[["imgs","photos","হোটেলের ছবি (সর্বোচ্চ ৫টি)",{max:5}],["t","text","হোটেলের নাম *",{req:3,max:80}],["s","upa","উপজেলা *"],["addr","text","ঠিকানা *",{req:3,max:120}],["desc","area","পরিচিতি",{max:400}],["pkgs","pkgs","রুম ও প্যাকেজ (নাম ও দাম দিলে যোগ হবে)"],["tags","lines","সুবিধাসমূহ (প্রতি লাইনে একটি)",{ph:"এসি\nওয়াইফাই\nপার্কিং",max:10}],["mapurl","map","ম্যাপের লিংক (ঐচ্ছিক)"]],
+  build:v=>({t:v.t,s:v.s,addr:v.addr,desc:v.desc,pkgs:v.pkgs,tags:v.tags,imgs:v.imgs,mapurl:v.mapurl,ph:v.ph,wa:v.wa,ok:true})},
+ social:{title:"সংগঠন যোগ করুন",icon:"🤝",back:"orgPage()",contact:true,contactReq:false,
+  okText:"আমি চাই লগইন করা সদস্যরা এই নম্বরে যোগাযোগ করুক।",
+  fields:[["photo","photo","সংগঠনের লোগো"],["imgs","photos","কাজের ছবি (সর্বোচ্চ ৫টি)",{max:5}],["t","text","সংগঠনের নাম *",{req:3,max:80}],["s","upa","উপজেলা *"],["addr","text","ঠিকানা",{max:120}],["desc","area","পরিচিতি ও কাজ",{max:400}],["tags","lines","কাজের ক্ষেত্র (প্রতি লাইনে একটি)",{ph:"রক্তদান\nশিক্ষা সহায়তা",max:8}],["url","url","ফেসবুক পেজের লিংক (ঐচ্ছিক)"]],
+  build:v=>({t:v.t,photo:v.photo,imgs:v.imgs,s:v.s,addr:v.addr,desc:v.desc,tags:v.tags,url:v.url,ph:v.ph,wa:v.wa,ok:!!(v.ph||v.wa)})}
+};
+function hospAll(){
+  const s=HOSP_S.map(h=>({id:h.id,t:h.t})),c=itemsOf("hospital").filter(h=>!h.tags||(!h.tags.includes("⏳ অনুমোদনের অপেক্ষায়")&&!h.tags.includes("❌ অনুমোদন হয়নি"))).map(h=>({id:h.id,t:h.t}));
+  return [...s,...c];
+}
+function gFieldHTML(f,pre){
+  const k=f[0],kind=f[1],label=f[2],o=f[3]||{},id="g_"+k;
+  const val=pre&&pre[k]!=null?pre[k]:(o.def?o.def():"");
+  if(kind==="photo") return photoField(id,1,label,"");
+  if(kind==="photos") return photoField(id,o.max||5,label,"");
+  if(kind==="text") return `<label for="${id}">${label}</label><input id="${id}" maxlength="${o.max||80}" value="${esc(val)}">`;
+  if(kind==="area") return `<label for="${id}">${label}</label><textarea id="${id}" maxlength="${o.max||400}"></textarea>`;
+  if(kind==="lines") return `<label for="${id}">${label}</label><textarea id="${id}" maxlength="500" placeholder="${esc(o.ph||"")}"></textarea>`;
+  if(kind==="select") return `<label for="${id}">${label}</label><select id="${id}">${o.opts().map(x=>`<option>${esc(x)}</option>`).join("")}</select>`;
+  if(kind==="upa") return `<label for="${id}">${label}</label><select id="${id}">${UPAZILAS.map(x=>`<option>${x}</option>`).join("")}</select>`;
+  if(kind==="date") return `<label for="${id}">${label}</label><input id="${id}" type="date" max="${todayISO()}">`;
+  if(kind==="map") return `<label for="${id}">${label}</label><input id="${id}" type="url" inputmode="url" autocapitalize="none" maxlength="300" placeholder="https://maps.app.goo.gl/...">`;
+  if(kind==="url") return `<label for="${id}">${label}</label><input id="${id}" type="url" inputmode="url" autocapitalize="none" maxlength="300" placeholder="https://facebook.com/...">`;
+  if(kind==="hosp") return `<label for="${id}">${label}</label><select id="${id}">${hospAll().map(h=>`<option value="${esc(String(h.id))}" ${pre&&String(pre.hid)===String(h.id)?"selected":""}>${esc(h.t)}</option>`).join("")}</select>`;
+  if(kind==="pkgs") return `<label>${label}</label>${[0,1,2,3,4].map(i=>`<div class="item cvrow" style="margin-top:8px"><input id="${id}n${i}" maxlength="50" placeholder="প্যাকেজ বা রুমের নাম (যেমন: ডাবল রুম, এসি)"><div class="row2"><input id="${id}p${i}" type="tel" inputmode="numeric" maxlength="7" placeholder="দাম (টাকা)"><input id="${id}d${i}" maxlength="70" placeholder="যা যা পাবেন (যেমন: ১ রাত, নাস্তাসহ)"></div></div>`).join("")}`;
+  return "";
+}
+function gForm(type,pre){
+  const F=FORMS[type];if(!F) return;
+  if(!needAuth(()=>gForm(type,pre))) return;
+  const m=getMe();
+  app.innerHTML=`<div class="top"><button onclick="${F.back}" aria-label="পিছনে">←</button><h3>${F.icon} ${F.title}</h3></div><div class="page f">
+    ${F.fields.map(f=>gFieldHTML(f,pre)).join("")}
+    ${F.contact?`<label for="g_wa">WhatsApp নম্বর</label><input id="g_wa" type="tel" inputmode="numeric" maxlength="11" placeholder="01XXXXXXXXX" value="${esc(m.wa||"")}"><label for="g_ph">কল নম্বর</label><input id="g_ph" type="tel" inputmode="numeric" maxlength="11" placeholder="01XXXXXXXXX" value="${esc(m.ph||"")}"><label class="chk"><input type="checkbox" id="g_ok"><span>${F.okText}</span></label>`:""}
+    <p class="err" id="g_err" role="alert"></p>
+    <button class="btn" onclick="gPost('${type}')">${isCloud()&&!isAdmin()?"জমা দিন (অনুমোদনের জন্য)":"প্রকাশ করুন"}</button>
+    ${isCloud()&&!isAdmin()?'<p class="fine">জমা দেওয়া তথ্য অ্যাডমিন দেখে অনুমোদন দিলে সবাই দেখতে পাবে।</p>':""}</div>`;
+  F.fields.forEach(f=>{if(f[1]==="photo"||f[1]==="photos") renderThumbs("g_"+f[0]);});
+  window.scrollTo(0,0);
+}
+function gVals(type){
+  const F=FORMS[type],v={},g=id=>{const e=document.getElementById(id);return e&&e.value!=null?String(e.value).trim():"";};
+  F.fields.forEach(f=>{
+    const k=f[0],kind=f[1],o=f[3]||{},id="g_"+k;
+    if(kind==="photo") v[k]=(PICK[id]||[])[0]||"";
+    else if(kind==="photos") v[k]=(PICK[id]||[]).slice(0,o.max||5);
+    else if(kind==="lines") v[k]=g(id).split("\n").map(x=>x.trim().slice(0,60)).filter(Boolean).slice(0,o.max||8);
+    else if(kind==="pkgs") v[k]=[0,1,2,3,4].map(i=>({n:g(id+"n"+i).slice(0,50),p:g(id+"p"+i).replace(/[^\d]/g,"").slice(0,7),d:g(id+"d"+i).slice(0,70)})).filter(x=>x.n&&x.p);
+    else v[k]=g(id);
+  });
+  v.ph=g("g_ph");v.wa=g("g_wa");
+  return v;
+}
+function gPost(type){
+  const F=FORMS[type];if(!F) return;
+  if(!SES||!SES.verified) return needAuth(()=>gForm(type));
+  const err=m=>{document.getElementById("g_err").textContent=m;};
+  const v=gVals(type);
+  for(const f of F.fields){
+    const k=f[0],kind=f[1],label=f[2],o=f[3]||{};
+    if(o.req&&String(v[k]||"").length<o.req) return err("\""+label.replace(" *","")+"\" লিখুন।");
+    if(kind==="upa"&&label.includes("*")&&!v[k]) return err("উপজেলা বাছুন।");
+    if(kind==="map"&&v[k]&&!MAP_RE.test(v[k])) return err("ম্যাপের লিংক Google Maps-এর হতে হবে।");
+    if(kind==="url"&&v[k]&&!/^https:\/\//.test(v[k])) return err("লিংক https:// দিয়ে শুরু হতে হবে।");
+    if(kind==="date"&&v[k]&&(!/^\d{4}-\d{2}-\d{2}$/.test(v[k])||v[k]>todayISO())) return err("তারিখ ঠিক নেই। আজকের বা আগের তারিখ দিন।");
+    if(kind==="hosp"&&!v[k]) return err("হাসপাতাল বাছুন।");
+  }
+  if(type==="hotel"&&!v.pkgs.length) return err("অন্তত একটি রুম বা প্যাকেজের নাম ও দাম দিন।");
+  if(F.contact){
+    const any=!!(v.ph||v.wa);
+    if(F.contactReq||any){
+      const pe=phoneErr(v.ph,v.wa);if(pe) return err(pe);
+      const ok=document.getElementById("g_ok");if(!ok||!ok.checked) return err("নম্বর দেখানোর সম্মতির ঘরে টিক দিন।");
+    }
+  }
+  const raw=F.build(v);
+  if(isCloud()) return savePost(type,raw,err,()=>gDone(type,raw));
+  const a=gList(type);a.unshift({id:Date.now(),...raw});
+  if(!gSave(type,a.slice(0,40))) return err("সংরক্ষণ করা গেল না। ছবির কারণে স্টোরেজ ভরে গেছে হতে পারে। পুরনো তথ্য মুছুন বা কম ছবি দিন।");
+  toast("সংরক্ষিত হয়েছে ✓");gDone(type,raw);
+}
+function gDone(type,raw){
+  if(type==="donor") return bloodPage();
+  if(type==="hospital") return hospitalPage();
+  if(type==="doctor") return raw&&raw.hid?hospitalDetail(raw.hid):hospitalPage();
+  if(type==="hotel") return hotelPage();
+  if(type==="social") return orgPage();
+}
+
+/* ---------- রক্তদাতা ---------- */
+function bloodPage(){
+  ensureCloud("donor","donor",bloodPage);
+  let list=[...itemsOf("donor"),...DATA.blood];
+  if(group!=="সব") list=list.filter(x=>x.tags&&x.tags[0]===group);
+  list=list.map((x,i)=>[x,i]).sort((a,b)=>((a[0].blocked?1:0)-(b[0].blocked?1:0))||(a[1]-b[1])).map(x=>x[0]);
+  const chips=`<div class="chips">${GROUPS.map(g=>`<button class="chip ${g===group?"on":""}" onclick="group='${g}';bloodPage()">${g}</button>`).join("")}</div>`;
+  app.innerHTML=`<div class="top"><button onclick="home()" aria-label="পিছনে">←</button><h3>🩸 রক্তদাতা</h3></div>${chips}
+  <div class="page">
+    <button class="btn" onclick="gForm('donor')">🩸 রক্তদাতা হিসেবে যোগ হোন</button>
+    <div class="note">ℹ️ একজন রক্তদাতা রক্ত দেওয়ার <b>৯০ দিন পর</b> আবার দিতে পারেন। এর মধ্যে তাঁকে "দিতে পারবেন না" দেখানো হয় এবং যোগাযোগের বাটন বন্ধ থাকে। ${isCloud()?"নতুন দাতার তথ্য অ্যাডমিনের অনুমোদনের পর সবাই দেখবে।":""} জরুরি হলে <a href="tel:999" style="color:var(--b)">৯৯৯</a> বা হাসপাতালের ব্লাড ব্যাংকে যোগাযোগ করুন।</div>
+    ${cloudNote("donor","donor")}
+    ${list.map(it=>card(it,"blood")).join("")||'<div class="empty">এই গ্রুপের কোনো দাতা এখনো নেই</div>'}</div>`;
+  window.scrollTo(0,0);
+}
+function donorGave(id){
+  ask("আজ রক্ত দিয়েছেন? আগামী ৯০ দিন আপনাকে \"রক্ত দিতে পারবেন না\" হিসেবে দেখানো হবে।",async()=>{
+    const today=todayISO();
+    if(isCloud()){
+      const p=cloudItems("donor").find(x=>String(x.id)===String(id));if(!p) return;
+      try{await fsReq("PATCH","/posts/"+safeId(id)+"?updateMask.fieldPaths=json",{fields:{json:{stringValue:JSON.stringify({...p._raw,last:today})}}},true);}
+      catch(e){return toast(cloudMsg(e));}
+      delete CACHE.donor;
+    }else gSave("donor",gList("donor").map(a=>String(a.id)===String(id)?{...a,last:today}:a));
+    toast("ধন্যবাদ! আপনার রক্তদান জীবন বাঁচায় ❤️");bloodPage();
+  });
+}
+
+/* ---------- সমাজসেবা ---------- */
+function orgPage(){
+  ensureCloud("social","social",orgPage);
+  const list=[...itemsOf("social"),...DATA.org];
+  app.innerHTML=`<div class="top"><button onclick="home()" aria-label="পিছনে">←</button><h3>🤝 সমাজসেবা</h3></div><div class="page">
+    <button class="btn" onclick="gForm('social')">➕ সংগঠন যোগ করুন (লোগো ও ছবিসহ)</button>
+    <div class="note">${isCloud()?"নতুন সংগঠনের তথ্য অ্যাডমিনের অনুমোদনের পর সবাই দেখবে।":"যোগ করা তথ্য এখন শুধু এই ফোনে থাকে (নমুনা)।"} \"নমুনা\" লেখা তথ্য উদাহরণ মাত্র।</div>
+    ${cloudNote("social","social")}${list.map(it=>card(it,"org")).join("")}</div>`;
+  window.scrollTo(0,0);
+}
+
+/* ---------- আবাসিক হোটেল ---------- */
+let hotS="সব";
+const HOTEL_S=[{id:"hs0",t:"নমুনা আবাসিক হোটেল",s:"চাঁদপুর সদর",addr:"স্টেশন রোড, চাঁদপুর",desc:"এটি উদাহরণ মাত্র। আসল হোটেলের মালিক নিজের তথ্য যোগ করলে অ্যাডমিনের অনুমোদনের পর এখানে দেখাবে।",tags:["এসি","ওয়াইফাই","পার্কিং"],pkgs:[{n:"সিঙ্গেল রুম (নন-এসি)",p:"800",d:"১ রাত"},{n:"ডাবল রুম (এসি)",p:"1500",d:"১ রাত, নাস্তাসহ"},{n:"ফ্যামিলি প্যাকেজ",p:"2500",d:"৪ জন, ১ রাত"}]}];
+function hotelPage(){
+  ensureCloud("hotel","hotel",hotelPage);
+  let list=[...itemsOf("hotel"),...HOTEL_S];
+  if(hotS!=="সব") list=list.filter(x=>x.s===hotS);
+  const chips=`<div class="chips">${["সব",...UPAZILAS].map(g=>`<button class="chip ${g===hotS?"on":""}" data-v="${esc(g)}" onclick="hotS=this.dataset.v;hotelPage()">${esc(g)}</button>`).join("")}</div>`;
+  app.innerHTML=`<div class="top"><button onclick="home()" aria-label="পিছনে">←</button><h3>🏨 আবাসিক হোটেল</h3></div>${chips}<div class="page">
+    <button class="btn" onclick="gForm('hotel')">➕ আপনার হোটেল যোগ করুন</button>
+    <div class="note">প্রতি রাতের ভাড়া ও প্যাকেজ হোটেলে ফোন করে একবার মিলিয়ে নিন, কারণ দাম বদলাতে পারে। ${isCloud()?"নতুন হোটেল অ্যাডমিনের অনুমোদনের পর সবাই দেখবে।":"যোগ করা তথ্য এখন শুধু এই ফোনে থাকে (নমুনা)।"}</div>
+    ${cloudNote("hotel","hotel")}${list.map(it=>card(it,"hotel")).join("")||'<div class="empty">এই এলাকায় এখনো কোনো হোটেল যোগ হয়নি</div>'}</div>`;
+  window.scrollTo(0,0);
+}
+
+/* ---------- হাসপাতাল ও ডাক্তার ---------- */
+const HOSP_UP=["চাঁদপুর সদর","হাজীগঞ্জ","শাহরাস্তি","কচুয়া","মতলব উত্তর","মতলব দক্ষিণ","ফরিদগঞ্জ","হাইমচর"];
+const HOSP_S=[{id:"s0",t:"চাঁদপুর ২৫০ শয্যা সরকারি জেনারেল হাসপাতাল",s:"চাঁদপুর সদর",tags:["সরকারি","২৫০ শয্যা"],desc:"জেলার প্রধান সরকারি হাসপাতাল (সদর হাসপাতাল)। বিভাগ ও রোগী দেখার সময় হাসপাতালে একবার খোঁজ নিয়ে নিন।",map:"চাঁদপুর ২৫০ শয্যা সরকারি জেনারেল হাসপাতাল"},
+ ...HOSP_UP.slice(1).map((u,i)=>({id:"s"+(i+1),t:u+" উপজেলা স্বাস্থ্য কমপ্লেক্স",s:u,tags:["সরকারি","উপজেলা স্বাস্থ্য কমপ্লেক্স"],desc:"উপজেলার সরকারি স্বাস্থ্যসেবা কেন্দ্র। বিভাগ ও ডাক্তারের সময় সরাসরি খোঁজ নিন।",map:u+" উপজেলা স্বাস্থ্য কমপ্লেক্স চাঁদপুর"}))];
+let hsp="সব",hdsp="সব";
+function hospItems(){
+  return [...itemsOf("hospital"),...HOSP_S.map(h=>({...h,go:"hospitalDetail('"+h.id+"')",act:{l:"👨‍⚕️ ডাক্তার ও রোগের তালিকা",fn:"hospitalDetail('"+h.id+"')"}}))];
+}
+function hospResults(q){
+  q=String(q||"").trim().toLowerCase();
+  let hs=hospItems();if(hsp!=="সব") hs=hs.filter(x=>x.s===hsp);
+  const docs=itemsOf("doctor");
+  const hit=d=>[d.t,d.sub,d.hname,...(d.tags||[])].join(" ").toLowerCase().includes(q);
+  if(!q) return hs.map(it=>card(it,"hosp")).join("")||'<div class="empty">এই এলাকায় কোনো হাসপাতাল নেই</div>';
+  const dm=docs.filter(hit).map(d=>({...d,act:{l:"🏥 "+(d.hname||"হাসপাতাল")+" দেখুন",fn:"hospitalDetail("+idArg(d.hid||"")+")"}}));
+  const hm=hs.filter(h=>[h.t,h.s,...(h.tags||[])].join(" ").toLowerCase().includes(q));
+  return (dm.length?`<h2 style="margin:18px 0 0">👨‍⚕️ ডাক্তার (${bn(dm.length)})</h2>`+dm.map(it=>card(it,"doc")).join(""):"")+(hm.length?`<h2 style="margin:18px 0 0">🏥 হাসপাতাল (${bn(hm.length)})</h2>`+hm.map(it=>card(it,"hosp")).join(""):"")||'<div class="empty">কিছু পাওয়া যায়নি। অন্য শব্দে খুঁজুন।</div>';
+}
+function hospSearch(v){const r=document.getElementById("hres");if(r) r.innerHTML=hospResults(v);}
+function hospitalPage(){
+  ensureCloud("hospital","hosp",hospitalPage);ensureCloud("doctor","hosp",hospitalPage);
+  const chips=`<div class="chips">${["সব",...HOSP_UP].map(g=>`<button class="chip ${g===hsp?"on":""}" data-v="${esc(g)}" onclick="hsp=this.dataset.v;hospitalPage()">${esc(g)}</button>`).join("")}</div>`;
+  app.innerHTML=`<div class="top"><button onclick="home()" aria-label="পিছনে">←</button><h3>🏥 হাসপাতাল</h3></div>
+  <div class="search" style="margin:14px 16px 0"><span>🔍</span><input id="hq" type="search" autocomplete="off" placeholder="রোগ, বিভাগ বা ডাক্তারের নাম লিখুন…" oninput="hospSearch(this.value)"></div>${chips}
+  <div class="page">
+    <div class="cbar"><a class="call" style="background:linear-gradient(135deg,#e53935,#c62828)" href="tel:999">🚨 জরুরি ৯৯৯</a><button class="call" onclick="gForm('hospital')">➕ হাসপাতাল যোগ করুন</button><button class="call" style="background:linear-gradient(135deg,#6a3fb5,#8e5ce0)" onclick="gForm('doctor')">👨‍⚕️ ডাক্তার যোগ করুন</button></div>
+    <div class="note">হাসপাতালে ট্যাপ করে "ডাক্তার ও রোগের তালিকা" দেখুন। রোগের নাম বা বিভাগ লিখে খুঁজলে ডাক্তার সরাসরি পাবেন। রোগী দেখার সময় ও ফি বদলাতে পারে, তাই যাওয়ার আগে ফোনে মিলিয়ে নিন। ${isCloud()?"নতুন তথ্য অ্যাডমিনের অনুমোদনের পর সবাই দেখবে।":""}</div>
+    ${cloudNote("hospital","hosp")}<div id="hres">${hospResults("")}</div></div>`;
+  window.scrollTo(0,0);
+}
+function hospitalDetail(id){
+  ensureCloud("hospital","hd",()=>hospitalDetail(id));ensureCloud("doctor","hd",()=>hospitalDetail(id));
+  const h=hospItems().find(x=>String(x.id)===String(id));
+  let body;
+  if(!h) body=`<i data-pg="hd" hidden></i><div class="empty">${isCloud()&&(!CACHE.hospital||CACHE.hospital.busy)?"⏳ তথ্য আনা হচ্ছে…":"হাসপাতালটি পাওয়া যায়নি"}</div>`;
+  else{
+    const docs=itemsOf("doctor").filter(d=>String(d.hid)===String(id));
+    const sps=[...new Set(docs.map(d=>(d.tags||[])[0]).filter(Boolean))];
+    const shown=hdsp==="সব"?docs:docs.filter(d=>(d.tags||[])[0]===hdsp);
+    body=`<i data-pg="hd" hidden></i>${card({...h,act:null,go:null},"hosp")}
+    <h2 style="margin:20px 0 0">👨‍⚕️ ডাক্তার ও রোগের তালিকা</h2>
+    ${sps.length?`<div class="chips" style="padding:10px 0 0">${["সব",...sps].map(g=>`<button class="chip ${g===hdsp?"on":""}" data-v="${esc(g)}" onclick="hdsp=this.dataset.v;hospitalDetail('${safeId(id)}')">${esc(g)}</button>`).join("")}</div>`:""}
+    ${shown.map(d=>card(d,"doc")).join("")||'<div class="note">এই হাসপাতালের ডাক্তারের তালিকা এখনো যোগ হয়নি। আপনি জানলে নিচের বাটন দিয়ে যোগ করুন।</div>'}
+    <button class="btn alt" onclick="gForm('doctor',{hid:'${safeId(id)}'})">👨‍⚕️ এই হাসপাতালে ডাক্তার যোগ করুন</button>`;
+  }
+  app.innerHTML=`<div class="top"><button onclick="hospitalPage()" aria-label="পিছনে">←</button><h3>🏥 হাসপাতাল</h3></div><div class="page">${body}</div>`;
+  window.scrollTo(0,0);
+}
+
 /* ---------- উপ-বিভাগ ---------- */
 const SUBCATS={
  transport:[
@@ -1623,13 +2812,15 @@ function waLink(r){
   return "https://wa.me/"+num+"?text="+encodeURIComponent(msg);
 }
 function reportPage(){
-  const rs=myReports();
+  ensureCloud("report","report",reportPage);
+  const rs=isCloud()?[]:myReports();
+  const cl=isCloud()?cloudItems("report").map(p=>cloudItem(p)):[];
   app.innerHTML=`<div class="top"><button onclick="openCat('gov')">←</button><h3>📢 নাগরিক সমস্যা জানান</h3></div>
   <div class="page">
     <button class="btn" onclick="reportForm()">➕ নতুন সমস্যা জানান</button>
-    <div class="note">জরুরি বিপদে অ্যাপে লিখে বসে থাকবেন না, সরাসরি কল করুন। এখন জমা দেওয়া সমস্যা শুধু আপনার ফোনে সংরক্ষিত থাকে। সবার জন্য দেখানো ও কর্তৃপক্ষের কাছে পাঠানোর ব্যবস্থা পরের ধাপে আসবে।</div>
+    <div class="note">জরুরি বিপদে অ্যাপে লিখে বসে থাকবেন না, সরাসরি কল করুন। ${isCloud()?"জমা দেওয়া সমস্যা সবাই দেখতে পাবে। সমাধান হলে অ্যাডমিন চিহ্ন দেবেন।":"এখন জমা দেওয়া সমস্যা শুধু আপনার ফোনে সংরক্ষিত থাকে।"}</div>${cloudNote("report","report")}
     <a class="call" style="background:#c62828" href="tel:999">🚨 জরুরি ৯৯৯</a> <a class="call" href="tel:333">☎️ সরকারি তথ্যসেবা ৩৩৩</a>
-    ${rs.map(r=>card({t:r.type+" — "+r.place,s:r.s,desc:r.text,tags:["জমা: "+r.date,"শুধু আপনার ফোনে"],mine:true,delfn:"delReport",id:r.id,share:waLink(r)},"report")).join("")||'<div class="empty">আপনি এখনো কোনো সমস্যা জমা দেননি</div>'}
+    ${cl.map(it=>card(it,"report")).join("")+rs.map(r=>card({t:r.type+" — "+r.place,s:r.s,desc:r.text,tags:["জমা: "+r.date,"শুধু আপনার ফোনে"],mine:true,delfn:"delReport",id:r.id,share:waLink(r)},"report")).join("")||'<div class="empty">এখনো কোনো সমস্যা জমা হয়নি</div>'}
   </div>`;
   window.scrollTo(0,0);
 }
@@ -1654,8 +2845,9 @@ function postReport(){
   const place=v("r_pl"),text=v("r_d");
   if(place.length<3) return err("নির্দিষ্ট জায়গার নাম লিখুন।");
   if(text.length<10) return err("সমস্যার বিবরণ আরেকটু বিস্তারিত লিখুন।");
-  const rs=myReports();
-  rs.unshift({id:Date.now(),type:v("r_type"),s:v("r_s"),place,text,date:new Date().toLocaleDateString("bn-BD")});
+  const item={type:v("r_type"),s:v("r_s"),place,text,date:new Date().toLocaleDateString("bn-BD")};
+  if(isCloud()) return savePost("report",item,err,reportPage);
+  const rs=myReports();rs.unshift({id:Date.now(),...item});
   if(!saveReports(rs.slice(0,50))) return err("সংরক্ষণ করা গেল না। ব্রাউজারের স্টোরেজ বন্ধ থাকতে পারে।");
   reportPage();
 }
@@ -1666,26 +2858,93 @@ function delReport(id){
   },true);
 }
 
+/* ---------- ১০ দিনের মেয়াদ: পুরনো বিজ্ঞাপন আর দেখানো হয় না, মালিক বা অ্যাডমিন অ্যাপ খুললে মুছে যায় ---------- */
+const AD_DAYS=10,AD_MS=AD_DAYS*864e5,AD_GONE=new Set();
+const adExpired=it=>!!it.at&&Date.now()-it.at>AD_MS;
+const adLeft=it=>it.at?Math.max(1,Math.ceil((it.at+AD_MS-Date.now())/864e5)):AD_DAYS;
+function adSweepLocal(){
+  try{const l=myAds(),k=l.filter(a=>!adExpired({at:a.at||a.id}));if(k.length!==l.length) saveAds(k);}catch(e){}
+}
+function adSweepCloud(items){
+  if(!isCloud()||!SES||!SES.verified) return;
+  const now=Date.now();
+  (items||[]).filter(p=>p&&p._type==="ad"&&p._at&&now-p._at>AD_MS&&!AD_GONE.has(p.id)&&(isAdmin()||p._uid===SES.uid))
+    .forEach(p=>{AD_GONE.add(p.id);fsReq("DELETE","/posts/"+safeId(p.id),null,true).catch(()=>{});});
+}
+
 /* ---------- ক্রয়-বিক্রয় ---------- */
-const TYPES=["সব","মোবাইল","ইলেকট্রনিক্স","আসবাব","যানবাহন","কৃষিপণ্য","পোশাক","অন্যান্য"];
+const TYPES=["সব","মোবাইল","ইলেকট্রনিক্স","আসবাব","যানবাহন","বাসা-বাড়ি","কৃষিপণ্য","পোশাক","অন্যান্য"];
 const UPAZILAS=["চাঁদপুর সদর","হাজীগঞ্জ","শাহরাস্তি","কচুয়া","মতলব উত্তর","মতলব দক্ষিণ","ফরিদগঞ্জ","হাইমচর"];
-let mtype="সব";
+let mtype="সব",hsub="সব",mcond="সব";
 function myAds(){try{return JSON.parse(localStorage.getItem("cc_ads")||"[]");}catch(e){return [];}}
 function saveAds(a){try{localStorage.setItem("cc_ads",JSON.stringify(a));return true;}catch(e){return false;}}
 
+const MK_EMO={"মোবাইল":"📱","ইলেকট্রনিক্স":"💻","আসবাব":"🛋️","যানবাহন":"🚲","বাসা-বাড়ি":"🏠","কৃষিপণ্য":"🌾","পোশাক":"👕","অন্যান্য":"📦"};
+let mkSort="new",mkQ="",mkFav=false,MKALL=[],MKL=[],MKY=0;
+const mkFavs=()=>{try{return JSON.parse(localStorage.getItem("cc_fav")||"[]");}catch(e){return [];}};
+const mkKey=it=>String(it.id!=null?it.id:it.t);
+const bnToEn=s=>String(s).replace(/[০-৯]/g,d=>"০১২৩৪৫৬৭৮৯".indexOf(d));
+function adPrice(it){
+  if(typeof it.price==="number"&&it.price>0) return it.price;
+  const m=bnToEn((it.tags||[])[0]||"").replace(/,/g,"").match(/\d+/);
+  return m?+m[0]:0;
+}
+function mkToggleFav(i,ev){
+  if(ev) ev.stopPropagation();
+  const it=MKL[i];if(!it) return;
+  const k=mkKey(it);let f=mkFavs();
+  f=f.includes(k)?f.filter(x=>x!==k):[k,...f].slice(0,200);
+  try{localStorage.setItem("cc_fav",JSON.stringify(f));}catch(e){}
+  mkGrid();
+}
+function mkCard(it,i,favs){
+  const img=safeImg((it.imgs||[])[0]),tg=it.tags||[],t0=String(tg[0]||"");
+  const pend=tg.includes("⏳ অনুমোদনের অপেক্ষায়"),rej=tg.includes("❌ অনুমোদন হয়নি"),house=it.type==="বাসা-বাড়ি";
+  const badge=pend?"⏳ অপেক্ষমাণ":rej?"❌ বাতিল":house?(t0.includes("ভাড়া")?"ভাড়া":"বিক্রয়"):(it.type||"");
+  const unit=house&&t0.includes("মাসিক")?"/মাস":house&&t0.includes("দৈনিক")?"/দিন":"";
+  const pr=adPrice(it),fav=favs.has(mkKey(it));
+  return `<div class="mkc" onclick="adView(${i})"><div class="mkv">${img?`<img src="${img}" alt="" loading="lazy">`:`<span>${MK_EMO[it.type]||"📦"}</span>`}<em class="mkb">${esc(badge)}</em><button class="mkh ${fav?"on":""}" onclick="mkToggleFav(${i},event)" aria-label="পছন্দ">${fav?"♥":"♡"}</button></div><div class="mki"><h4>${esc(it.t)}</h4><b>${pr?"৳ "+esc(bnNum(pr))+unit:"দাম আলোচনায়"}</b><small>📍 ${esc(it.s||"")}${it.cond?" · "+(it.cond==="নতুন"?"🆕 নতুন":"♻️ পুরাতন"):""}</small></div></div>`;
+}
+function mkGrid(){
+  const g=document.getElementById("mkgrid");if(!g) return;
+  const favs=new Set(mkFavs()),q=mkQ.trim().toLowerCase();
+  let l=MKALL.filter(it=>(mtype==="সব"||it.type===mtype)
+    &&(mtype!=="বাসা-বাড়ি"||hsub==="সব"||String((it.tags||[])[0]||"").includes(hsub))
+    &&(mcond==="সব"||it.cond===mcond)
+    &&(!mkFav||favs.has(mkKey(it)))
+    &&(!q||[it.t,it.s,it.type,it.desc].join(" ").toLowerCase().includes(q)));
+  if(mkSort==="low") l=l.map((x,i)=>[x,i]).sort((a,b)=>(adPrice(a[0])-adPrice(b[0]))||(a[1]-b[1])).map(x=>x[0]);
+  else if(mkSort==="high") l=l.map((x,i)=>[x,i]).sort((a,b)=>(adPrice(b[0])-adPrice(a[0]))||(a[1]-b[1])).map(x=>x[0]);
+  MKL=l;
+  g.innerHTML=l.map((it,i)=>mkCard(it,i,favs)).join("")||'<div class="empty" style="grid-column:1/-1">কিছু পাওয়া যায়নি</div>';
+  const n=document.getElementById("mkn");if(n) n.textContent=bn(l.length)+"টি বিজ্ঞাপন";
+}
 function market(){
-  const all=[...myAds().map(a=>({...a,mine:true})),...DATA.market];
-  const list=mtype==="সব"?all:all.filter(x=>x.type===mtype);
-  const chips=`<div class="chips">${TYPES.map(g=>`<button class="chip ${g===mtype?'on':''}" onclick="mtype='${g}';market()">${g}</button>`).join("")}</div>`;
-  app.innerHTML=`<div class="top"><button onclick="home()">←</button><h3>${MKT(28)} ক্রয়-বিক্রয়</h3></div>
-  <div class="mkban"><div class="mkl">${MKT(56)}</div><div><b>কিনুন · বেচুন · সাশ্রয় করুন</b><span>চাঁদপুরের আপনার নিজস্ব বাজার</span></div><i class="fl f1">৳</i><i class="fl f2">🛍️</i></div>${chips}
-  <div class="page">
-    <button class="btn" onclick="sellForm()">➕ বিক্রির বিজ্ঞাপন দিন</button>
-    <div class="note">⚠️ সতর্কতা: আগে টাকা পাঠাবেন না। পণ্য দেখে, জনসমাগমের জায়গায় লেনদেন করুন। আপনার দেওয়া বিজ্ঞাপন এখন শুধু এই ফোনে সংরক্ষিত থাকছে (নমুনা)। সবার জন্য দেখানো Firebase ধাপে যোগ হবে।</div>
-    ${list.map(it=>card(it,"market")).join("")||'<div class="empty">এই ধরনের কোনো পণ্য নেই</div>'}
+  ensureCloud("ad","ad",market);
+  adSweepLocal();adSweepCloud(cloudItems("ad"));
+  MKALL=[...(isCloud()?cloudItems("ad").map(p=>cloudItem(p)):myAds().map(a=>({...a,mine:true,exp:true,at:a.at||a.id}))),...DATA.market].filter(it=>!adExpired(it));
+  const cats=TYPES.map(g=>`<button class="mkt ${g===mtype?"on":""}" onclick="mtype='${g}';hsub='সব';market()"><i>${g==="সব"?"✨":MK_EMO[g]}</i><span>${g}</span></button>`).join("");
+  const sub=mtype==="বাসা-বাড়ি"?`<div class="chips" style="padding:10px 0 0">${["সব","বিক্রয়","ভাড়া"].map(g=>`<button class="chip ${g===hsub?"on":""}" onclick="hsub='${g}';market()">${g}</button>`).join("")}</div>`:"";
+  app.innerHTML=`<div class="top"><button onclick="home()" aria-label="পিছনে">←</button><h3>${MKT(28)} ক্রয়-বিক্রয়</h3></div>
+  <div class="mkw">
+    <div class="mksr"><span>🔍</span><input id="mkq" type="search" autocomplete="off" placeholder="পণ্য খুঁজুন" value="${esc(mkQ)}" oninput="mkQ=this.value;mkGrid()"></div>
+    <button class="mksell" onclick="sellForm()">＋ বিক্রির বিজ্ঞাপন দিন</button>
+    <div class="mkts">${cats}</div>${sub}
+    <div class="chips" style="padding:10px 0 0">${["সব","নতুন","পুরাতন"].map(g=>`<button class="chip ${g===mcond?"on":""}" onclick="mcond='${g}';market()">${g==="সব"?"সব অবস্থা":g==="নতুন"?"🆕 নতুন":"♻️ পুরাতন"}</button>`).join("")}</div>
+    <div class="mktb"><span id="mkn"></span><button class="mkfv ${mkFav?"on":""}" onclick="mkFav=!mkFav;market()">♥ পছন্দ</button><select aria-label="সাজান" onchange="mkSort=this.value;mkGrid()"><option value="new" ${mkSort==="new"?"selected":""}>নতুন আগে</option><option value="low" ${mkSort==="low"?"selected":""}>দাম কম</option><option value="high" ${mkSort==="high"?"selected":""}>দাম বেশি</option></select></div>
+    <p class="mknote">⚠️ আগে টাকা পাঠাবেন না।${isCloud()?" নতুন বিজ্ঞাপন অনুমোদনের পর সবাই দেখবে।":""}</p>
+    ${cloudNote("ad","ad")}
+    <div class="mkg" id="mkgrid"></div>
   </div>`;
+  mkGrid();window.scrollTo(0,0);
+}
+function adView(i){
+  const it=MKL[i];if(!it) return;
+  MKY=window.scrollY||0;
+  app.innerHTML=`<div class="top"><button onclick="adBack()" aria-label="পিছনে">←</button><h3>${esc(String(it.t).slice(0,34))}</h3></div><div class="page">${card(it,"market")}</div>`;
   window.scrollTo(0,0);
 }
+function adBack(){market();window.scrollTo({top:MKY,left:0,behavior:"instant"});}
 
 function sellForm(){
   if(!needAuth(sellForm)) return;
@@ -1694,7 +2953,9 @@ function sellForm(){
   <div class="page f">
     ${photoField("aimg",5,"পণ্যের ছবি (সর্বোচ্চ ৫টি)","ভালো ছবি দিলে দ্রুত বিক্রি হয়")}
     <label for="a_t">পণ্যের নাম *</label><input id="a_t" maxlength="60" placeholder="যেমন: ব্যবহৃত সাইকেল">
-    <label for="a_type">ধরন</label><select id="a_type">${TYPES.slice(1).map(x=>`<option value="${x}">${x}</option>`).join("")}</select>
+    <label for="a_type">ধরন</label><select id="a_type" onchange="document.getElementById('a_rsw').style.display=this.value==='বাসা-বাড়ি'?'block':'none'">${TYPES.slice(1).map(x=>`<option value="${x}">${x}</option>`).join("")}</select>
+    <label for="a_c">পণ্য নতুন নাকি পুরাতন? *</label><select id="a_c"><option value="">— বেছে নিন —</option><option value="নতুন">🆕 নতুন</option><option value="পুরাতন">♻️ পুরাতন (ব্যবহৃত)</option></select>
+    <div id="a_rsw" style="display:none"><label for="a_rs">বাসা-বাড়ির ক্ষেত্রে</label><select id="a_rs"><option>বিক্রয়</option><option>ভাড়া (মাসিক)</option><option>ভাড়া (দৈনিক)</option></select></div>
     <label for="a_p">দাম (টাকা) *</label><input id="a_p" type="number" inputmode="numeric" min="0" placeholder="যেমন: 5000">
     <label for="a_s">উপজেলা</label><select id="a_s">${UPAZILAS.map(x=>`<option value="${x}">${x}</option>`).join("")}</select>
     <label for="a_d">বিবরণ</label><textarea id="a_d" maxlength="300" placeholder="অবস্থা, বয়স, বিশেষত্ব..."></textarea>
@@ -1714,10 +2975,13 @@ function postAd(){
   const t=v("a_t"),p=v("a_p"),ph=v("a_ph"),wa=v("a_wa");
   if(t.length<3) return err("পণ্যের নাম লিখুন।");
   if(!p||Number(p)<0) return err("সঠিক দাম লিখুন।");
+  const cond=v("a_c");
+  if(cond!=="নতুন"&&cond!=="পুরাতন") return err("পণ্য নতুন নাকি পুরাতন তা বেছে নিন।");
   const pe=phoneErr(ph,wa);if(pe) return err(pe);
   const type=v("a_type"),price=Number(p).toLocaleString("bn-BD");
-  const ads=myAds();
-  ads.unshift({id:Date.now(),t,s:v("a_s"),type,desc:v("a_d"),tags:["৳ "+price,type],imgs:PICK.aimg.slice(0,5),ph,wa,ok:document.getElementById("a_ok").checked});
+  const item={t,s:v("a_s"),type,price:Number(p),desc:v("a_d"),tags:["৳ "+price+(type==="বাসা-বাড়ি"?" ("+v("a_rs")+")":""),type,cond==="নতুন"?"🆕 নতুন":"♻️ পুরাতন"],cond,at:Date.now(),imgs:PICK.aimg.slice(0,5),ph,wa,ok:document.getElementById("a_ok").checked};
+  if(isCloud()) return savePost("ad",item,err,()=>{mtype="সব";market();});
+  const ads=myAds();ads.unshift({id:Date.now(),...item});
   if(!saveAds(ads.slice(0,40))) return err("সংরক্ষণ করা গেল না। ছবির কারণে স্টোরেজ ভরে গেছে হতে পারে। পুরনো বিজ্ঞাপন মুছুন বা কম ছবি দিন।");
   mtype="সব";market();
 }
@@ -1739,14 +3003,19 @@ function about(){
   if(OWNER.email) links+=`<a class="call" href="mailto:${esc(OWNER.email)}">✉️ ইমেইল</a>`;
   if(/^https:\/\//.test(OWNER.facebook||"")) links+=`<a class="call" href="${esc(OWNER.facebook)}" target="_blank" rel="noopener noreferrer">🌐 ফেসবুক</a>`;
   app.innerHTML=`<div class="top"><button onclick="home()" aria-label="পিছনে">←</button><h3>ℹ️ আমাদের সম্পর্কে</h3></div>
-  <div class="page"><div class="item" style="text-align:center;padding:24px 16px">
-    ${photo?`<img class="bigav" src="${photo}" alt="">`:`<div class="bigav">${initial}</div>`}
-    <h4 style="font-size:19px">${esc(OWNER.name)}</h4>
-    <p>${esc(OWNER.role)}</p><p>📍 ${esc(OWNER.place)}</p>
-    <p style="color:var(--t);margin-top:14px;line-height:1.7;font-size:14px">${esc(OWNER.bio)}</p>
-    <div class="cbar" style="justify-content:center">${links}</div>
+  <div class="page"><div class="ab-hero">
+    <div class="ab-cover"></div>
+    <div class="ab-av">${photo?`<img src="${photo}" alt="">`:`<b>${initial}</b>`}</div>
+    <div class="ab-body">
+      <div class="ab-name">${esc(OWNER.name)}</div>
+      <span class="ab-role">${esc(OWNER.role)}</span>
+      <div class="ab-place">📍 ${esc(OWNER.place)}</div>
+      <div class="ab-bio">${esc(OWNER.bio)}</div>
+      ${links?`<div class="ab-links">${links}</div>`:""}
+    </div>
   </div>
-  <div class="item"><h4>অ্যাপ সম্পর্কে</h4><p style="line-height:1.7">চাঁদপুর কানেক্ট একটি বিনামূল্যের স্থানীয় তথ্য ও কমিউনিটি অ্যাপ। ব্যক্তিগত তথ্য (যেমন ফোন নম্বর) সংশ্লিষ্ট সদস্যের সম্মতি ছাড়া প্রকাশ করা হয় না।</p></div></div>`;
+  <div class="ab-app"><div class="ab-logo">${LOGO_SVG}</div><div><b>চাঁদপুর কানেক্ট</b><p>বিনামূল্যের স্থানীয় তথ্য ও কমিউনিটি অ্যাপ। সদস্যের সম্মতি ছাড়া ফোন নম্বর প্রকাশ হয় না।</p></div></div>
+  <div class="ab-tags"><span>🩸 রক্তদাতা</span><span>🏥 হাসপাতাল</span><span>🛒 কেনাবেচা</span><span>🚌 যাতায়াত</span><span>🧠 কুইজ</span><span>💼 চাকরি</span></div></div>`;
   window.scrollTo(0,0);
 }
 
@@ -1757,7 +3026,7 @@ function setNav(k){document.querySelectorAll("nav button").forEach(b=>b.classLis
 
 document.querySelectorAll("nav button").forEach(b=>b.onclick=()=>{
   const k=b.dataset.go;
-  if(k==="home") home();
+  if(k==="home"){if(document.getElementById("hero")) window.scrollTo({top:0,behavior:"smooth"});else home();}
   else if(k==="search"){home();document.getElementById("q").focus();}
   else if(k==="add") sellForm();
   else if(k==="me") SES?profilePage():authPage();
@@ -1766,6 +3035,11 @@ document.querySelectorAll("nav button").forEach(b=>b.onclick=()=>{
 updateNav();
 home();
 restoreSession();
+loadCfg();
+if(typeof window.addEventListener==="function"){
+  window.addEventListener("scroll",()=>{if(document.getElementById("hero")) HOMEY=window.scrollY||0;},{passive:true});
+  window.addEventListener("popstate",()=>{if(!document.getElementById("hero")) home();});   // ফোনের ব্যাক বাটন: বিভাগ থেকে হোমে ফেরে
+}
 /* শুরুর পর্দা: চালু হলেই লোগো নড়েচড়ে দেখায়, কয়েক সেকেন্ড পর বা ট্যাপ করলে সরে যায় */
 (function(){
   const sp=document.getElementById("splash");if(!sp) return;
