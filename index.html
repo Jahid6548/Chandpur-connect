@@ -291,6 +291,20 @@ body{background:radial-gradient(circle at 8% 0%,rgba(16,196,119,.16),transparent
 nav{background:rgba(255,255,255,.9);box-shadow:0 12px 34px rgba(10,60,70,.26),0 0 0 1px rgba(16,196,119,.16)}
 nav button.on{background:linear-gradient(135deg,#0b9b5a,#1a73e8);box-shadow:0 8px 16px rgba(26,115,232,.4)}
 h2::before{background:linear-gradient(#10c477,#1a73e8)}
+
+/* থানা যোগাযোগ বড় ট্যাব ও হিরো ট্যাগলাইন */
+.bigtab{display:flex;align-items:center;gap:14px;width:100%;margin-top:14px;padding:20px 18px;border:0;border-radius:26px;text-align:left;color:#fff;font-family:inherit;cursor:pointer;position:relative;overflow:hidden;background:radial-gradient(circle at 92% 8%,rgba(255,255,255,.28),transparent 40%),linear-gradient(120deg,#283593,#1a73e8 55%,#0aa0a6);box-shadow:0 16px 32px rgba(26,80,190,.35);animation:rise .5s cubic-bezier(.2,.8,.2,1) backwards}
+.bigtab i{font-style:normal;flex:none;width:64px;height:64px;border-radius:20px;background:rgba(255,255,255,.2);display:grid;place-items:center;font-size:34px;box-shadow:inset 0 0 0 2px rgba(255,255,255,.35)}
+.bigtab b{display:block;font-size:21px;font-weight:800}.bigtab span{display:block;font-size:13.5px;opacity:.9;margin-top:3px}
+.bigtab em{margin-left:auto;font-style:normal;font-size:32px;opacity:.9}
+.bigtab:active{transform:scale(.98)}
+.bigtab.sm{padding:14px 16px;border-radius:22px;background:linear-gradient(180deg,#fff,#f1faf6);color:var(--t);box-shadow:0 8px 20px rgba(16,100,90,.12);border:1px solid rgba(16,196,119,.16)}
+.bigtab.sm i{width:50px;height:50px;font-size:26px;background:#e6f4ec;box-shadow:none}.bigtab.sm b{font-size:18px}.bigtab.sm em{color:var(--g)}
+.smp{font-size:11px;background:#fff3c4;color:#8a6d00;border-radius:8px;padding:2px 7px;vertical-align:middle}
+.tagline{font-size:34px;letter-spacing:.2px;position:relative;padding-bottom:14px}
+.tagline::after{content:"";position:absolute;left:0;bottom:0;width:86px;height:5px;border-radius:5px;background:linear-gradient(90deg,#ffd54f,#fff 60%,transparent);box-shadow:0 2px 10px rgba(255,213,79,.6);animation:tgw 3s ease-in-out infinite alternate}
+@keyframes tgw{to{width:150px}}
+.tagline span{font-size:37px;background-image:linear-gradient(90deg,#fff,#ffe9a8,#c9ffe5,#fff);background-size:250% 100%}
 /* ক্রয়-বিক্রয়: কেনাকাটার আমেজ */
 .card.feature,.mkban{background:var(--pat) 0 0/120px 120px,radial-gradient(circle at 90% 10%,rgba(255,213,79,.6),transparent 36%),linear-gradient(120deg,#0b9b5a,#0aa6a0 45%,#1a8fe0 80%,#1a73e8)}
 .card.feature{box-shadow:0 14px 30px rgba(20,120,170,.4);animation:rise .55s cubic-bezier(.2,.8,.2,1) backwards,mkdrift 28s linear infinite;animation-delay:calc(var(--i,0)*45ms),0s}
@@ -550,6 +564,7 @@ const CATS=[
  {id:"quiz",n:"কুইজ",d:"চাঁদপুর ও সাধারণ জ্ঞান · চ্যালেঞ্জ মোড",i:"🧠",c:"#ede7f6",cls:"wide quizc"},
  {id:"shop",n:"কোথায় কী পাওয়া যায়",d:"দোকান ও বাজার",i:"🏪",c:"#fce4ec"},
  {id:"entre",n:"উদ্যোক্তা",d:"স্থানীয় উদ্যোগ ও ব্যবসা",i:"🚀",c:"#fff3e0"},
+ {id:"smart",n:"আমার স্মার্ট জীবন",d:"নোট, আয়-ব্যয়, ধার-দেনা, বাজেট, ডায়েরি — শুধু আপনার",i:"🧾",c:"#e8f5e9",cls:"wide"},
  {id:"more",n:"আরও আসছে",d:"নতুন বিভাগ",i:"✨",c:"#eceff1",cls:"wide soon"}
 ];
 const DATA={
@@ -824,7 +839,7 @@ function saveProfile(){
   toast("প্রোফাইল সংরক্ষিত হয়েছে");profilePage();
 }
 
-function card(it,id){
+function card0(it,id){
   const pic=safeImg(it.photo),logo=safeImg(it.logo);
   let h=`<div class="item${it.go?" tap":""}"${it.go?` onclick="if(!event.target.closest('a,button,img'))${it.go}"`:""}><div class="who">${pic?`<img class="pic" src="${pic}" alt="">`:""}<div class="wt"><h4>${esc(it.t)}</h4>${it.sub?`<p class="sub">${esc(it.sub)}</p>`:""}${it.ch?`<p class="chn">${logo?`<img class="lg" src="${logo}" alt="">`:"📺 "}${esc(it.ch)}</p>`:""}<p>📍 ${esc(it.s)}${it.addr?" · "+esc(it.addr):""}</p></div></div>`;
   if(it.off) h+=`<p class="note">⏸ এই প্রোফাইল এখন বন্ধ আছে, শুধু আপনি দেখছেন।</p>`;
@@ -937,7 +952,7 @@ function sceneSVG(part){
 const PRI_IDS=["market","blood","hospital","gov","transport","thana","entre"];
 let HOMEY=0;
 function homeRest(){
-  const order=["about","press","shop","hotel","food","tour","park","quiz","job","org","people","more"];
+  const order=["smart","about","press","shop","hotel","food","tour","park","quiz","job","org","people","more"];
   const r=CATS.filter(c=>!PRI_IDS.includes(c.id)&&!c.hide);
   const known=order.map(id=>r.find(c=>c.id===id)).filter(Boolean);
   return [...known,...r.filter(c=>!order.includes(c.id))];
@@ -948,6 +963,7 @@ const QUICK=[
  {e:"🛒",n:"কেনাবেচা",go:"market",bg:"#fff3c4"},
  {e:"🩸",n:"রক্তদাতা",go:"blood",bg:"#ffe3e3"},
  {e:"🏥",n:"হাসপাতাল",go:"hospital",bg:"#e0f2f1"},
+ {e:"🎓",n:"শিক্ষা প্রতিষ্ঠান",go:"edu",bg:"#e6f0ff"},
  {e:"🍽️",n:"খাবার",go:"food",bg:"#fff0d6"},
  {e:"🚌",n:"যাতায়াত",go:"transport",bg:"#e0efff"},
  {e:"🏞️",n:"ঘোরাফেরা",go:"tour",bg:"#dff6e8"},
@@ -968,7 +984,7 @@ function home(){
     <div class="hero-in">
       <div class="brand"><div class="logo">${LOGO_SVG}</div><div><h1>চাঁদপুর কানেক্ট</h1><small>CHANDPUR CONNECT</small></div>${chipBtn()}</div>
       <div class="greet"><span>${greeting()}</span><span class="dt">${esc(bnDate())}</span></div>
-      <div class="tagline">আপনার চাঁদপুর,<br><span>আপনার হাতের মুঠোয়</span></div>
+      <div class="tagline"><em class="tl1">আপনার চাঁদপুর,</em><br><span>আপনার হাতের মুঠোয়</span></div>
     </div>
   </header>
   <div class="search"><span>🔍</span><input id="q" type="search" autocomplete="off" placeholder="রক্তদাতা, রেস্টুরেন্ট, স্থান খুঁজুন…" oninput="doSearch(this.value)"></div>
@@ -1130,7 +1146,7 @@ async function restoreSession(){
     if(/INVALID|TOKEN|USER_DISABLED|USER_NOT_FOUND/.test(String(e.message))) endSes();
   }
 }
-function endSes(){SES=null;["localStorage","sessionStorage"].forEach(n=>{try{globalThis[n].removeItem(AK);}catch(e){}});updateNav();}
+function endSes(){if(typeof SM!=="undefined")SM.reset();SES=null;["localStorage","sessionStorage"].forEach(n=>{try{globalThis[n].removeItem(AK);}catch(e){}});updateNav();}
 function logout(){ask("লগআউট করবেন?",()=>{endSes();home();toast("লগআউট হয়েছে");});}
 function updateNav(){const n=document.getElementById("navme");if(n) n.textContent=SES?"প্রোফাইল":"লগইন";}
 
@@ -1356,6 +1372,7 @@ function profilePage(){
     <div class="item" style="text-align:center;padding:24px 16px">${mp?`<img class="bigav" src="${mp}" alt="">`:`<div class="bigav">${ini}</div>`}<h4 style="font-size:19px">${esc(myName()||"সদস্য")}</h4><p>${esc(SES.email)}</p>
       <span class="vbadge ${SES.verified?"":"no"}">${SES.verified?"✔ ইমেইল যাচাই করা":"⚠ ইমেইল যাচাই হয়নি"}</span>${AUTH.demo?'<p class="note">🧪 ডেমো মোড: এই অ্যাকাউন্ট শুধু এই ফোনে আছে।</p>':""}</div>
     ${isCloud()?'<button class="btn alt" onclick="myPostsPage()">📂 আমার পোস্টসমূহ</button>':`<div class="item"><h4>আপনার কার্যক্রম (এই ফোনে)</h4><p>বিজ্ঞাপন ${bn(myAds().length)}টি · উদ্যোগ ${bn(myEntre().length)}টি · সমস্যা জমা ${bn(myReports().length)}টি · সাংবাদিক ${bn(myPress().length)}টি</p></div>`}${isAdmin()?'<button class="btn" onclick="adminPage()">🛡️ অ্যাডমিন প্যানেল</button>':""}
+    <button class="btn alt" onclick="openCat('smart')">🧾 আমার স্মার্ট জীবন</button>
     <button class="btn alt" onclick="profileEdit()">✏️ ছবি, নাম ও নম্বর বদলান</button>
     ${SES.verified?"":'<button class="btn alt" onclick="verifyPage()">ইমেইল যাচাই করুন</button>'}
     <button class="btn alt" onclick="resetFromProfile()">পাসওয়ার্ড বদলের লিংক পাঠান</button>
@@ -1382,6 +1399,7 @@ async function doDelete(ev){
   const pw=$("d_pw").value;if(!pw) return err("পাসওয়ার্ড দিন।");
   err("");busy(true);
   try{
+    if(typeof smartWipe==="function") await smartWipe(pw);
     await AUTH.remove(SES,pw);
     ["cc_ads","cc_entre","cc_reports","cc_press","cc_spots",meKey()].forEach(lsDel);
     endSes();home();toast("অ্যাকাউন্ট মুছে ফেলা হয়েছে");
@@ -1420,6 +1438,7 @@ const ugChips=(o,u)=>[
  o.w?`<a class="ugp" href="https://${o.w}.chandpur.gov.bd" target="_blank" rel="noopener noreferrer">🌐 ওয়েবসাইট: ${o.w}.chandpur.gov.bd</a>`:""].join("");
 function upaPage(){
   app.innerHTML=`<div class="top"><button onclick="home()" aria-label="পিছনে">←</button><h3>🚓 থানা ও উপজেলা</h3></div><div class="page">
+    <button class="bigtab" onclick="thanaContacts('')"><i>🚓</i><div><b>থানা যোগাযোগ</b><span>সব থানার ওসি, ফোন ও ঠিকানা</span></div><em>›</em></button>
     <div class="uhd"><h3>উপজেলা সমূহ</h3><p>চাঁদপুর জেলায় মোট ${bn(UPD.length)} টি উপজেলা রয়েছে</p></div>
     ${UPD.map((u,i)=>`<div class="ug" style="animation-delay:${i*45}ms"><div class="ugt"><h3>${u.n} - ${u.en}</h3><div class="ugc">${ugChips(u)}</div></div><button class="ugb" onclick="upaDetail(${i})" aria-label="${u.n} উপজেলার বিস্তারিত">›</button></div>`).join("")}
     <div class="note">ইউনিয়নের সংখ্যা, ওয়েবসাইট ঠিকানা জেলা তথ্য বাতায়ন অনুযায়ী। যে উপজেলায় সংখ্যা দেখানো নেই, তা যাচাই করে যোগ করা হবে। ওয়েবসাইট না খুললে chandpur.gov.bd থেকে খুঁজে নিন।</div></div>`;
@@ -1430,6 +1449,7 @@ function upaDetail(i){
   const un=UNI[u.n]||[];
   app.innerHTML=`<div class="top"><button onclick="upaPage()" aria-label="পিছনে">←</button><h3>🏞️ ${u.n} উপজেলা</h3></div><div class="page">
     <div class="ug"><div class="ugt"><h3>${u.n} - ${u.en}</h3><div class="ugc">${ugChips(u)}</div></div></div>
+    <button class="bigtab" onclick="thanaContacts('${u.n}')"><i>🚓</i><div><b>${u.n} থানা যোগাযোগ</b><span>ওসি, ফোন নম্বর ও ঠিকানা</span></div><em>›</em></button>
     <div class="cbar" style="margin-top:14px"><a class="call" style="background:var(--g)" href="https://www.google.com/maps/search/?api=1&amp;query=${encodeURIComponent(u.n+" উপজেলা চাঁদপুর")}" target="_blank" rel="noopener noreferrer">🧭 Google Map এ দেখুন</a><button class="call" style="background:linear-gradient(135deg,var(--g),var(--g2))" onclick="eduPage('${u.n}')">🏫 শিক্ষা প্রতিষ্ঠান</button><a class="call" style="background:#c62828" href="tel:999">🚨 ৯৯৯</a></div>
     <div class="uhd"><h3>ইউনিয়ন সমূহ</h3><p>${un.length?"এই উপজেলার ইউনিয়নের তালিকা":"ইউনিয়নের তালিকা শীঘ্রই যোগ হবে"}</p></div>
     ${un.map((x,k)=>`<div class="ug" style="animation-delay:${k*45}ms"><div class="ugt"><h3>${x.n} - ${x.en}</h3><div class="ugc">${ugChips(x)}</div></div><span class="ugb" style="opacity:.45" aria-hidden="true">›</span></div>`).join("")}
@@ -1440,6 +1460,7 @@ function upaDetail(i){
 function openCat(id){
   if(document.getElementById("hero")) HOMEY=window.scrollY||0;
   try{history.pushState({p:1},"");}catch(e){}
+  if(id==="smart") return smartOpen();
   if(id==="market") return market();
   if(id==="blood") return bloodPage();
   if(id==="hospital") return hospitalPage();
@@ -1449,9 +1470,11 @@ function openCat(id){
   if(id==="about") return aboutChandpur();
   if(id==="entre") return entre();
   if(id==="thana") return upaPage();
+  if(id==="edu") return eduHome();
   if(id==="press") return pressPage();
   if(id==="quiz") return quizHome();
   if(id==="tour"||id==="park") return spotsPage(id);
+  if(SEC[id]) return secPage(id);
   const c=findCat(id);
   if(c.group) return groupPage(id);
   const back=c.parent?`openCat('${c.parent}')`:"home()";
@@ -1521,7 +1544,7 @@ function myEntre(){try{return JSON.parse(localStorage.getItem("cc_entre")||"[]")
 function saveEntre(a){try{localStorage.setItem("cc_entre",JSON.stringify(a));return true;}catch(e){return false;}}
 function entre(){
   ensureCloud("entre","entre",entre);
-  const all=[...(isCloud()?cloudItems("entre").map(p=>cloudItem(p)):myEntre().map(a=>({...a,mine:true,delfn:"delEntre",tog:true}))),...DATA.entre];
+  const all=[...(isCloud()?cloudItems("entre").map(p=>cloudItem(p)):myEntre().map(a=>({...a,mine:true,delfn:"delEntre",tog:true}))),...(SMPL=DATA.entre.filter(x=>!HIDE.has(sampKey("entre",x.t))).map((x,i)=>({...x,smp:"entre",smi:i})))];
   app.innerHTML=`<div class="top"><button onclick="home()" aria-label="পিছনে">←</button><h3>🚀 উদ্যোক্তা</h3></div>
   <div class="page">
     <button class="btn" onclick="entreForm()">➕ আপনার উদ্যোক্তা প্রোফাইল চালু করুন</button>
@@ -2012,7 +2035,7 @@ function quizExit(){
 const ADMIN_EMAIL="mohammadjahid733@gmail.com";
 const CLOUD={on:true};                  // false করলে ক্লাউড বন্ধ, সব আগের মতো শুধু ফোনে থাকে
 const FS_BASE="https://firestore.googleapis.com/v1/projects/chandpur-connect/databases/(default)/documents";
-const CLOUD_TYPES={ad:"পণ্য",entre:"উদ্যোক্তা",press:"সাংবাদিক",spot:"স্থান",report:"সমস্যা",notice:"নোটিশ",donor:"রক্তদাতা",hospital:"হাসপাতাল",doctor:"ডাক্তার",hotel:"হোটেল",social:"সমাজসেবা"};
+const CLOUD_TYPES={ad:"পণ্য",entre:"উদ্যোক্তা",press:"সাংবাদিক",spot:"স্থান",report:"সমস্যা",notice:"নোটিশ",donor:"রক্তদাতা",hospital:"হাসপাতাল",doctor:"ডাক্তার",hotel:"হোটেল",social:"সমাজসেবা",person:"পরিচিত মানুষ",job:"চাকরি",shop:"দোকান",bus:"বাস",launch:"লঞ্চ",vehicle:"যানবাহন",thanac:"থানা যোগাযোগ"};
 const isCloud=()=>CLOUD.on&&!AUTH.demo;
 const isAdmin=()=>!!(isCloud()&&SES&&SES.verified&&String(SES.email||"").toLowerCase()===ADMIN_EMAIL);
 const CACHE={},NOTICE={t:0,item:null};
@@ -2062,10 +2085,10 @@ function fsSan(p){
     imgs:Array.isArray(it.imgs)?it.imgs.slice(0,5).map(safeImg).filter(Boolean):[],
     photo:safeImg(it.photo),logo:safeImg(it.logo),
     ph:PHONE_RE.test(it.ph||"")?it.ph:"",wa:PHONE_RE.test(it.wa||"")?it.wa:"",ok:it.ok===true,
-    pkgs:Array.isArray(it.pkgs)?it.pkgs.slice(0,6).map(x=>({n:S(x&&x.n,50),p:S(x&&x.p,8).replace(/[^\d]/g,""),d:S(x&&x.d,70)})).filter(x=>x.n&&x.p):[],
+    pkgs:Array.isArray(it.pkgs)?it.pkgs.slice(0,10).map(x=>({n:S(x&&x.n,50),p:S(x&&x.p,8).replace(/[^\d]/g,""),d:S(x&&x.d,70)})).filter(x=>x.n&&x.p):[],
     hid:S(it.hid,60).replace(/[^\w-]/g,""),hname:S(it.hname,100),sector:SECTORS.includes(it.sector)?it.sector:"",fee:S(it.fee,8).replace(/[^\d]/g,""),
     price:Number.isFinite(+it.price)&&+it.price>0?Math.min(Math.floor(+it.price),1e9):0,grp:GROUPS.includes(it.grp)&&it.grp!=="সব"?it.grp:"",last:/^\d{4}-\d{2}-\d{2}$/.test(it.last||"")&&it.last<=todayISO()?it.last:"",
-    kind:it.kind==="park"?"park":"tour",resolved:it.resolved===true,cond:it.cond==="নতুন"||it.cond==="পুরাতন"?it.cond:"",mapurl:"",url:""};
+    verified:it.verified===true,kind:it.kind==="park"?"park":"tour",resolved:it.resolved===true,cond:it.cond==="নতুন"||it.cond==="পুরাতন"?it.cond:"",mapurl:"",url:""};
   if(/^https:\/\//.test(it.url||"")&&String(it.url).length<300) o.url=it.url;
   if(typeof it.mapurl==="string"&&it.mapurl.length<300&&MAP_RE.test(it.mapurl)) o.mapurl=it.mapurl;
   return o;
@@ -2074,7 +2097,7 @@ function fsSan(p){
 function cloudItem(p,local){
   const o=fsSan(p),t=p._type,it={id:p.id};
   if(t==="ad") Object.assign(it,{price:o.price||undefined,t:o.t,s:o.s,type:o.type,desc:o.desc,tags:o.tags,imgs:o.imgs,ph:o.ph,wa:o.wa,ok:o.ok,cond:o.cond,at:p._at,exp:true});
-  else if(t==="entre"){Object.assign(it,{t:o.t,sub:o.sub,s:o.s,addr:o.addr,tags:o.tags,desc:o.desc,items:o.items,hours:o.hours,extra:o.extra,photo:o.photo,imgs:o.imgs,ph:o.ph,wa:o.wa,ok:o.ok});if(o.url){it.url=o.url;it.ul="🌐 ফেসবুক পেজ";}}
+  else if(t==="entre"){Object.assign(it,{t:o.t,sub:o.sub,s:o.s,addr:o.addr,tags:o.verified?["✔ যাচাইকৃত উদ্যোক্তা",...o.tags]:o.tags,desc:o.desc,items:o.items,hours:o.hours,extra:o.extra,photo:o.photo,imgs:o.imgs,ph:o.ph,wa:o.wa,ok:o.ok});if(o.url){it.url=o.url;it.ul="🌐 ফেসবুক পেজ";}}
   else if(t==="press"){Object.assign(it,{t:o.t,sub:o.sub,ch:o.ch,logo:o.logo,photo:o.photo,s:o.s,addr:o.addr,tags:o.tags.length?o.tags:["সাংবাদিক"],ph:o.ph,wa:o.wa,ok:o.ok});if(o.url){it.url=o.url;it.ul="📰 নিউজ পেজ";}}
   else if(t==="spot") Object.assign(it,spotItem({t:o.t,s:o.s,desc:o.desc,imgs:o.imgs,mapurl:o.mapurl,tags:o.tags},false));
   else if(t==="report"){Object.assign(it,{t:o.type+" — "+o.place,s:o.s,desc:o.text,tags:["জমা: "+o.date]});if(o.resolved) it.tags.push("✅ সমাধান হয়েছে");}
@@ -2096,7 +2119,11 @@ function cloudItem(p,local){
     if(wait>0){it.blocked=true;it.tags.push("⛔ আর "+bnNum(wait)+" দিন পর দিতে পারবেন");}else it.tags.push("✅ রক্ত দিতে পারবেন");
   }
   else if(t==="social"){Object.assign(it,{t:o.t,photo:o.photo,imgs:o.imgs,s:o.s,addr:o.addr,desc:o.desc,tags:o.tags,ph:o.ph,wa:o.wa,ok:o.ok});if(o.url){it.url=o.url;it.ul="🌐 ফেসবুক পেজ";}}
+  else if(t==="person") Object.assign(it,{t:o.t,sub:o.sub,photo:o.photo,s:o.s,addr:o.addr,desc:o.desc,tags:o.tags,imgs:o.imgs,ph:o.ph,wa:o.wa,ok:o.ok});
+  else if(t==="job"){Object.assign(it,{t:o.t,sub:o.sub,s:o.s,desc:o.desc,tags:o.tags,ph:o.ph,wa:o.wa,ok:o.ok});if(o.url){it.url=o.url;it.ul="📝 আবেদন / বিস্তারিত";}}
+  else if(t==="shop"||t==="bus"||t==="launch"||t==="vehicle"||t==="thanac"){Object.assign(it,{t:o.t,sub:o.sub,s:o.s,addr:o.addr,desc:o.desc,tags:o.tags,imgs:o.imgs,pkgs:o.pkgs,ph:o.ph,wa:o.wa,ok:o.ok});if(o.mapurl){it.url=o.mapurl;it.ul="🧭 ম্যাপে দেখুন";}}
   else Object.assign(it,{t:o.t,s:"",desc:o.desc,tags:[]});
+  it.cid=p.id;it.ctype=t;it.cst=p._st;it.verified=o.verified;
   const own=!!(local||(SES&&p._uid===SES.uid)),adm=isAdmin();
   if(p._st==="pending") it.tags=[...(it.tags||[]),"⏳ অনুমোদনের অপেক্ষায়"];
   if(p._st==="rejected") it.tags=[...(it.tags||[]),"❌ অনুমোদন হয়নি"];
@@ -2117,6 +2144,7 @@ function cloudMsg(e){
 
 /* ---------- তালিকা আনা ও জমিয়ে রাখা ---------- */
 async function cloudFetch(type){
+  if(isAdmin()) return fsDocs(await fsReq("POST",":runQuery",fsQuery([["type",type]],300),true)).sort((a,b)=>b._at-a._at);
   const pub=fsDocs(await fsReq("POST",":runQuery",fsQuery([["type",type],["status","approved"]]),false));
   let own=[];
   if(SES&&SES.verified){try{own=fsDocs(await fsReq("POST",":runQuery",fsQuery([["type",type],["uid",SES.uid]]),true));}catch(e){}}
@@ -2126,6 +2154,7 @@ async function cloudFetch(type){
 const cloudItems=type=>(CACHE[type]&&CACHE[type].items)||[];
 const onPage=pg=>!!document.querySelector('[data-pg="'+pg+'"]');
 function ensureCloud(type,pg,rerender,force){
+  if(isCloud()&&rerender) CURR.fn=rerender;
   if(!isCloud()) return;
   const c=CACHE[type];
   if(c&&c.busy) return;
@@ -2146,7 +2175,7 @@ function cloudNote(type,pg){
   return mark;
 }
 function refreshPage(pg){
-  const F={ad:market,entre,press:pressPage,spot:()=>spotsPage(spKind),report:reportPage,admin:adminPage,mine:myPostsPage,donor:bloodPage,hotel:hotelPage,hosp:hospitalPage,social:orgPage};
+  const F={ad:market,entre,press:pressPage,spot:()=>spotsPage(spKind),report:reportPage,admin:adminPage,mine:myPostsPage,donor:bloodPage,hotel:hotelPage,hosp:hospitalPage,social:orgPage,sec:()=>CURR.fn&&CURR.fn()};
   if(F[pg]) F[pg]();
 }
 
@@ -2175,7 +2204,7 @@ function delCloud(id){
     if(ADM.items) ADM.items=ADM.items.filter(x=>x.id!==id);
     if(MYP.items) MYP.items=MYP.items.filter(x=>x.id!==id);
     toast("মুছে ফেলা হয়েছে");
-    ["ad","entre","press","spot","report","admin","mine","donor","hotel","hosp","social"].some(pg=>onPage(pg)&&(refreshPage(pg),true));
+    ["ad","entre","press","spot","report","admin","mine","donor","hotel","hosp","social","sec"].some(pg=>onPage(pg)&&(refreshPage(pg),true));
   },true);
 }
 
@@ -2219,7 +2248,7 @@ async function loadNotice(){
 /* ---------- অ্যাডমিন প্যানেল ---------- */
 const ADM={tab:"pending",type:"all",items:null,busy:false,err:""};
 const ASTAT=[["pending","⏳ অপেক্ষমাণ"],["approved","✅ অনুমোদিত"],["rejected","❌ বাতিল"],["all","সব"]];
-const ATYPES=[["all","সব ধরন"],["ad","পণ্য"],["entre","উদ্যোক্তা"],["press","সাংবাদিক"],["spot","স্থান"],["donor","রক্তদাতা"],["hospital","হাসপাতাল"],["doctor","ডাক্তার"],["hotel","হোটেল"],["social","সমাজসেবা"],["report","সমস্যা"],["notice","নোটিশ"]];
+const ATYPES=[["all","সব ধরন"],["ad","পণ্য"],["entre","উদ্যোক্তা"],["press","সাংবাদিক"],["spot","স্থান"],["donor","রক্তদাতা"],["hospital","হাসপাতাল"],["doctor","ডাক্তার"],["hotel","হোটেল"],["social","সমাজসেবা"],["person","পরিচিত মানুষ"],["job","চাকরি"],["shop","দোকান"],["bus","বাস"],["launch","লঞ্চ"],["vehicle","যানবাহন"],["thanac","থানা যোগাযোগ"],["report","সমস্যা"],["notice","নোটিশ"]];
 function adminFetch(){
   ADM.busy=true;ADM.err="";
   fsReq("POST",":runQuery",fsQuery(ADM.tab==="all"?[]:[["status",ADM.tab]],300),true)
@@ -2238,6 +2267,8 @@ function adminPage(){
   <div class="chips" style="padding-top:8px">${ATYPES.map(x=>`<button class="chip ${ADM.type===x[0]?"on":""}" onclick="ADM.type='${x[0]}';adminPage()">${x[1]}</button>`).join("")}</div>
   <div class="page"><i data-pg="admin" hidden></i>
     <div class="cbar"><button class="call" onclick="noticeForm()">📢 নোটিশ প্রকাশ করুন</button><button class="call" onclick="cmsPage()">🧩 কনটেন্ট ম্যানেজার</button><button class="call" onclick="adminReload()">🔄 নতুন করে আনুন</button></div>
+    <div class="note">🛡️ প্রতিটি বিভাগে গিয়েও সরাসরি যোগ, সম্পাদনা, মোছা ও নমুনা সরানো যায়।</div>
+    <div class="cbar">${[["entre","🚀 উদ্যোক্তা"],["people","🌟 পরিচিত মানুষ"],["job","💼 চাকরি"],["shop","🏪 কোথায় কী পাওয়া যায়"],["bus","🚌 বাস"],["launch","🚢 লঞ্চ"],["vehicle","🛺 যানবাহন"],["thanac","🚓 থানা যোগাযোগ"]].map(x=>`<button class="call" style="background:linear-gradient(135deg,#0b9b5a,#1a73e8)" onclick="openCat('${x[0]}')">${x[1]}</button>`).join("")}</div>
     ${ADM.busy?'<div class="note">⏳ তথ্য আনা হচ্ছে…</div>':""}${ADM.err?`<div class="note">☁️ ${esc(ADM.err)}</div>`:""}
     <p class="pickhint" style="margin-top:10px">মোট ${bn(list.length)}টি</p>
     ${list.map(adminCard).join("")||(ADM.busy?"":'<div class="empty">এখানে কিছু নেই</div>')}</div>`;
@@ -2245,19 +2276,19 @@ function adminPage(){
 }
 function adminCard(p){
   const lab=CLOUD_TYPES[p._type]||p._type,st={pending:"⏳ অপেক্ষমাণ",approved:"✅ অনুমোদিত",rejected:"❌ বাতিল"}[p._st]||p._st;
-  const it=cloudItem(p);it.mine=false;it.act=null;if(p._type==="notice") it.s="নোটিশ";
+  const it=cloudItem(p);it.mine=false;it.act=null;it.cid=null;if(p._type==="notice") it.s="নোটিশ";
   const id=safeId(p.id);
-  const btns=`<div class="cbar">${p._st!=="approved"?`<button class="call" onclick="adminSet('${id}','approved')">✅ অনুমোদন</button>`:""}${p._st!=="rejected"?`<button class="del" onclick="adminSet('${id}','rejected')">❌ বাতিল</button>`:""}<button class="call" style="background:linear-gradient(135deg,#6a3fb5,#8e5ce0)" onclick="adminEdit('${id}')">✏️ সম্পাদনা</button><button class="del" onclick="adminDel('${id}')">🗑️ মুছুন</button></div>`;
+  const btns=`<div class="cbar">${p._type==="entre"&&p._st==="approved"?`<button class="call" style="background:linear-gradient(135deg,#f9a825,#f57f17)" onclick="entreVerify('${id}')">${p._raw.verified?"✔ যাচাই বাতিল":"✔ যাচাই করুন"}</button>`:""}${p._st!=="approved"?`<button class="call" onclick="adminSet('${id}','approved')">✅ অনুমোদন</button>`:""}${p._st!=="rejected"?`<button class="del" onclick="adminSet('${id}','rejected')">❌ বাতিল</button>`:""}<button class="call" style="background:linear-gradient(135deg,#6a3fb5,#8e5ce0)" onclick="ADM.ret=null;adminEdit('${id}')">✏️ সম্পাদনা</button><button class="del" onclick="adminDel('${id}')">🗑️ মুছুন</button></div>`;
   const html=card(it,"adm");
   return `<div class="admwrap"><div class="admhd"><span class="tag">${lab}</span><span class="tag blue">${st}</span><small>${esc(new Date(p._at).toLocaleString("bn-BD"))}</small></div>${html.slice(0,html.lastIndexOf("</div>"))}${btns}</div></div>`;
 }
-async function adminSet(id,st){
+async function adminSet(id,st,sec){
   if(!isAdmin()||!/^(approved|rejected|pending)$/.test(st)) return;
   try{await fsReq("PATCH","/posts/"+safeId(id)+"?updateMask.fieldPaths=status",{fields:{status:{stringValue:st}}},true);}
   catch(e){return toast(cloudMsg(e));}
-  const p=(ADM.items||[]).find(x=>x.id===id);if(p) p._st=st;
+  const p=findPost(id);if(p) p._st=st;
   Object.keys(CACHE).forEach(k=>delete CACHE[k]);NOTICE.t=0;
-  toast(st==="approved"?"অনুমোদিত ✓":"বাতিল করা হয়েছে");
+  toast(st==="approved"?"অনুমোদিত ✓":"বাতিল করা হয়েছে");if(sec&&CURR.fn) return CURR.fn();
   adminPage();
 }
 function adminDel(id){delCloud(id);}
@@ -2265,11 +2296,17 @@ function adminExtra(t,o){
   const inp=(i,l,v,m)=>`<label for="${i}">${l}</label><input id="${i}" maxlength="${m}" value="${esc(v||"")}">`;
   const sel=(id,l,opts,cur)=>`<label for="${id}">${l}</label><select id="${id}">${opts.map(x=>`<option ${x===cur?"selected":""}>${esc(x)}</option>`).join("")}</select>`;
   const lines=(id,l,arr)=>`<label for="${id}">${l}</label><textarea id="${id}" maxlength="500">${esc((arr||[]).join("\n"))}</textarea>`;
-  if(t==="hotel") return lines("ae_tags","সুবিধাসমূহ (প্রতি লাইনে একটি)",o.tags)+`<label>রুম ও প্যাকেজ</label>`+[0,1,2,3,4].map(i=>{const x=o.pkgs[i]||{};return `<div class="item cvrow" style="margin-top:8px"><input id="ae_pn${i}" maxlength="50" placeholder="প্যাকেজ বা রুমের নাম" value="${esc(x.n||"")}"><div class="row2"><input id="ae_pp${i}" type="tel" inputmode="numeric" maxlength="7" placeholder="দাম (টাকা)" value="${esc(x.p||"")}"><input id="ae_pd${i}" maxlength="70" placeholder="যা যা পাবেন" value="${esc(x.d||"")}"></div></div>`;}).join("");
+  if(t==="hotel") return lines("ae_tags","সুবিধাসমূহ (প্রতি লাইনে একটি)",o.tags)+`<label>রুম ও প্যাকেজ</label>`+PKI.map(i=>{const x=o.pkgs[i]||{};return `<div class="item cvrow" style="margin-top:8px"><input id="ae_pn${i}" maxlength="50" placeholder="প্যাকেজ বা রুমের নাম" value="${esc(x.n||"")}"><div class="row2"><input id="ae_pp${i}" type="tel" inputmode="numeric" maxlength="7" placeholder="দাম (টাকা)" value="${esc(x.p||"")}"><input id="ae_pd${i}" maxlength="70" placeholder="যা যা পাবেন" value="${esc(x.d||"")}"></div></div>`;}).join("");
   if(t==="hospital") return sel("ae_sector","ধরন",SECTORS,o.sector||SECTORS[0])+lines("ae_tags","সেবাসমূহ (প্রতি লাইনে একটি)",o.tags);
   if(t==="doctor") return inp("ae_sub","ডিগ্রি",o.sub,80)+sel("ae_sp","বিশেষজ্ঞ বিভাগ",SPECS,SPECS.includes(o.tags[0])?o.tags[0]:SPECS[0])+lines("ae_dis","কোন কোন রোগের চিকিৎসা (প্রতি লাইনে একটি)",o.tags.slice(1))+inp("ae_hours","রোগী দেখার দিন ও সময়",o.hours,80)+inp("ae_fee","ভিজিট ফি (টাকা)",o.fee,8);
   if(t==="donor") return sel("ae_grp","রক্তের গ্রুপ",GROUPS.slice(1),o.grp||GROUPS[1])+`<label for="ae_last">সর্বশেষ রক্তদানের তারিখ (ফাঁকা = কখনো দেননি)</label><input id="ae_last" type="date" max="${todayISO()}" value="${esc(o.last||"")}">`;
   if(t==="social") return lines("ae_tags","কাজের ক্ষেত্র (প্রতি লাইনে একটি)",o.tags);
+  if(t==="entre") return `<label class="chk"><input type="checkbox" id="ae_ver" ${o.verified?"checked":""}><span>✔ যাচাইকৃত উদ্যোক্তা হিসেবে চিহ্নিত করুন</span></label>`;
+  if(t==="person") return inp("ae_sub","পরিচয় / পদবী",o.sub,80)+lines("ae_tags","পরিচয়ের ট্যাগ (প্রতি লাইনে একটি)",o.tags);
+  if(t==="job") return inp("ae_sub","প্রতিষ্ঠান",o.sub,80)+lines("ae_tags","শেষ তারিখ, ধরন ইত্যাদি (প্রতি লাইনে একটি)",o.tags)+inp("ae_url","আবেদন / বিস্তারিত লিংক (https://...)",o.url,300);
+  if(t==="shop") return lines("ae_tags","কী কী পাওয়া যায় (প্রতি লাইনে একটি)",o.tags);
+  if(t==="thanac") return inp("ae_sub","দায়িত্বপ্রাপ্ত কর্মকর্তা (যেমন: ওসি)",o.sub,80)+lines("ae_tags","ট্যাগ (প্রতি লাইনে একটি)",o.tags);
+  if(t==="bus"||t==="launch"||t==="vehicle") return lines("ae_tags","রুট / সেবা (প্রতি লাইনে একটি)",o.tags)+pkgRows(o.pkgs,"ভাড়ার তালিকা (নাম/গন্তব্য, ভাড়া, বিবরণ)");
   return "";
 }
 function adminExtraSave(t,raw,v){
@@ -2277,7 +2314,7 @@ function adminExtraSave(t,raw,v){
   const D=s=>String(s||"").replace(/[^\d]/g,"");
   if(t==="hotel"){
     raw.tags=L("ae_tags").slice(0,10);
-    raw.pkgs=[0,1,2,3,4].map(i=>({n:(v("ae_pn"+i)||"").slice(0,50),p:D(v("ae_pp"+i)).slice(0,7),d:(v("ae_pd"+i)||"").slice(0,70)})).filter(x=>x.n&&x.p);
+    raw.pkgs=PKI.map(i=>({n:(v("ae_pn"+i)||"").slice(0,50),p:D(v("ae_pp"+i)).slice(0,7),d:(v("ae_pd"+i)||"").slice(0,70)})).filter(x=>x.n&&x.p);
     if(!raw.pkgs.length) return "অন্তত একটি রুম বা প্যাকেজের নাম ও দাম দিন।";
   }else if(t==="hospital"){
     raw.sector=v("ae_sector")||"";raw.tags=L("ae_tags").slice(0,8);
@@ -2294,10 +2331,10 @@ function adminExtraSave(t,raw,v){
   return "";
 }
 function adminEdit(id){
-  const p=(ADM.items||[]).find(x=>x.id===id);if(!p||!isAdmin()) return;
+  const p=findPost(id);if(!p||!isAdmin()) return;
   const o=fsSan(p),rep=p._type==="report",nt=p._type==="notice";
   const inp=(i,l,v,m)=>`<label for="${i}">${l}</label><input id="${i}" maxlength="${m}" value="${esc(v)}">`;
-  app.innerHTML=`<div class="top"><button onclick="adminPage()" aria-label="পিছনে">←</button><h3>✏️ সম্পাদনা (${CLOUD_TYPES[p._type]||""})</h3></div><div class="page f">
+  app.innerHTML=`<div class="top"><button onclick="admRet()" aria-label="পিছনে">←</button><h3>✏️ সম্পাদনা (${CLOUD_TYPES[p._type]||""})</h3></div><div class="page f">
     ${rep?inp("ae_place","জায়গা",o.place,100)+`<label for="ae_text">বিবরণ</label><textarea id="ae_text" maxlength="600">${esc(o.text)}</textarea><label class="chk"><input type="checkbox" id="ae_res" ${o.resolved?"checked":""}><span>সমস্যাটি সমাধান হয়েছে</span></label>`
      :inp("ae_t","নাম / শিরোনাম",o.t,150)+(nt||p._type==="doctor"?"":inp("ae_s","উপজেলা বা থানা",o.s,40)+inp("ae_addr","ঠিকানা",o.addr,120))+(p._type==="doctor"||p._type==="donor"?"":`<label for="ae_desc">বিবরণ</label><textarea id="ae_desc" maxlength="600">${esc(o.desc)}</textarea>`)+adminExtra(p._type,o)+(nt||p._type==="spot"?"":inp("ae_ph","কল নম্বর",o.ph,11)+inp("ae_wa","WhatsApp নম্বর",o.wa,11))}
     <p class="err" id="ae_err" role="alert"></p>
@@ -2305,7 +2342,7 @@ function adminEdit(id){
   window.scrollTo(0,0);
 }
 async function adminSaveEdit(id){
-  const p=(ADM.items||[]).find(x=>x.id===id);if(!p||!isAdmin()) return;
+  const p=findPost(id);if(!p||!isAdmin()) return;
   const v=i=>{const e=document.getElementById(i);return e?String(e.value||"").trim():null;};
   const err=m=>{document.getElementById("ae_err").textContent=m;};
   const raw={...p._raw};
@@ -2321,7 +2358,7 @@ async function adminSaveEdit(id){
       if(ph&&!PHONE_RE.test(ph)||wa&&!PHONE_RE.test(wa)) return err("নম্বর ১১ সংখ্যার হতে হবে (01XXXXXXXXX)।");
       raw.ph=ph;raw.wa=wa;
     }
-    const xe=adminExtraSave(p._type,raw,v);if(xe) return err(xe);
+    const xe=adminExtraSave(p._type,raw,v)||adminExtraSave2(p._type,raw,v);if(xe) return err(xe);
   }
   const title=String(raw.t||raw.place||raw.type||"").slice(0,140),json=JSON.stringify(raw);
   if(new Blob([json]).size>900000) return err("পোস্টটি খুব বড়।");
@@ -2329,14 +2366,14 @@ async function adminSaveEdit(id){
   try{await fsReq("PATCH","/posts/"+safeId(id)+"?updateMask.fieldPaths=json&updateMask.fieldPaths=t",{fields:{json:{stringValue:json},t:{stringValue:title}}},true);}
   catch(e){return err(cloudMsg(e));}
   p._raw=raw;Object.keys(CACHE).forEach(k=>delete CACHE[k]);NOTICE.t=0;
-  toast("সংরক্ষিত হয়েছে ✓");adminPage();
+  toast("সংরক্ষিত হয়েছে ✓");admRet();
 }
 /* =====================================================================
    কনটেন্ট ম্যানেজার (অ্যাডমিন): উপজেলা ও ইউনিয়ন, ক্যাটাগরি, শিক্ষাপ্রতিষ্ঠান
    - তথ্য "posts" সংগ্রহে type="cfg" নামে এক একটি ডকুমেন্টে (cfg_upa, cfg_cat, cfg_edu) জমা থাকে
    - অ্যাপ খুললে সবাই এগুলো পড়ে নেয়; না পেলে কোডের ভেতরের তথ্য দেখায়
    ===================================================================== */
-const CFG_KEYS=["upa","cat","edu"];
+const CFG_KEYS=["upa","cat","edu","hide"];
 const CATS0=CATS.map(c=>({id:c.id,n:c.n,d:c.d}));
 const cfS=(v,n)=>typeof v==="string"?v.slice(0,n):"";
 const cfW=v=>/^[a-z0-9-]{1,60}$/.test(v||"")?v:"";
@@ -2357,6 +2394,8 @@ function cfApply(key,raw){
       if(cfS(o.n,40)) c.n=cfS(o.n,40);
       if(typeof o.d==="string") c.d=o.d.slice(0,80);
       c.hide=o.hide===true;});
+  }else if(key==="hide"){
+    if(Array.isArray(raw.keys)){HIDE.clear();raw.keys.slice(0,300).forEach(k=>{const x=cfS(k,100);if(x) HIDE.add(x);});}
   }else if(key==="edu"){
     Object.keys(EDU).forEach(k=>delete EDU[k]);
     Object.keys(raw).slice(0,40).forEach(u=>{
@@ -2378,7 +2417,7 @@ async function loadCfg(){
 }
 async function cfgSave(key){
   if(!isAdmin()) return false;
-  const payload=key==="upa"?{upd:UPD,uni:UNI}:key==="edu"?EDU:Object.fromEntries(CATS.map(c=>[c.id,{n:c.n,d:c.d||"",hide:!!c.hide}]));
+  const payload=key==="hide"?{keys:[...HIDE]}:key==="upa"?{upd:UPD,uni:UNI}:key==="edu"?EDU:Object.fromEntries(CATS.map(c=>[c.id,{n:c.n,d:c.d||"",hide:!!c.hide}]));
   const json=JSON.stringify(payload);
   if(new Blob([json]).size>900000){toast("তথ্য অনেক বড় হয়ে গেছে");return false;}
   try{await fsReq("PATCH","/posts/cfg_"+key,{fields:{type:{stringValue:"cfg"},status:{stringValue:"approved"},uid:{stringValue:SES.uid},t:{stringValue:key},json:{stringValue:json},at:{integerValue:String(Date.now())}}},true);}
@@ -2603,12 +2642,13 @@ function gFieldHTML(f,pre){
   if(kind==="map") return `<label for="${id}">${label}</label><input id="${id}" type="url" inputmode="url" autocapitalize="none" maxlength="300" placeholder="https://maps.app.goo.gl/...">`;
   if(kind==="url") return `<label for="${id}">${label}</label><input id="${id}" type="url" inputmode="url" autocapitalize="none" maxlength="300" placeholder="https://facebook.com/...">`;
   if(kind==="hosp") return `<label for="${id}">${label}</label><select id="${id}">${hospAll().map(h=>`<option value="${esc(String(h.id))}" ${pre&&String(pre.hid)===String(h.id)?"selected":""}>${esc(h.t)}</option>`).join("")}</select>`;
-  if(kind==="pkgs") return `<label>${label}</label>${[0,1,2,3,4].map(i=>`<div class="item cvrow" style="margin-top:8px"><input id="${id}n${i}" maxlength="50" placeholder="প্যাকেজ বা রুমের নাম (যেমন: ডাবল রুম, এসি)"><div class="row2"><input id="${id}p${i}" type="tel" inputmode="numeric" maxlength="7" placeholder="দাম (টাকা)"><input id="${id}d${i}" maxlength="70" placeholder="যা যা পাবেন (যেমন: ১ রাত, নাস্তাসহ)"></div></div>`).join("")}`;
+  if(kind==="pkgs") return `<label>${label}</label>${PKI.map(i=>`<div class="item cvrow" style="margin-top:8px"><input id="${id}n${i}" maxlength="50" placeholder="${esc(o.pn||"প্যাকেজ বা রুমের নাম (যেমন: ডাবল রুম, এসি)")}"><div class="row2"><input id="${id}p${i}" type="tel" inputmode="numeric" maxlength="7" placeholder="দাম (টাকা)"><input id="${id}d${i}" maxlength="70" placeholder="${esc(o.pd||"যা যা পাবেন (যেমন: ১ রাত, নাস্তাসহ)")}"></div></div>`).join("")}`;
   return "";
 }
 function gForm(type,pre){
   const F=FORMS[type];if(!F) return;
   if(!needAuth(()=>gForm(type,pre))) return;
+  if(ADMT.includes(type)&&!isAdmin()) return toast("শুধু অ্যাডমিন এটি যোগ করতে পারেন");
   const m=getMe();
   app.innerHTML=`<div class="top"><button onclick="${F.back}" aria-label="পিছনে">←</button><h3>${F.icon} ${F.title}</h3></div><div class="page f">
     ${F.fields.map(f=>gFieldHTML(f,pre)).join("")}
@@ -2626,7 +2666,7 @@ function gVals(type){
     if(kind==="photo") v[k]=(PICK[id]||[])[0]||"";
     else if(kind==="photos") v[k]=(PICK[id]||[]).slice(0,o.max||5);
     else if(kind==="lines") v[k]=g(id).split("\n").map(x=>x.trim().slice(0,60)).filter(Boolean).slice(0,o.max||8);
-    else if(kind==="pkgs") v[k]=[0,1,2,3,4].map(i=>({n:g(id+"n"+i).slice(0,50),p:g(id+"p"+i).replace(/[^\d]/g,"").slice(0,7),d:g(id+"d"+i).slice(0,70)})).filter(x=>x.n&&x.p);
+    else if(kind==="pkgs") v[k]=PKI.map(i=>({n:g(id+"n"+i).slice(0,50),p:g(id+"p"+i).replace(/[^\d]/g,"").slice(0,7),d:g(id+"d"+i).slice(0,70)})).filter(x=>x.n&&x.p);
     else v[k]=g(id);
   });
   v.ph=g("g_ph");v.wa=g("g_wa");
@@ -2666,6 +2706,11 @@ function gDone(type,raw){
   if(type==="doctor") return raw&&raw.hid?hospitalDetail(raw.hid):hospitalPage();
   if(type==="hotel") return hotelPage();
   if(type==="social") return orgPage();
+  if(type==="person") return openCat("people");
+  if(type==="job") return openCat("job");
+  if(type==="shop") return openCat("shop");
+  if(type==="thanac") return thanaContacts(raw&&raw.s||"");
+  if(type==="bus"||type==="launch"||type==="vehicle") return openCat(type);
 }
 
 /* ---------- রক্তদাতা ---------- */
@@ -2768,6 +2813,160 @@ function hospitalDetail(id){
     <button class="btn alt" onclick="gForm('doctor',{hid:'${safeId(id)}'})">👨‍⚕️ এই হাসপাতালে ডাক্তার যোগ করুন</button>`;
   }
   app.innerHTML=`<div class="top"><button onclick="hospitalPage()" aria-label="পিছনে">←</button><h3>🏥 হাসপাতাল</h3></div><div class="page">${body}</div>`;
+  window.scrollTo(0,0);
+}
+
+/* =====================================================================
+   অ্যাডমিনের নিয়ন্ত্রণে বিভাগ: পরিচিত মানুষ, চাকরি, কোথায় কী পাওয়া যায়, বাস, লঞ্চ, যানবাহন (ভাড়াসহ)
+   - অ্যাডমিন যোগ করে, সম্পাদনা করে, মোছে; নমুনা তথ্য সরায় বা নিজের করে বদলায়
+   ===================================================================== */
+const PKI=[0,1,2,3,4,5,6,7];
+const CURR={fn:null},HIDE=new Set();let SMPL=[];
+const sampKey=(c,t)=>(c+":"+String(t)).slice(0,100);
+const SEC={
+ people:{t:"person",back:"home()",add:"➕ পরিচিত ব্যক্তি যোগ করুন",note:"গুণী ও পরিচিত মানুষের তথ্য সংশ্লিষ্ট ব্যক্তির অনুমতি নিয়ে যোগ করা হয়।"},
+ job:{t:"job",back:"home()",add:"➕ চাকরির বিজ্ঞপ্তি যোগ করুন",note:"আবেদনের আগে প্রতিষ্ঠানের সূত্র মিলিয়ে নিন। চাকরির নামে কাউকে আগাম টাকা দেবেন না।"},
+ shop:{t:"shop",back:"home()",add:"➕ দোকান / বাজার যোগ করুন",note:"কোথায় কী পাওয়া যায় তা জানতে দোকান বা বাজারে ট্যাপ করুন। যাওয়ার আগে ফোনে মিলিয়ে নিন।"},
+ bus:{t:"bus",back:"openCat('transport')",add:"➕ বাস কাউন্টার / রুট যোগ করুন",note:"ভাড়া ও সময় বদলাতে পারে, তাই যাত্রার আগে কাউন্টারে ফোনে মিলিয়ে নিন।"},
+ launch:{t:"launch",back:"openCat('transport')",add:"➕ লঞ্চ / নৌযান যোগ করুন",note:"ভাড়া ও ছাড়ার সময় বদলাতে পারে। ঝড়ের সংকেতে নদীপথে যাত্রা এড়িয়ে চলুন।"},
+ vehicle:{t:"vehicle",back:"openCat('transport')",add:"➕ যানবাহন ও ভাড়া যোগ করুন",note:"ভাড়া আনুমানিক, চালকের সাথে আগে কথা বলে নিন।"}
+};
+const ADMT=[...Object.values(SEC).map(x=>x.t),"thanac"];
+const TP=(title,label)=>({title,icon:"🚌",back:"openCat('"+label+"')",contact:true,contactReq:false,
+ okText:"আমি চাই লগইন করা সদস্যরা এই নম্বরে কল বা WhatsApp করুক।",
+ fields:[["t","text","নাম *",{req:3,max:80}],["s","upa","উপজেলা *"],["addr","text","ঠিকানা / স্ট্যান্ড",{max:120}],["desc","area","বিবরণ",{max:400}],["pkgs","pkgs","ভাড়ার তালিকা (গন্তব্য বা ধরন, ভাড়া, বিবরণ)",{pn:"গন্তব্য বা ধরন (যেমন: ঢাকা, এসি)",pd:"বিবরণ (যেমন: সকাল ৮টা)"}],["tags","lines","রুট / সেবা (প্রতি লাইনে একটি)",{ph:"ঢাকা\nচট্টগ্রাম",max:10}],["mapurl","map","ম্যাপের লিংক (ঐচ্ছিক)"]],
+ build:v=>({t:v.t,s:v.s,addr:v.addr,desc:v.desc,pkgs:v.pkgs,tags:v.tags,mapurl:v.mapurl,ph:v.ph,wa:v.wa,ok:!!(v.ph||v.wa)})});
+Object.assign(FORMS,{
+ person:{title:"পরিচিত ব্যক্তি যোগ করুন",icon:"🌟",back:"openCat('people')",contact:true,contactReq:false,
+  okText:"সংশ্লিষ্ট ব্যক্তির সম্মতিতে লগইন করা সদস্যরা এই নম্বরে যোগাযোগ করতে পারবেন।",
+  fields:[["photo","photo","ব্যক্তির ছবি"],["t","text","নাম *",{req:3,max:60}],["sub","text","পরিচয় / পদবী (যেমন: শিক্ষাবিদ)",{max:80}],["s","upa","উপজেলা *"],["addr","text","ঠিকানা",{max:120}],["desc","area","পরিচিতি ও অবদান",{max:600}],["tags","lines","পরিচয়ের ট্যাগ (প্রতি লাইনে একটি)",{ph:"শিক্ষাবিদ\nসমাজসেবক",max:6}]],
+  build:v=>({t:v.t,sub:v.sub,photo:v.photo,s:v.s,addr:v.addr,desc:v.desc,tags:v.tags,ph:v.ph,wa:v.wa,ok:!!(v.ph||v.wa)})},
+ job:{title:"চাকরির বিজ্ঞপ্তি যোগ করুন",icon:"💼",back:"openCat('job')",contact:true,contactReq:false,
+  okText:"আমি চাই লগইন করা সদস্যরা যোগাযোগের জন্য এই নম্বরে কল বা WhatsApp করুক।",
+  fields:[["t","text","পদের নাম *",{req:3,max:80}],["sub","text","প্রতিষ্ঠানের নাম *",{req:2,max:80}],["s","upa","উপজেলা *"],["desc","area","বিবরণ (যোগ্যতা, বেতন, আবেদনের নিয়ম)",{max:600}],["tags","lines","শেষ তারিখ, ধরন ইত্যাদি (প্রতি লাইনে একটি)",{ph:"শেষ তারিখ: ৩০ নভেম্বর\nফুল-টাইম",max:8}],["url","url","আবেদন বা বিস্তারিত লিংক (ঐচ্ছিক)"]],
+  build:v=>({t:v.t,sub:v.sub,s:v.s,desc:v.desc,tags:v.tags,url:v.url,ph:v.ph,wa:v.wa,ok:!!(v.ph||v.wa)})},
+ shop:{title:"দোকান / বাজার যোগ করুন",icon:"🏪",back:"openCat('shop')",contact:true,contactReq:false,
+  okText:"আমি চাই লগইন করা সদস্যরা এই নম্বরে কল বা WhatsApp করুক।",
+  fields:[["imgs","photos","ছবি (সর্বোচ্চ ৩টি)",{max:3}],["t","text","দোকান / বাজারের নাম *",{req:3,max:80}],["s","upa","উপজেলা *"],["addr","text","ঠিকানা",{max:120}],["desc","area","বিবরণ",{max:400}],["tags","lines","কী কী পাওয়া যায় (প্রতি লাইনে একটি)",{ph:"ইলিশ মাছ\nশুঁটকি",max:12}],["mapurl","map","ম্যাপের লিংক (ঐচ্ছিক)"]],
+  build:v=>({t:v.t,s:v.s,addr:v.addr,desc:v.desc,tags:v.tags,imgs:v.imgs,mapurl:v.mapurl,ph:v.ph,wa:v.wa,ok:!!(v.ph||v.wa)})},
+ bus:TP("বাস কাউন্টার / রুট যোগ করুন","bus"),
+ launch:TP("লঞ্চ / নৌযান যোগ করুন","launch"),
+ vehicle:TP("যানবাহন ও ভাড়া যোগ করুন","vehicle")
+});
+FORMS.thanac={title:"থানা যোগাযোগ যোগ করুন",icon:"🚓",back:"upaPage()",contact:true,contactReq:false,
+ okText:"এই নম্বরে লগইন করা সদস্যরা কল বা WhatsApp করতে পারবেন।",
+ fields:[["t","text","থানার নাম *",{req:3,max:80}],["s","upa","উপজেলা *"],["sub","text","ওসি / কর্মকর্তার নাম",{max:80}],["addr","text","থানার ঠিকানা",{max:120}],["desc","area","বিবরণ (জরুরি নম্বর, দায়িত্বপ্রাপ্ত এলাকা ইত্যাদি)",{max:500}],["tags","lines","ট্যাগ (প্রতি লাইনে একটি)",{ph:"ওসি\nডিউটি অফিসার",max:8}],["mapurl","map","ম্যাপের লিংক (ঐচ্ছিক)"]],
+ build:v=>({t:v.t,sub:v.sub,s:v.s,addr:v.addr,desc:v.desc,tags:v.tags,mapurl:v.mapurl,ph:v.ph,wa:v.wa,ok:!!(v.ph||v.wa)})};
+FORMS.bus.icon="🚌";FORMS.launch.icon="🚢";FORMS.vehicle.icon="🛺";
+
+function pkgRows(pk,l){
+  return `<label>${l||"রুম ও প্যাকেজ"}</label>`+PKI.map(i=>{const x=(pk||[])[i]||{};return `<div class="item cvrow" style="margin-top:8px"><input id="ae_pn${i}" maxlength="50" placeholder="নাম বা গন্তব্য" value="${esc(x.n||"")}"><div class="row2"><input id="ae_pp${i}" type="tel" inputmode="numeric" maxlength="7" placeholder="ভাড়া / দাম (টাকা)" value="${esc(x.p||"")}"><input id="ae_pd${i}" maxlength="70" placeholder="বিবরণ" value="${esc(x.d||"")}"></div></div>`;}).join("");
+}
+function adminExtraSave2(t,raw,v){
+  const L=id=>String(v(id)||"").split("\n").map(x=>x.trim().slice(0,60)).filter(Boolean);
+  const D=x=>String(x||"").replace(/[^\d]/g,"");
+  if(t==="entre"){const e=document.getElementById("ae_ver");if(e) raw.verified=!!e.checked;}
+  else if(t==="person"){raw.sub=(v("ae_sub")||"").slice(0,80);raw.tags=L("ae_tags").slice(0,6);}
+  else if(t==="job"){
+    raw.sub=(v("ae_sub")||"").slice(0,80);raw.tags=L("ae_tags").slice(0,8);
+    const u=v("ae_url")||"";if(u&&!/^https:\/\//.test(u)) return "লিংক https:// দিয়ে শুরু হতে হবে।";raw.url=u;
+  }
+  else if(t==="shop") raw.tags=L("ae_tags").slice(0,12);
+  else if(t==="thanac"){raw.sub=(v("ae_sub")||"").slice(0,80);raw.tags=L("ae_tags").slice(0,8);}
+  else if(t==="bus"||t==="launch"||t==="vehicle"){
+    raw.tags=L("ae_tags").slice(0,10);
+    raw.pkgs=PKI.map(i=>({n:(v("ae_pn"+i)||"").slice(0,50),p:D(v("ae_pp"+i)).slice(0,7),d:(v("ae_pd"+i)||"").slice(0,70)})).filter(x=>x.n&&x.p);
+  }
+  return "";
+}
+function findPost(id){
+  let p=(ADM.items||[]).find(x=>x.id===id);if(p) return p;
+  p=(MYP.items||[]).find(x=>x.id===id);if(p) return p;
+  for(const k of Object.keys(CACHE)){p=((CACHE[k]&&CACHE[k].items)||[]).find(x=>x.id===id);if(p) return p;}
+  return null;
+}
+function admRet(){const f=ADM.ret;ADM.ret=null;(f||adminPage)();}
+function adminEditHere(id){ADM.ret=CURR.fn;adminEdit(id);}
+async function entreVerify(id,sec){
+  const p=findPost(id);if(!p||!isAdmin()) return;
+  const raw={...p._raw,verified:!p._raw.verified};
+  try{await fsReq("PATCH","/posts/"+safeId(id)+"?updateMask.fieldPaths=json",{fields:{json:{stringValue:JSON.stringify(raw)}}},true);}
+  catch(e){return toast(cloudMsg(e));}
+  p._raw=raw;toast(raw.verified?"যাচাইকৃত হিসেবে চিহ্নিত ✓":"যাচাই বাতিল করা হয়েছে");
+  if(sec&&CURR.fn) CURR.fn();else adminPage();
+}
+function sampleRaw(x){
+  return {t:x.t,sub:x.sub||"",s:x.s||"",addr:x.addr||"",desc:x.desc||"",tags:x.tags||[],items:x.items||[],pkgs:x.pkgs||[],hours:x.hours||"",ph:x.ph||"",wa:x.wa||"",ok:!!x.ok,url:x.url||"",imgs:[]};
+}
+function smpHide(i){
+  const x=SMPL[i];if(!x||!isAdmin()) return;
+  ask(`"${x.t}" নমুনা তালিকা থেকে সরাবেন?`,async()=>{
+    const k=sampKey(x.smp,x.t);HIDE.add(k);
+    if(!await cfgSave("hide")){HIDE.delete(k);return;}
+    if(CURR.fn) CURR.fn();
+  },true);
+}
+async function smpEdit(i){
+  const x=SMPL[i];if(!x||!isAdmin()) return;
+  const type=x.smp==="entre"?"entre":(SEC[x.smp]&&SEC[x.smp].t);if(!type) return;
+  const back=CURR.fn,raw=sampleRaw(x),id=Date.now().toString(36)+Math.random().toString(36).slice(2,8);
+  toast("⏳ প্রস্তুত হচ্ছে…");
+  try{await fsReq("POST","/posts?documentId="+id,{fields:{type:{stringValue:type},status:{stringValue:"approved"},uid:{stringValue:SES.uid},t:{stringValue:String(raw.t).slice(0,140)},json:{stringValue:JSON.stringify(raw)},at:{integerValue:String(Date.now())}}},true);}
+  catch(e){return toast(cloudMsg(e));}
+  HIDE.add(sampKey(x.smp,x.t));await cfgSave("hide");
+  CACHE[type]={t:Date.now(),items:[{id,_type:type,_st:"approved",_uid:SES.uid,_at:Date.now(),_raw:raw},...cloudItems(type)]};
+  ADM.ret=back;adminEdit(id);
+}
+function card(it,id){
+  const h=card0(it,id);
+  if(!isAdmin()) return h;
+  const b=[];
+  if(it.cid){
+    const a=idArg(it.cid);
+    if(it.cst==="pending") b.push(`<button class="call" onclick="adminSet(${a},'approved',1)">✅ অনুমোদন</button>`);
+    if(it.cst==="approved"&&it.ctype==="entre") b.push(`<button class="call" style="background:linear-gradient(135deg,#f9a825,#f57f17)" onclick="entreVerify(${a},1)">${it.verified?"✔ যাচাই বাতিল":"✔ যাচাই করুন"}</button>`);
+    b.push(`<button class="call" style="background:linear-gradient(135deg,#6a3fb5,#8e5ce0)" onclick="adminEditHere(${a})">✏️ সম্পাদনা</button>`);
+  }
+  if(it.smp!=null&&it.smi!=null&&isCloud()){
+    b.push(`<button class="call" style="background:linear-gradient(135deg,#6a3fb5,#8e5ce0)" onclick="smpEdit(${+it.smi})">✏️ নমুনা সম্পাদনা</button>`);
+    b.push(`<button class="del" onclick="smpHide(${+it.smi})">🙈 নমুনা সরান</button>`);
+  }
+  if(!b.length) return h;
+  return h.slice(0,h.lastIndexOf("</div>"))+`<div class="cbar">${b.join("")}</div></div>`;
+}
+function secPage(cid){
+  const S=SEC[cid];if(!S) return home();
+  const c=findCat(cid),type=S.t;
+  ensureCloud(type,"sec",()=>secPage(cid));
+  const real=itemsOf(type);
+  SMPL=(DATA[cid]||[]).filter(x=>!HIDE.has(sampKey(cid,x.t))).map((x,i)=>({...x,smp:cid,smi:i}));
+  app.innerHTML=`<div class="top"><button onclick="${S.back}" aria-label="পিছনে">←</button><h3>${c.i} ${c.n}</h3></div><div class="page">
+    ${isAdmin()?`<button class="btn" onclick="gForm('${type}')">${S.add}</button><div class="note">🛡️ আপনি অ্যাডমিন: এখানে প্রতিটি তথ্যের নিচে সম্পাদনা, মোছা ও নমুনা সরানোর বাটন আছে।</div>`:""}
+    <div class="note">${S.note}${SMPL.length?' "নমুনা" লেখা তথ্য উদাহরণ মাত্র।':""}</div>
+    ${cloudNote(type,"sec")}
+    ${[...real,...SMPL].map(it=>card(it,cid)).join("")||'<div class="empty">এখনো কোনো তথ্য নেই 🚧</div>'}</div>`;
+  window.scrollTo(0,0);
+}
+
+
+/* ---------- থানা যোগাযোগ ও শিক্ষা প্রতিষ্ঠান (হোম) ---------- */
+function thanaContacts(u){
+  ensureCloud("thanac","thanac",()=>thanaContacts(u));
+  const real=itemsOf("thanac").filter(x=>!u||String(x.s||"").indexOf(u)>=0);
+  const smp=real.length?[]:UPA.filter(x=>!u||x.n===u).map(x=>({t:x.th,s:x.n,tags:["থানা"],desc:"ওসির নাম ও ফোন নম্বর শীঘ্রই যোগ হবে।",smp:"thanac",smi:-1}));
+  const bi=UPD.findIndex(x=>x.n===u);
+  app.innerHTML=`<div class="top"><button onclick="${u&&bi>=0?`upaDetail(${bi})`:"upaPage()"}" aria-label="পিছনে">←</button><h3>🚓 ${u?esc(u)+" · ":""}থানা যোগাযোগ</h3></div><div class="page">
+    <a class="call" style="background:linear-gradient(135deg,#e53935,#c62828);margin-top:12px" href="tel:999">🚨 জরুরি সহায়তা: ৯৯৯</a>
+    ${isAdmin()?`<button class="btn" style="margin-top:12px" onclick="gForm('thanac')">➕ থানার যোগাযোগ যোগ করুন</button><div class="note">🛡️ অ্যাডমিন: প্রতিটি কার্ডের নিচে সম্পাদনা ও মোছার বাটন আছে।</div>`:""}
+    ${cloudNote("thanac","thanac")}
+    ${[...real,...smp].map(it=>it.smp?`<div class="item"><h4>${esc(it.t)} <span class="smp">নমুনা</span></h4><p>${esc(it.s)}</p><p>${esc(it.desc)}</p></div>`:card(it,"thanac")).join("")||'<div class="empty">এখনো কোনো তথ্য নেই</div>'}</div>`;
+  window.scrollTo(0,0);
+}
+function eduHome(){
+  app.innerHTML=`<div class="top"><button onclick="home()" aria-label="পিছনে">←</button><h3>🎓 শিক্ষা প্রতিষ্ঠান</h3></div><div class="page">
+    <div class="uhd"><h3>উপজেলা বেছে নিন</h3><p>স্কুল, কলেজ ও মাদ্রাসার তথ্য উপজেলা অনুযায়ী</p></div>
+    ${UPA.map((x,i)=>`<button class="bigtab sm" style="animation-delay:${i*40}ms" onclick="eduPage('${x.n}')"><i>🏫</i><div><b>${x.n}</b><span>শিক্ষা প্রতিষ্ঠানের তালিকা</span></div><em>›</em></button>`).join("")}
+    ${isAdmin()?'<div class="note">🛡️ অ্যাডমিন প্যানেলের "শিক্ষাপ্রতিষ্ঠান" ট্যাব থেকে প্রতিষ্ঠান যোগ ও বদল করা যায়।</div>':""}</div>`;
   window.scrollTo(0,0);
 }
 
@@ -3049,5 +3248,325 @@ if(typeof window.addEventListener==="function"){
   sp.onclick=hide;setTimeout(hide,3200);
 })();
 </script>
+<style>
+.sm .tiles{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:13px}
+.sm .tile{border:0;background:#fff;border-radius:20px;padding:16px 8px;text-align:center;box-shadow:0 6px 18px rgba(16,100,70,.1);font-weight:600;font-size:14.5px;color:var(--t)}
+.sm .tile i{display:block;font-style:normal;font-size:30px;margin-bottom:4px}
+.smsum{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:13px}
+.smsum div{background:#fff;border-radius:16px;padding:10px 4px;text-align:center;box-shadow:0 4px 14px rgba(16,100,70,.08);font-size:12px;color:var(--m)}
+.smsum b{display:block;font-size:14.5px;margin-top:2px}
+.sm .in{color:#0b8a4a}.sm .out{color:#c62828}
+.smrow{display:flex;justify-content:space-between;align-items:center;gap:8px}
+.smrow p{font-size:12.5px;color:var(--m)}
+.smrow .amt{font-weight:700;white-space:nowrap}
+.smx{border:0;background:none;font-size:16px;margin-left:6px}
+.smbar{height:9px;border-radius:9px;background:#e3efe8;overflow:hidden;margin-top:7px}
+.smbar i{display:block;height:100%;background:var(--g2)}
+.smst{margin-left:auto;font-size:12px;background:rgba(255,255,255,.22);padding:3px 10px;border-radius:14px;white-space:nowrap}
+.sm .two{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.sm .tabs{display:flex;gap:8px;margin-top:13px;overflow-x:auto}
+.smcalc{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:12px}
+.smcalc button{border:0;border-radius:16px;padding:16px 0;font-size:20px;background:#fff;box-shadow:0 4px 12px rgba(16,100,70,.1)}
+.smcalc button.op{background:#e8f0fe;color:var(--b)}.smcalc button.eq{background:var(--g);color:#fff}
+.smdisp{background:#fff;border-radius:20px;padding:14px 16px;margin-top:13px;text-align:right;box-shadow:0 6px 18px rgba(16,100,70,.09)}
+.smdisp small{display:block;min-height:20px;color:var(--m);font-size:14px;word-break:break-all}.smdisp b{font-size:30px}
+.sm table{width:100%;border-collapse:collapse;font-size:13.5px}.sm td,.sm th{padding:6px 4px;border-bottom:1px solid #e3efe8;text-align:left}.sm td:last-child,.sm th:last-child{text-align:right}
+.sm .done{text-decoration:line-through;opacity:.55}
+.smph{display:none}
+.page.sm>.f:first-child,.page.sm>.btn:first-child{margin-top:13px}
+@media print{nav,.top,.noprint,.toast,#dlg,#splash{display:none!important}body{background:#fff!important;padding:0!important}.item{box-shadow:none!important;break-inside:avoid;animation:none!important}.smph{display:block;margin:6px 16px}}
+</style>
+<script>
+/* =====================================================================
+   আমার স্মার্ট জীবন — ব্যক্তিগত হিসাব ও ব্যবস্থাপনা
+   - তথ্য থাকে Firestore-এর  users/{uid}/smart/{বিভাগ}  নথিতে (শুধু নিজের uid)
+   - প্রতিটি পরিবর্তনের ০.৭ সেকেন্ড পরে নিজে নিজে সেভ হয়
+   - আসল নিরাপত্তা সার্ভারের Firestore Rules-এ (smart-life-firestore-rules.txt দেখুন)
+   ===================================================================== */
+const SMK=["notes","tx","loans","budget","sav","shop","rem","diary","emerg"];
+const $v=id=>{const e=document.getElementById(id);return e?String(e.value).trim():"";};
+const smId=()=>Date.now().toString(36)+Math.random().toString(36).slice(2,6);
+const smD=d=>{d=d||new Date();return d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0");};
+const smDig=s=>String(s==null?"":s).replace(/[০-৯]/g,c=>"০১২৩৪৫৬৭৮৯".indexOf(c));
+const smN=v=>{const n=parseFloat(smDig(v).replace(/[^\d.]/g,""));return isFinite(n)&&n>0?Math.min(Math.round(n*100)/100,1e10):0;};
+const smM=n=>"৳"+Number(n||0).toLocaleString("bn-BD",{maximumFractionDigits:2});
+const smBD=iso=>{try{return new Date(iso+"T00:00:00").toLocaleDateString("bn-BD",{day:"numeric",month:"short",year:"numeric"});}catch(e){return iso;}};
+const smI=x=>safeId((x&&x.id)||"");
+const EXPC=["খাবার","বাজার","যাতায়াত","বিল","শিক্ষা","চিকিৎসা","বিনোদন","পোশাক","অন্যান্য"],INCC=["বেতন","ব্যবসা","উপহার","অন্যান্য"];
+const opts=(a,sel)=>a.map(x=>`<option${x===sel?" selected":""}>${esc(x)}</option>`).join("");
+
+const SM={d:null,p:null,st:"ok",t:{},dirty:{},fail:{},ym:smD().slice(0,7),rm:"m",
+  reset(){Object.values(this.t).forEach(clearTimeout);this.d=null;this.p=null;this.t={};this.dirty={};this.fail={};this.st="ok";},
+  base(){return "/users/"+safeId(SES.uid)+"/smart";},
+  def(k){return k==="budget"?{}:[];},
+  load(){
+    if(this.p) return this.p;
+    const uid=SES&&SES.uid;
+    return this.p=fsReq("GET",this.base()+"?pageSize=20",null,true).then(r=>{
+      if(!SES||SES.uid!==uid) return;                       // মাঝখানে অন্য কেউ লগইন করলে এই তথ্য বাতিল
+      const d={};SMK.forEach(k=>d[k]=this.def(k));
+      (r.documents||[]).forEach(x=>{const k=String(x.name||"").split("/").pop();if(!SMK.includes(k)) return;
+        try{const v=JSON.parse(x.fields.json.stringValue);if(Array.isArray(v)===Array.isArray(d[k])&&v&&typeof v==="object") d[k]=v;}catch(e){}});
+      this.d=d;
+    }).finally(()=>{this.p=null;});
+  },
+  stat(s){this.st=s;const e=document.getElementById("smst");if(e) e.textContent=s==="saving"?"⏳ সেভ হচ্ছে…":s==="err"?"⚠ সেভ হয়নি":"☁️ সেভ হয়েছে";},
+  save(k){this.dirty[k]=1;this.stat("saving");clearTimeout(this.t[k]);this.t[k]=setTimeout(()=>this.flush(k),700);},
+  async flush(k){
+    if(!SES||!this.d||!this.dirty[k]) return;
+    const js=JSON.stringify(this.d[k]);
+    if(js.length>900000){this.stat("err");return toast("এই বিভাগের জায়গা শেষ। পুরোনো তথ্য মুছুন।");}
+    try{
+      await fsReq("PATCH",this.base()+"/"+k+"?updateMask.fieldPaths=json&updateMask.fieldPaths=at",{fields:{json:{stringValue:js},at:{integerValue:String(Date.now())}}},true);
+      delete this.dirty[k];this.fail[k]=0;if(!Object.keys(this.dirty).length) this.stat("ok");
+    }catch(e){
+      this.stat("err");this.fail[k]=(this.fail[k]||0)+1;
+      if(this.fail[k]<=4) setTimeout(()=>this.flush(k),6000);else toast(cloudMsg(e));
+    }
+  }
+};
+async function smartWipe(pw){      // অ্যাকাউন্ট মোছার আগে ক্লাউডের সব ব্যক্তিগত তথ্য মুছে ফেলা
+  if(!isCloud()) return;
+  const t=await AUTH.signIn(SES.email,pw);                 // ভুল পাসওয়ার্ড হলে এখানেই থামবে
+  const keep=SES.idToken;SES.idToken=t.idToken;SES.refreshToken=t.refreshToken;SES.exp=t.exp;
+  for(const k of SMK){try{await fsReq("DELETE",SM.base()+"/"+k,null,true);}catch(e){}}
+  void keep;SM.reset();
+}
+
+/* ---------- খোলা ও কাঠামো ---------- */
+function smShell(title,icon,back,body){
+  PAGE="smart";
+  app.innerHTML=`<div class="top"><button onclick="${back}" aria-label="পিছনে">←</button><h3>${icon} ${title}</h3><span id="smst" class="smst"></span></div><div class="page sm">${body}</div>`;
+  SM.stat(SM.st);window.scrollTo(0,0);
+}
+function smartOpen(){
+  if(!SES){AFTER=smartOpen;return authPage(undefined,"আমার স্মার্ট জীবন ব্যবহার করতে লগইন করুন। নতুন হলে আগে অ্যাকাউন্ট খুলুন।");}
+  if(!SES.verified){AFTER=smartOpen;return verifyPage();}
+  if(!isCloud()) return simple("আমার স্মার্ট জীবন","🧾","এই সুবিধা শুধু লগইন করা ক্লাউড মোডে চলে, যাতে আপনার তথ্য নিরাপদে থাকে ও অন্য ফোনে ফিরে পাওয়া যায়।");
+  if(SM.d) return smartHome();
+  smShell("আমার স্মার্ট জীবন","🧾","home()",'<div class="note">⏳ আপনার তথ্য আনা হচ্ছে…</div>');
+  SM.load().then(()=>{if(PAGE==="smart") smartHome();})
+    .catch(e=>{if(PAGE==="smart") smShell("আমার স্মার্ট জীবন","🧾","home()",`<div class="note">☁️ ${esc(cloudMsg(e))}</div><button class="btn" onclick="smartOpen()">আবার চেষ্টা করুন</button>`);});
+}
+const smSum=l=>l.reduce((s,x)=>{x.ty==="in"?s.in+=x.a:s.out+=x.a;return s;},{in:0,out:0});
+const smLoanSum=()=>SM.d.loans.reduce((s,x)=>{const r=Math.max(0,x.a-(x.p||0));x.dir==="get"?s.get+=r:s.give+=r;return s;},{get:0,give:0});
+const smBox=(a,b,c)=>`<div class="smsum">${[a,b,c].map(x=>`<div>${x[0]}<b class="${x[2]||""}">${x[1]}</b></div>`).join("")}</div>`;
+function smartHome(){
+  if(!SM.d) return smartOpen();
+  const ym=SM.ym,s=smSum(SM.d.tx.filter(x=>x.d.startsWith(ym))),L=smLoanSum();
+  const T=[["money","💰","আয়-ব্যয়"],["loan","🤝","ধার-দেনা"],["budget","📊","মাসিক বাজেট"],["sav","🏦","সঞ্চয়"],["notes","📓","নোটবুক"],["shop","🛒","বাজারের তালিকা"],["rem","⏰","রিমাইন্ডার"],["diary","📔","দৈনিক ডায়েরি"],["calc","🧮","ক্যালকুলেটর"],["emerg","🚨","জরুরি তথ্য"],["rep","📈","রিপোর্ট ও PDF"]];
+  smShell("আমার স্মার্ট জীবন","🧾","home()",`<div class="note">🔒 এই তথ্য শুধু আপনার অ্যাকাউন্টে ক্লাউডে সংরক্ষিত। যেকোনো ফোনে লগইন করলেই ফিরে পাবেন।</div>
+    ${smBox(["এ মাসে আয়",smM(s.in),"in"],["এ মাসে ব্যয়",smM(s.out),"out"],["পাব / দেব",smM(L.get)+" / "+smM(L.give)])}
+    <div class="tiles">${T.map(t=>`<button class="tile" onclick="smGo('${t[0]}')"><i>${t[1]}</i>${t[2]}</button>`).join("")}</div>`);
+}
+const SMP={};
+function smGo(k){if(SMP[k]) SMP[k]();}
+function smDel(k,id,fn){ask("মুছে ফেলবেন?",()=>{SM.d[k]=SM.d[k].filter(x=>x.id!==id);SM.save(k);window[fn]();},true);}
+const smMonthPick=fn=>`<div class="f"><label>মাস</label><input type="month" value="${SM.ym}" onchange="SM.ym=this.value||smD().slice(0,7);${fn}()"></div>`;
+
+/* ---------- ২. আয়-ব্যয় ---------- */
+function smCatOpt(){const e=document.getElementById("t_cat");if(e) e.innerHTML=opts($v("t_ty")==="in"?INCC:EXPC);}
+function smMoney(){
+  const today=smD(),all=SM.d.tx,mo=all.filter(x=>x.d.startsWith(SM.ym)).sort((a,b)=>b.d.localeCompare(a.d)),s=smSum(mo),td=smSum(all.filter(x=>x.d===today));
+  smShell("আয়-ব্যয়","💰","smartHome()",`
+   ${smBox(["আজ আয়",smM(td.in),"in"],["আজ ব্যয়",smM(td.out),"out"],["আজ বাকি",smM(td.in-td.out)])}
+   <div class="item f"><div class="two"><div><label>ধরন</label><select id="t_ty" onchange="smCatOpt()"><option value="out">ব্যয়</option><option value="in">আয়</option></select></div><div><label>টাকা</label><input id="t_amt" inputmode="decimal" maxlength="12" placeholder="০"></div></div>
+   <div class="two"><div><label>খাত</label><select id="t_cat">${opts(EXPC)}</select></div><div><label>তারিখ</label><input id="t_date" type="date" value="${today}"></div></div>
+   <label>নোট (ঐচ্ছিক)</label><input id="t_note" maxlength="80"><button class="btn" onclick="smTxAdd()">যোগ করুন</button></div>
+   ${smMonthPick("smMoney")}${smBox(["মাসের আয়",smM(s.in),"in"],["মাসের ব্যয়",smM(s.out),"out"],["মাসের বাকি",smM(s.in-s.out)])}
+   ${mo.map(x=>`<div class="item smrow"><div><b>${esc(x.c)}</b><p>${smBD(x.d)}${x.n?" · "+esc(x.n):""}</p></div><div class="amt ${x.ty}">${x.ty==="in"?"+":"−"}${smM(x.a)}<button class="smx" onclick="smDel('tx','${smI(x)}','smMoney')" aria-label="মুছুন">🗑️</button></div></div>`).join("")||'<div class="empty">এ মাসে কোনো হিসাব নেই</div>'}`);
+}
+function smTxAdd(){
+  const a=smN($v("t_amt"));if(!a) return toast("টাকার পরিমাণ দিন");
+  const d=/^\d{4}-\d{2}-\d{2}$/.test($v("t_date"))?$v("t_date"):smD();
+  SM.d.tx.push({id:smId(),ty:$v("t_ty")==="in"?"in":"out",a,c:$v("t_cat").slice(0,30),n:$v("t_note").slice(0,80),d});
+  SM.save("tx");SM.ym=d.slice(0,7);smMoney();toast("যোগ হয়েছে");
+}
+SMP.money=smMoney;
+
+/* ---------- ৩-৪. ধার-দেনা ---------- */
+function smLoan(){
+  const L=smLoanSum(),open=SM.d.loans.filter(x=>x.a-(x.p||0)>0),done=SM.d.loans.filter(x=>x.a-(x.p||0)<=0);
+  const row=x=>`<div class="item"><div class="smrow"><div><b>${esc(x.w)}</b><p>${x.dir==="get"?"আমি পাব":"আমি দেব"} · ${smBD(x.d)}${x.n?" · "+esc(x.n):""}</p></div><div class="amt ${x.dir==="get"?"in":"out"}">${smM(Math.max(0,x.a-(x.p||0)))}<button class="smx" onclick="smDel('loans','${smI(x)}','smLoan')" aria-label="মুছুন">🗑️</button></div></div>
+   <p style="font-size:12.5px;color:var(--m)">মোট ${smM(x.a)} · ${x.dir==="get"?"পেয়েছি":"দিয়েছি"} ${smM(x.p||0)}</p>
+   ${x.a-(x.p||0)>0?`<div class="two f"><input id="lp_${smI(x)}" inputmode="decimal" placeholder="${x.dir==="get"?"কত পেলেন":"কত দিলেন"}"><button class="btn" style="margin:0;padding:11px" onclick="smLoanPay('${smI(x)}')">জমা করুন</button></div>`:'<span class="vbadge">✔ পরিশোধ</span>'}</div>`;
+  smShell("ধার-দেনা","🤝","smartHome()",`${smBox(["আমি পাব",smM(L.get),"in"],["আমি দেব",smM(L.give),"out"],["নিট",smM(L.get-L.give)])}
+   <div class="item f"><label>কার সাথে</label><input id="l_w" maxlength="40"><div class="two"><div><label>ধরন</label><select id="l_dir"><option value="get">আমি পাব</option><option value="give">আমি দেব</option></select></div><div><label>টাকা</label><input id="l_a" inputmode="decimal" maxlength="12"></div></div>
+   <label>তারিখ</label><input id="l_d" type="date" value="${smD()}"><label>নোট (ঐচ্ছিক)</label><input id="l_n" maxlength="80"><button class="btn" onclick="smLoanAdd()">যোগ করুন</button></div>
+   ${open.map(row).join("")||'<div class="empty">কোনো বকেয়া নেই 🎉</div>'}${done.length?`<h4 style="margin:18px 4px 0">পরিশোধিত</h4>${done.map(row).join("")}`:""}`);
+}
+function smLoanAdd(){
+  const w=$v("l_w").slice(0,40),a=smN($v("l_a"));if(!w||!a) return toast("নাম ও টাকা দিন");
+  SM.d.loans.push({id:smId(),w,dir:$v("l_dir")==="give"?"give":"get",a,p:0,d:/^\d{4}-\d{2}-\d{2}$/.test($v("l_d"))?$v("l_d"):smD(),n:$v("l_n").slice(0,80)});
+  SM.save("loans");smLoan();
+}
+function smLoanPay(id){
+  const x=SM.d.loans.find(l=>l.id===id),a=smN($v("lp_"+id));if(!x||!a) return toast("টাকার পরিমাণ দিন");
+  x.p=Math.min(x.a,(x.p||0)+a);SM.save("loans");smLoan();
+}
+SMP.loan=smLoan;
+
+/* ---------- ৫. মাসিক বাজেট ---------- */
+function smBudget(){
+  const b=SM.d.budget[SM.ym]||{},mo=SM.d.tx.filter(x=>x.d.startsWith(SM.ym)&&x.ty==="out"),tot=mo.reduce((s,x)=>s+x.a,0);
+  const rows=Object.keys(b).map(c=>{const sp=c==="মোট"?tot:mo.filter(x=>x.c===c).reduce((s,x)=>s+x.a,0),pc=Math.min(100,Math.round(sp/b[c]*100)),col=sp>b[c]?"#e53935":pc>80?"#f59e0b":"var(--g2)";
+    return `<div class="item"><div class="smrow"><div><b>${esc(c)}</b><p>খরচ ${smM(sp)} / সীমা ${smM(b[c])}</p></div><div class="amt ${sp>b[c]?"out":"in"}">${sp>b[c]?"ছাড়িয়েছে "+smM(sp-b[c]):"বাকি "+smM(b[c]-sp)}<button class="smx" onclick="smBudDel('${esc(c)}')" aria-label="মুছুন">🗑️</button></div></div><div class="smbar"><i style="width:${pc}%;background:${col}"></i></div></div>`;}).join("");
+  smShell("মাসিক বাজেট","📊","smartHome()",`${smMonthPick("smBudget")}
+   <div class="item f"><div class="two"><div><label>খাত</label><select id="b_c">${opts(["মোট",...EXPC])}</select></div><div><label>সীমা (টাকা)</label><input id="b_a" inputmode="decimal" maxlength="12"></div></div><button class="btn" onclick="smBudSet()">বাজেট ঠিক করুন</button></div>${rows||'<div class="empty">এ মাসের কোনো বাজেট নেই</div>'}`);
+}
+function smBudSet(){const a=smN($v("b_a"));if(!a) return toast("সীমা দিন");(SM.d.budget[SM.ym]=SM.d.budget[SM.ym]||{})[$v("b_c").slice(0,30)]=a;SM.save("budget");smBudget();}
+function smBudDel(c){delete (SM.d.budget[SM.ym]||{})[c];SM.save("budget");smBudget();}
+SMP.budget=smBudget;
+
+/* ---------- ৬. সঞ্চয় ---------- */
+const smSaved=g=>(g.e||[]).reduce((s,x)=>s+x.a,0);
+function smSav(){
+  smShell("সঞ্চয়ের হিসাব","🏦","smartHome()",`${smBox(["মোট সঞ্চয়",smM(SM.d.sav.reduce((s,g)=>s+smSaved(g),0)),"in"],["লক্ষ্য",SM.d.sav.length+"টি"],["পূর্ণ",SM.d.sav.filter(g=>g.tg&&smSaved(g)>=g.tg).length+"টি"])}
+   <div class="item f"><div class="two"><div><label>লক্ষ্যের নাম</label><input id="s_n" maxlength="40" placeholder="যেমন: ঈদের কেনাকাটা"></div><div><label>লক্ষ্য (টাকা)</label><input id="s_t" inputmode="decimal" maxlength="12"></div></div><button class="btn" onclick="smSavAdd()">লক্ষ্য যোগ করুন</button></div>
+   ${SM.d.sav.map(g=>{const s=smSaved(g),pc=g.tg?Math.min(100,Math.round(s/g.tg*100)):0;return `<div class="item"><div class="smrow"><div><b>${esc(g.n)}</b><p>${smM(s)}${g.tg?" / "+smM(g.tg)+" · "+pc+"%":""}</p></div><button class="smx" onclick="smDel('sav','${smI(g)}','smSav')" aria-label="মুছুন">🗑️</button></div>${g.tg?`<div class="smbar"><i style="width:${pc}%"></i></div>`:""}
+    <div class="f"><input id="sa_${smI(g)}" inputmode="decimal" placeholder="টাকা"></div><div class="two"><button class="btn" style="margin-top:8px;padding:11px" onclick="smSavMv('${smI(g)}',1)">➕ জমা</button><button class="btn dng" style="margin-top:8px;padding:11px" onclick="smSavMv('${smI(g)}',-1)">➖ তুলুন</button></div></div>`;}).join("")||'<div class="empty">এখনো কোনো লক্ষ্য নেই</div>'}`);
+}
+function smSavAdd(){const n=$v("s_n").slice(0,40);if(!n) return toast("নাম দিন");SM.d.sav.push({id:smId(),n,tg:smN($v("s_t")),e:[]});SM.save("sav");smSav();}
+function smSavMv(id,sg){const g=SM.d.sav.find(x=>x.id===id),a=smN($v("sa_"+id));if(!g||!a) return toast("টাকার পরিমাণ দিন");
+  if(sg<0&&a>smSaved(g)) return toast("এত টাকা জমা নেই");g.e=(g.e||[]).concat([{d:smD(),a:a*sg}]).slice(-500);SM.save("sav");smSav();}
+SMP.sav=smSav;
+
+/* ---------- ১. ডিজিটাল নোটবুক ---------- */
+function smNotes(){
+  const q=$v("n_q").toLowerCase(),l=SM.d.notes.slice().sort((a,b)=>(b.u||0)-(a.u||0)).filter(x=>!q||(x.t+" "+x.b).toLowerCase().includes(q));
+  smShell("ডিজিটাল নোটবুক","📓","smartHome()",`<div class="f"><input id="n_q" type="search" placeholder="নোট খুঁজুন…" value="${esc(q)}" oninput="smNotes();var e=document.getElementById('n_q');e.focus();e.setSelectionRange(e.value.length,e.value.length)"></div>
+   <button class="btn" onclick="smNoteNew()">➕ নতুন নোট</button>
+   ${l.map(x=>`<div class="item" onclick="smNoteEdit('${smI(x)}')"><b>${esc(x.t||"শিরোনামহীন")}</b><p>${esc((x.b||"").slice(0,90))}</p></div>`).join("")||'<div class="empty">কোনো নোট নেই</div>'}`);
+}
+function smNoteNew(){const x={id:smId(),t:"",b:"",u:Date.now()};SM.d.notes.push(x);smNoteEdit(x.id);}
+function smNoteEdit(id){
+  const x=SM.d.notes.find(n=>n.id===id);if(!x) return smNotes();
+  smShell("নোট","📓","smNoteClose('"+id+"')",`<div class="item f"><label>শিরোনাম</label><input id="nt_t" maxlength="80" value="${esc(x.t)}" oninput="smNoteSave('${id}')"><label>লেখা</label><textarea id="nt_b" rows="12" maxlength="8000" oninput="smNoteSave('${id}')">${esc(x.b)}</textarea></div>
+   <button class="btn dng" onclick="smDel('notes','${id}','smNotes')">নোট মুছুন</button>`);
+}
+function smNoteSave(id){const x=SM.d.notes.find(n=>n.id===id);if(!x) return;x.t=$v("nt_t").slice(0,80);x.b=document.getElementById("nt_b").value.slice(0,8000);x.u=Date.now();SM.save("notes");}
+function smNoteClose(id){const x=SM.d.notes.find(n=>n.id===id);if(x&&!x.t&&!x.b){SM.d.notes=SM.d.notes.filter(n=>n.id!==id);SM.save("notes");}smNotes();}
+SMP.notes=smNotes;
+
+/* ---------- ৭. বাজারের তালিকা ---------- */
+function smShop(){
+  const l=SM.d.shop,est=l.filter(x=>!x.dn).reduce((s,x)=>s+(x.p||0),0);
+  smShell("বাজারের তালিকা","🛒","smartHome()",`${smBox(["বাকি",l.filter(x=>!x.dn).length+"টি"],["কেনা",l.filter(x=>x.dn).length+"টি","in"],["আনুমানিক খরচ",smM(est)])}
+   <div class="item f"><div class="two"><div><label>জিনিস</label><input id="sh_n" maxlength="40"></div><div><label>পরিমাণ</label><input id="sh_q" maxlength="15" placeholder="২ কেজি"></div></div><label>আনুমানিক দাম (ঐচ্ছিক)</label><input id="sh_p" inputmode="decimal" maxlength="9"><button class="btn" onclick="smShopAdd()">যোগ করুন</button></div>
+   ${l.map(x=>`<div class="item smrow"><div onclick="smShopTg('${smI(x)}')" style="flex:1"><b class="${x.dn?"done":""}">${x.dn?"✅":"⬜"} ${esc(x.n)}</b><p>${esc(x.q||"")}${x.p?" · "+smM(x.p):""}</p></div><button class="smx" onclick="smDel('shop','${smI(x)}','smShop')" aria-label="মুছুন">🗑️</button></div>`).join("")||'<div class="empty">তালিকা খালি</div>'}
+   ${l.some(x=>x.dn)?'<button class="btn alt" onclick="smShopClr()">কেনা জিনিস সরান</button>':""}`);
+}
+function smShopAdd(){const n=$v("sh_n").slice(0,40);if(!n) return toast("জিনিসের নাম দিন");SM.d.shop.push({id:smId(),n,q:$v("sh_q").slice(0,15),p:smN($v("sh_p")),dn:0});SM.save("shop");smShop();}
+function smShopTg(id){const x=SM.d.shop.find(s=>s.id===id);if(x){x.dn=x.dn?0:1;SM.save("shop");smShop();}}
+function smShopClr(){SM.d.shop=SM.d.shop.filter(x=>!x.dn);SM.save("shop");smShop();}
+SMP.shop=smShop;
+
+/* ---------- ৮. রিমাইন্ডার ---------- */
+function smRem(){
+  const l=SM.d.rem.slice().sort((a,b)=>(a.dn-b.dn)||String(a.at).localeCompare(String(b.at))),now=Date.now();
+  smShell("রিমাইন্ডার","⏰","smartHome()",`<div class="note">অ্যাপ খোলা থাকলে ও লগইন থাকলে সময় হলে জানানো হয়। অ্যাপ বন্ধ থাকলে ফোনে নোটিফিকেশন আসে না।</div>
+   <div class="item f"><label>কী মনে করাবো</label><input id="r_t" maxlength="80"><label>কখন</label><input id="r_at" type="datetime-local"><button class="btn" onclick="smRemAdd()">যোগ করুন</button>
+   ${window.Notification&&Notification.permission==="default"?'<button class="btn alt" onclick="Notification.requestPermission().then(smRem)">🔔 নোটিফিকেশন চালু করুন</button>':""}</div>
+   ${l.map(x=>{const late=!x.dn&&new Date(x.at).getTime()<now;return `<div class="item smrow"><div onclick="smRemTg('${smI(x)}')" style="flex:1"><b class="${x.dn?"done":""}">${x.dn?"✅":late?"🔴":"⏰"} ${esc(x.t)}</b><p>${x.at?esc(new Date(x.at).toLocaleString("bn-BD",{dateStyle:"medium",timeStyle:"short"})):""}</p></div><button class="smx" onclick="smDel('rem','${smI(x)}','smRem')" aria-label="মুছুন">🗑️</button></div>`;}).join("")||'<div class="empty">কোনো রিমাইন্ডার নেই</div>'}`);
+}
+function smRemAdd(){const t=$v("r_t").slice(0,80),at=$v("r_at");if(!t||!at) return toast("লেখা ও সময় দিন");SM.d.rem.push({id:smId(),t,at,dn:0,nt:0});SM.save("rem");smRem();}
+function smRemTg(id){const x=SM.d.rem.find(r=>r.id===id);if(x){x.dn=x.dn?0:1;SM.save("rem");smRem();}}
+SMP.rem=smRem;
+setInterval(()=>{                     // প্রতি ৩০ সেকেন্ডে রিমাইন্ডার দেখা; তথ্য না আনা থাকলে চুপচাপ এনে নেয়
+  if(!SES||!SES.verified||!isCloud()) return;
+  if(!SM.d){SM.load().catch(()=>{});return;}
+  let ch=0;const now=Date.now();
+  SM.d.rem.forEach(r=>{if(!r.dn&&!r.nt&&r.at&&new Date(r.at).getTime()<=now){r.nt=1;ch=1;toast("⏰ "+r.t);try{if(window.Notification&&Notification.permission==="granted") new Notification("⏰ রিমাইন্ডার",{body:r.t});}catch(e){}}});
+  if(ch) SM.save("rem");
+},30000);
+
+/* ---------- ৯. ক্যালকুলেটর (তথ্য সংরক্ষণ হয় না) ---------- */
+let SMC="";
+function smEval(s){
+  s=smDig(s).replace(/×/g,"*").replace(/÷/g,"/").replace(/−/g,"-").replace(/\s/g,"");let i=0;
+  const peek=()=>s[i],ex=()=>{let v=tm();while(peek()==="+"||peek()==="-"){const o=s[i++],r=tm();v=o==="+"?v+r:v-r;}return v;},
+    tm=()=>{let v=fc();while(peek()==="*"||peek()==="/"){const o=s[i++],r=fc();v=o==="*"?v*r:v/r;}return v;},
+    fc=()=>{if(peek()==="-"){i++;return -fc();}if(peek()==="("){i++;const v=ex();if(peek()!==")") throw 0;i++;return v;}
+      const m=/^\d*\.?\d+/.exec(s.slice(i));if(!m) throw 0;i+=m[0].length;let v=parseFloat(m[0]);while(peek()==="%"){i++;v/=100;}return v;};
+  const v=ex();if(i!==s.length||!isFinite(v)) throw 0;return v;
+}
+function smCalc(){
+  const K=["৭","৮","৯","÷","৪","৫","৬","×","১","২","৩","−","০",".","%","+","(",")","⌫","C"];
+  smShell("ক্যালকুলেটর","🧮","smartHome()",`<div class="smdisp"><small id="cx">${esc(SMC)}</small><b id="cr">০</b></div>
+   <div class="smcalc">${K.map(k=>`<button class="${"÷×−+".includes(k)?"op":""}" onclick="smKey('${k}')">${k}</button>`).join("")}<button class="eq" style="grid-column:1/-1" onclick="smKey('=')">=</button></div>`);
+}
+function smKey(k){
+  if(k==="C") SMC="";else if(k==="⌫") SMC=SMC.slice(0,-1);else if(k==="="){try{const v=smEval(SMC);SMC=String(+v.toFixed(8)).replace(/\d/g,c=>"০১২৩৪৫৬৭৮৯"[c]);}catch(e){toast("হিসাব ঠিক নেই");}}else if(SMC.length<60) SMC+=k;
+  document.getElementById("cx").textContent=SMC;let r="০";try{r=Number(smEval(SMC)).toLocaleString("bn-BD",{maximumFractionDigits:8});}catch(e){}document.getElementById("cr").textContent=r;
+}
+SMP.calc=()=>{SMC="";smCalc();};
+
+/* ---------- ১০. দৈনিক ডায়েরি ---------- */
+const MOODS=["😀","🙂","😐","😔","😡"];
+function smDiary(date){
+  date=/^\d{4}-\d{2}-\d{2}$/.test(date||"")?date:smD();const e=SM.d.diary.find(x=>x.d===date)||{m:"🙂",t:""};
+  smShell("দৈনিক ডায়েরি","📔","smartHome()",`<div class="item f"><label>তারিখ</label><input id="dy_d" type="date" value="${date}" max="${smD()}" onchange="smDiary(this.value)">
+   <label>আজকের মন</label><select id="dy_m" onchange="smDiarySave()">${MOODS.map(m=>`<option${m===e.m?" selected":""}>${m}</option>`).join("")}</select>
+   <label>আজ কী হলো</label><textarea id="dy_t" rows="11" maxlength="8000" oninput="smDiarySave()">${esc(e.t)}</textarea></div>
+   <h4 style="margin:16px 4px 0">আগের লেখা</h4>${SM.d.diary.slice().sort((a,b)=>b.d.localeCompare(a.d)).filter(x=>x.t).map(x=>`<div class="item" onclick="smDiary('${x.d}')"><b>${x.m} ${smBD(x.d)}</b><p>${esc(x.t.slice(0,80))}</p></div>`).join("")||'<div class="empty">এখনো কিছু লেখা হয়নি</div>'}`);
+}
+function smDiarySave(){
+  const d=$v("dy_d");if(!/^\d{4}-\d{2}-\d{2}$/.test(d)) return;
+  let e=SM.d.diary.find(x=>x.d===d);if(!e){e={d,m:"🙂",t:""};SM.d.diary.push(e);}
+  e.m=MOODS.includes($v("dy_m"))?$v("dy_m"):"🙂";e.t=document.getElementById("dy_t").value.slice(0,8000);SM.save("diary");
+}
+SMP.diary=()=>smDiary();
+
+/* ---------- ১১. জরুরি তথ্য ---------- */
+function smEm(){
+  smShell("জরুরি তথ্য","🚨","smartHome()",`<div class="note">⚠ ব্যাংকের পিন, পাসওয়ার্ড বা কার্ডের গোপন নম্বর এখানে রাখবেন না।</div>
+   <div class="item f"><label>কী তথ্য</label><input id="e_k" maxlength="30" list="e_l" placeholder="যেমন: রক্তের গ্রুপ"><datalist id="e_l">${["রক্তের গ্রুপ","জাতীয় পরিচয়পত্র নং","জরুরি যোগাযোগ","পরিবারের ডাক্তার","অ্যালার্জি","বীমা নম্বর"].map(x=>`<option value="${x}">`).join("")}</datalist>
+   <label>বিবরণ</label><input id="e_v" maxlength="120"><button class="btn" onclick="smEmAdd()">সংরক্ষণ করুন</button></div>
+   ${SM.d.emerg.map(x=>`<div class="item smrow"><div><p>${esc(x.k)}</p><b>${PHONE_RE.test(x.v)?`<a href="tel:${esc(x.v)}">📞 ${esc(x.v)}</a>`:esc(x.v)}</b></div><button class="smx" onclick="smDel('emerg','${smI(x)}','smEm')" aria-label="মুছুন">🗑️</button></div>`).join("")||'<div class="empty">কোনো তথ্য নেই</div>'}`);
+}
+function smEmAdd(){const k=$v("e_k").slice(0,30),v=$v("e_v").slice(0,120);if(!k||!v) return toast("দুটি ঘরই পূরণ করুন");SM.d.emerg.push({id:smId(),k,v});SM.save("emerg");smEm();}
+SMP.emerg=smEm;
+
+/* ---------- ১২-১৩. রিপোর্ট ও PDF ---------- */
+function smRep(){
+  const yr=SM.ym.slice(0,4),mon=SM.rm==="m",pre=mon?SM.ym:yr,l=SM.d.tx.filter(x=>x.d.startsWith(pre)),s=smSum(l),L=smLoanSum();
+  const grp=ty=>{const m={};l.filter(x=>x.ty===ty).forEach(x=>m[x.c]=(m[x.c]||0)+x.a);return Object.entries(m).sort((a,b)=>b[1]-a[1]);};
+  const tbl=(a,tot)=>a.length?`<table>${a.map(([c,v])=>`<tr><td>${esc(c)}</td><td>${tot?Math.round(v/tot*100)+"%":""}</td><td>${smM(v)}</td></tr>`).join("")}</table>`:'<p style="color:var(--m)">কোনো তথ্য নেই</p>';
+  let months="";if(!mon){months="<table><tr><th>মাস</th><th>আয়</th><th>ব্যয়</th></tr>"+Array.from({length:12},(_,i)=>{const p=yr+"-"+String(i+1).padStart(2,"0"),m=smSum(SM.d.tx.filter(x=>x.d.startsWith(p)));
+    return `<tr><td>${new Date(+yr,i,1).toLocaleDateString("bn-BD",{month:"long"})}</td><td>${smM(m.in)}</td><td>${smM(m.out)}</td></tr>`;}).join("")+"</table>";}
+  const bud=mon&&SM.d.budget[SM.ym]&&SM.d.budget[SM.ym]["মোট"];
+  smShell("রিপোর্ট","📈","smartHome()",`<div class="noprint f"><div class="two"><div><label>ধরন</label><select onchange="SM.rm=this.value;smRep()"><option value="m"${mon?" selected":""}>মাসিক</option><option value="y"${mon?"":" selected"}>বার্ষিক</option></select></div><div><label>${mon?"মাস":"বছর"}</label>${mon?`<input type="month" value="${SM.ym}" onchange="SM.ym=this.value||SM.ym;smRep()">`:`<input type="number" min="2000" max="2100" value="${yr}" onchange="SM.ym=(this.value||'${yr}')+'-01';smRep()">`}</div></div></div>
+   <div class="smph"><h3>চাঁদপুর কানেক্ট — ${mon?"মাসিক":"বার্ষিক"} রিপোর্ট (${esc(pre)})</h3><p>${esc(myName()||SES.email)} · ${smBD(smD())}</p></div>
+   ${smBox(["মোট আয়",smM(s.in),"in"],["মোট ব্যয়",smM(s.out),"out"],["সঞ্চয়/বাকি",smM(s.in-s.out),s.in>=s.out?"in":"out"])}
+   ${bud?`<div class="item"><b>বাজেট</b><p>সীমা ${smM(bud)} · ${s.out>bud?"ছাড়িয়েছে "+smM(s.out-bud):"বাকি "+smM(bud-s.out)}</p></div>`:""}
+   ${months?`<div class="item"><b>মাসভিত্তিক</b>${months}</div>`:""}
+   <div class="item"><b>ব্যয়ের খাত</b>${tbl(grp("out"),s.out)}</div><div class="item"><b>আয়ের উৎস</b>${tbl(grp("in"),s.in)}</div>
+   <div class="item"><b>ধার-দেনা (বর্তমান)</b><p>আমি পাব ${smM(L.get)} · আমি দেব ${smM(L.give)}</p></div>
+   <div class="item"><b>মোট সঞ্চয়</b><p>${smM(SM.d.sav.reduce((a,g)=>a+smSaved(g),0))}</p></div>
+   <button class="btn noprint" onclick="window.print()">📄 PDF ডাউনলোড করুন</button><p class="note noprint">খোলা পর্দায় গন্তব্য হিসেবে “PDF হিসেবে সংরক্ষণ করুন / Save as PDF” বেছে নিন।</p>`);
+}
+SMP.rep=smRep;
+</script>
+<style>
+/* ট্যাগলাইন: এক রঙ, স্পষ্ট লেখা */
+.tagline,.tagline em.tl1,.tagline span{font-style:normal;color:#fff;-webkit-text-fill-color:#fff;background:none;-webkit-background-clip:border-box;background-clip:border-box;animation:none;filter:none;
+  text-shadow:0 1px 2px rgba(0,25,35,.55),0 3px 12px rgba(0,25,35,.4)}
+.tagline em.tl1,.tagline span{display:inline-block}
+.tagline::after{background:#fff;box-shadow:0 2px 8px rgba(0,25,35,.4)}
+</style>
+<style>
+/* হোমের দ্রুত বাটন সারি: সবকটির মাপ ও উচ্চতা সমান */
+.quick{align-items:flex-start;padding-top:22px;padding-bottom:8px}
+.q{width:72px;display:flex;flex-direction:column;align-items:center}
+.q i{flex:none;width:56px;height:56px;margin:0 0 7px}
+.q span{width:100%;min-height:2.7em;line-height:1.35;font-size:12px;overflow-wrap:anywhere}
+.q.sos i{animation:sos2 2.2s ease-out infinite}
+@keyframes sos2{0%{box-shadow:0 8px 18px rgba(211,47,47,.35),0 0 0 0 rgba(211,47,47,.45)}70%,100%{box-shadow:0 8px 18px rgba(211,47,47,.35),0 0 0 7px rgba(211,47,47,0)}}
+@media (prefers-reduced-motion:reduce){.q.sos i{animation:none}}
+</style>
+<style>
+/* তথ্য-বক্স (.note): নরম সবুজ-নীল, স্পষ্ট গাঢ় লেখা */
+.note{background:linear-gradient(135deg,#e7f8f1 0%,#e4f1ff 100%);color:#0d4a52;border:1px solid rgba(20,150,125,.22);border-left:4px solid #1db489;border-radius:16px;padding:13px 15px;font-size:13.5px;line-height:1.7;font-weight:500;box-shadow:0 6px 16px rgba(20,120,110,.10)}
+</style>
 </body>
 </html>
