@@ -1758,7 +1758,8 @@ function spotsPage(kind,keep){
   ensureCloud("spot","spot",()=>spotsPage(spKind,1));
   CURR.fn=()=>spotsPage(spKind,1);
   const mine=isCloud()?cloudItems("spot").filter(p=>fsSan(p).kind===kind).map(p=>cloudItem(p)):mySpots().filter(x=>x.kind===kind).map(x=>spotItem(x,true));
-  const base=(DATA[kind]||[]).map(x=>spotItem(x,false));
+  SMPL=(DATA[kind]||[]).filter(x=>!HIDE.has(sampKey(kind,x.t))).map((x,i)=>({...x,smp:kind,smi:i}));
+const base=SMPL.map(x=>spotItem(x,false));
   TPL=[...mine,...base];
   const T=tpGet(),keys=TPL.map(x=>String(x.t).slice(0,80)),been=keys.filter(k=>T.b.includes(k)).length,wish=keys.filter(k=>T.w.includes(k)).length;
   const bd=tpBadge(been),pct=TPL.length?Math.round(been*100/TPL.length):0;
@@ -2448,8 +2449,10 @@ function adminEdit(id){
   app.innerHTML=`<div class="top"><button onclick="admRet()" aria-label="পিছনে">←</button><h3>✏️ সম্পাদনা (${CLOUD_TYPES[p._type]||""})</h3></div><div class="page f">
     ${rep?inp("ae_place","জায়গা",o.place,100)+`<label for="ae_text">বিবরণ</label><textarea id="ae_text" maxlength="600">${esc(o.text)}</textarea><label class="chk"><input type="checkbox" id="ae_res" ${o.resolved?"checked":""}><span>সমস্যাটি সমাধান হয়েছে</span></label>`
      :inp("ae_t","নাম / শিরোনাম",o.t,150)+(nt||p._type==="doctor"?"":inp("ae_s","উপজেলা বা থানা",o.s,40)+inp("ae_addr","ঠিকানা",o.addr,120))+(p._type==="doctor"||p._type==="donor"?"":`<label for="ae_desc">বিবরণ</label><textarea id="ae_desc" maxlength="600">${esc(o.desc)}</textarea>`)+adminExtra(p._type,o)+(nt||p._type==="spot"?"":inp("ae_ph","কল নম্বর",o.ph,11)+inp("ae_wa","WhatsApp নম্বর",o.wa,11))}
+    ${p._type==="spot"?photoField("ae_img",5,"স্থানের ছবি (সর্বোচ্চ ৫টি)",""):""}
     <p class="err" id="ae_err" role="alert"></p>
     <button class="btn" onclick="adminSaveEdit('${safeId(id)}')">সংরক্ষণ করুন</button></div>`;
+  if(p._type==="spot"){PICK.ae_img=(o.imgs||[]).slice(0,5);renderThumbs("ae_img");}
   window.scrollTo(0,0);
 }
 async function adminSaveEdit(id){
@@ -2469,7 +2472,8 @@ async function adminSaveEdit(id){
       if(ph&&!PHONE_RE.test(ph)||wa&&!PHONE_RE.test(wa)) return err("নম্বর ১১ সংখ্যার হতে হবে (01XXXXXXXXX)।");
       raw.ph=ph;raw.wa=wa;
     }
-    const xe=adminExtraSave(p._type,raw,v)||adminExtraSave2(p._type,raw,v);if(xe) return err(xe);
+    if(p._type==="spot") raw.imgs=(PICK.ae_img||[]).slice(0,5);
+const xe=adminExtraSave(p._type,raw,v)||adminExtraSave2(p._type,raw,v);if(xe) return err(xe);
   }
   const title=String(raw.t||raw.place||raw.type||"").slice(0,140),json=JSON.stringify(raw);
   if(new Blob([json]).size>900000) return err("পোস্টটি খুব বড়।");
