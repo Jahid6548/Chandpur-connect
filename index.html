@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="bn">
 <head>
+<script>(function(){try{var m=navigator.deviceMemory,c=navigator.hardwareConcurrency;if((m&&m<=3)||(c&&c<=4)){document.documentElement.classList.add("lite");}}catch(e){}})();</script>
 <meta charset="UTF-8">
 <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data:; manifest-src 'self'; worker-src 'self'; connect-src https://identitytoolkit.googleapis.com https://securetoken.googleapis.com https://firestore.googleapis.com; base-uri 'none'; form-action 'none'; object-src 'none'">
 <meta name="referrer" content="strict-origin-when-cross-origin">
@@ -1042,7 +1043,7 @@ function doSearch(v){
   if(!v){res.innerHTML="";cats.style.display="";return;}
   cats.style.display="none";
   let out="";
-  Object.keys(DATA).forEach(k=>DATA[k].forEach(it=>{
+  Object.keys(DATA).forEach(k=>DATA[k].filter(x=>!HIDE.has(sampKey(k,x.t))).forEach(it=>{
     const hay=(it.t+" "+it.s+" "+(it.tags||[]).join(" ")+" "+(it.desc||"")).toLowerCase();
     if(hay.includes(v)) out+=card(it,k);
   }));
@@ -1499,7 +1500,7 @@ function openCat(id){
   const c=findCat(id);
   if(c.group) return groupPage(id);
   const back=c.parent?`openCat('${c.parent}')`:"home()";
-  let list=DATA[id]||[];
+  SMPL=sampOf(id,DATA[id]);let list=SMPL.slice();
   let chips="";
   if(id==="blood"){
     chips=`<div class="chips">${GROUPS.map(g=>`<button class="chip ${g===group?'on':''}" onclick="group='${g}';openCat('blood')">${g}</button>`).join("")}</div>`;
@@ -1541,7 +1542,7 @@ function eduCat(u,id){
   const c=EDUC.find(x=>x.id===id);
   const list=(EDU[u]&&EDU[u][id])||[];
   const sample={sec:"নমুনা মাধ্যমিক বিদ্যালয়",hs:"নমুনা উচ্চ মাধ্যমিক প্রতিষ্ঠান",col:"নমুনা কলেজ",mad:"নমুনা মাদ্রাসা"};
-  const extra=list.length?"":card({t:sample[id],s:u,tags:["নমুনা",c.n],desc:"প্রতিষ্ঠানের ঠিকানা, প্রধানের নাম ও যোগাযোগ এখানে থাকবে।"},"edu");
+  const extra=(list.length||HIDE.has(sampKey("edu",id)))?"":card({t:sample[id],s:u,tags:["নমুনা",c.n],desc:"প্রতিষ্ঠানের ঠিকানা, প্রধানের নাম ও যোগাযোগ এখানে থাকবে।"},"edu");
   app.innerHTML=`<div class="top"><button onclick="eduPage('${esc(u)}')">←</button><h3>${c.i} <span>${esc(u)}</span> · <span>${c.n}</span></h3></div>
   <div class="page"><div class="note">এই উপজেলার তালিকা ধাপে ধাপে যোগ হচ্ছে। কোনো প্রতিষ্ঠান বাদ থাকলে মালিককে জানান।</div>${list.map(it=>card(it,"edu")).join("")}${extra}</div>`;
   window.scrollTo(0,0);
@@ -2533,12 +2534,15 @@ async function loadCfg(){
     if(any&&document.getElementById("hero")) home();
   }catch(e){}
 }
+function sampOf(cat,arr){return (arr||[]).filter(x=>!HIDE.has(sampKey(cat,x.t))).map((x,i)=>({...x,smp:cat,smi:i}));}
 async function hideAllSamples(){
 if(!isAdmin()) return;
 if(!confirm("অ্যাপের সব নমুনা তথ্য সরাতে চান? এটি সবার অ্যাপ থেকেই সরবে।")) return;
 const before=new Set(HIDE);
 Object.keys(DATA).forEach(k=>(DATA[k]||[]).forEach(x=>HIDE.add(sampKey(k,x.t))));
 UPA.forEach(x=>HIDE.add(sampKey("thanac",x.th)));
+["sec","hs","col","mad"].forEach(id=>HIDE.add(sampKey("edu",id)));
+HOTEL_S.forEach(x=>HIDE.add(sampKey("hotel",x.t)));
 if(await cfgSave("hide")){ adminPage(); }
 else { HIDE.clear(); before.forEach(k=>HIDE.add(k)); }
 }
@@ -2849,7 +2853,8 @@ function gDone(type,raw){
 function bloodPage(){
   ensureCloud("donor","donor",bloodPage);ensureCloud("breq","breq",bloodPage);
   const reqs=itemsOf("breq").sort((a,b)=>(a.done?1:0)-(b.done?1:0)),openReq=reqs.filter(x=>!x.done).length;
-  const all=[...itemsOf("donor"),...DATA.blood];
+  SMPL=DATA.blood.filter(x=>!HIDE.has(sampKey("blood",x.t))).map((x,i)=>({...x,smp:"blood",smi:i}));
+const all=[...itemsOf("donor"),...SMPL];
   let list=all.slice();
   if(group!=="সব") list=list.filter(x=>x.tags&&x.tags[0]===group);
   list=list.map((x,i)=>[x,i]).sort((a,b)=>((a[0].blocked?1:0)-(b[0].blocked?1:0))||(a[1]-b[1])).map(x=>x[0]);
@@ -2917,7 +2922,7 @@ function donorGave(id){
 /* ---------- সমাজসেবা ---------- */
 function orgPage(){
   ensureCloud("social","social",orgPage);
-  const list=[...itemsOf("social"),...DATA.org];
+  const list=[...itemsOf("social"),...(SMPL=sampOf("org",DATA.org))];
   app.innerHTML=`<div class="top"><button onclick="home()" aria-label="পিছনে">←</button><h3>🤝 সমাজসেবা</h3></div><div class="page">
     <button class="btn" onclick="gForm('social')">➕ সংগঠন যোগ করুন (লোগো ও ছবিসহ)</button>
     <div class="note">${isCloud()?"নতুন সংগঠনের তথ্য অ্যাডমিনের অনুমোদনের পর সবাই দেখবে।":"যোগ করা তথ্য এখন শুধু এই ফোনে থাকে (নমুনা)।"} \"নমুনা\" লেখা তথ্য উদাহরণ মাত্র।</div>
@@ -2930,7 +2935,7 @@ let hotS="সব";
 const HOTEL_S=[{id:"hs0",t:"নমুনা আবাসিক হোটেল",s:"চাঁদপুর সদর",addr:"স্টেশন রোড, চাঁদপুর",desc:"এটি উদাহরণ মাত্র। আসল হোটেলের মালিক নিজের তথ্য যোগ করলে অ্যাডমিনের অনুমোদনের পর এখানে দেখাবে।",tags:["এসি","ওয়াইফাই","পার্কিং"],pkgs:[{n:"সিঙ্গেল রুম (নন-এসি)",p:"800",d:"১ রাত"},{n:"ডাবল রুম (এসি)",p:"1500",d:"১ রাত, নাস্তাসহ"},{n:"ফ্যামিলি প্যাকেজ",p:"2500",d:"৪ জন, ১ রাত"}]}];
 function hotelPage(){
   ensureCloud("hotel","hotel",hotelPage);
-  let list=[...itemsOf("hotel"),...HOTEL_S];
+  let list=[...itemsOf("hotel"),...(SMPL=sampOf("hotel",HOTEL_S))];
   if(hotS!=="সব") list=list.filter(x=>x.s===hotS);
   const chips=`<div class="chips">${["সব",...UPAZILAS].map(g=>`<button class="chip ${g===hotS?"on":""}" data-v="${esc(g)}" onclick="hotS=this.dataset.v;hotelPage()">${esc(g)}</button>`).join("")}</div>`;
   app.innerHTML=`<div class="top"><button onclick="home()" aria-label="পিছনে">←</button><h3>🏨 আবাসিক হোটেল</h3></div>${chips}<div class="page">
@@ -3307,7 +3312,7 @@ function mkGrid(){
 function market(){
   ensureCloud("ad","ad",market);
   adSweepLocal();adSweepCloud(cloudItems("ad"));
-  MKALL=[...(isCloud()?cloudItems("ad").map(p=>cloudItem(p)):myAds().map(a=>({...a,mine:true,exp:true,at:a.at||a.id}))),...DATA.market].filter(it=>!adExpired(it));
+  MKALL=[...(isCloud()?cloudItems("ad").map(p=>cloudItem(p)):myAds().map(a=>({...a,mine:true,exp:true,at:a.at||a.id}))),...(SMPL=sampOf("market",DATA.market))].filter(it=>!adExpired(it));
   const cats=TYPES.map(g=>`<button class="mkt ${g===mtype?"on":""}" onclick="mtype='${g}';hsub='সব';market()"><i>${g==="সব"?"✨":MK_EMO[g]}</i><span>${g}</span></button>`).join("");
   const sub=mtype==="বাসা-বাড়ি"?`<div class="chips" style="padding:10px 0 0">${["সব","বিক্রয়","ভাড়া"].map(g=>`<button class="chip ${g===hsub?"on":""}" onclick="hsub='${g}';market()">${g}</button>`).join("")}</div>`:"";
   const mkNum=MKALL.length;
@@ -7571,6 +7576,10 @@ html:not(.dark) .authhero h3{color:#fff}
 .authhero h3,.authhero p,.authhero .logo{position:relative;z-index:1;text-shadow:0 2px 10px rgba(0,0,0,.55)}
 .authhero h3{color:#fff !important}
 .authhero p{color:#fff !important}
+</style>
+<style id="lite-css">
+/* কম ক্ষমতার ফোনে (কম RAM/CPU) ঘূর্ণন ও ঝিলমিল বন্ধ, যাতে পেজ দ্রুত চলে */
+html.lite *,html.lite *::before,html.lite *::after{animation:none !important;transition-duration:.01s !important;backdrop-filter:none !important;-webkit-backdrop-filter:none !important}
 </style>
 </body>
 </html>
